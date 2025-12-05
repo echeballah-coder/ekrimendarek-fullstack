@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/Skeleton"
 
 export default function Home() {
     return (
-        <main className="min-h-screen bg-brand-background p-8 font-sans">
+        <div className="p-8 font-sans">
             <div className="max-w-4xl mx-auto space-y-12">
 
                 {/* Header */}
@@ -81,6 +81,6 @@ export default function Home() {
                 </section>
 
             </div>
-        </main>
+        </div>
     )
 }
