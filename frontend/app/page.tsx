@@ -1,31 +1,85 @@
-export default function HomePage() {
+import { Button } from "@/components/ui/Button"
+import { Input } from "@/components/ui/Input"
+import { Textarea } from "@/components/ui/Textarea"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Badge } from "@/components/ui/Badge"
+import { Skeleton } from "@/components/ui/Skeleton"
+
+export default function Home() {
     return (
-        <main className="min-h-screen flex flex-col items-center justify-center p-8">
-            <div className="max-w-2xl text-center space-y-6">
-                <h1 className="text-4xl font-bold text-gray-900">
-                    🚗 EkriMenDarek
-                </h1>
+        <main className="min-h-screen bg-brand-background p-8 font-sans">
+            <div className="max-w-4xl mx-auto space-y-12">
 
-                <p className="text-xl text-gray-600">
-                    Frontend initialisé - Structure de base prête !
-                </p>
+                {/* Header */}
+                <section className="text-center space-y-4">
+                    <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-brand-gradient">
+                        Emerald Road UI Kit
+                    </h1>
+                    <p className="text-brand-textMuted text-lg">
+                        Composants de base pour EkriMenDarek.
+                    </p>
+                </section>
 
-                <div className="bg-white rounded-lg shadow-md p-6 text-left">
-                    <h2 className="text-lg font-semibold mb-3 text-gray-800">
-                        ✅ Projet Next.js 14 configuré
-                    </h2>
-                    <ul className="space-y-2 text-gray-600">
-                        <li>✓ App Router activé</li>
-                        <li>✓ TypeScript en mode strict</li>
-                        <li>✓ TailwindCSS configuré</li>
-                        <li>✓ ESLint activé</li>
-                        <li>✓ Structure de dossiers créée</li>
-                    </ul>
-                </div>
+                {/* Buttons */}
+                <section className="space-y-6">
+                    <h2 className="text-2xl font-semibold text-brand-text">Boutons</h2>
+                    <div className="flex flex-wrap gap-4 items-center p-6 bg-brand-surface rounded-xl border border-brand-border">
+                        <Button variant="primary">Primary (Gradient)</Button>
+                        <Button variant="secondary">Secondary</Button>
+                        <Button variant="outline">Outline</Button>
+                        <Button variant="ghost">Ghost</Button>
+                        <Button variant="link">Link Button</Button>
+                        <Button variant="primary" isLoading>Loading</Button>
+                        <Button variant="primary" disabled>Disabled</Button>
+                    </div>
+                </section>
 
-                <p className="text-sm text-gray-500">
-                    Prochaine étape : Installation des dépendances et développement des composants
-                </p>
+                {/* Inputs */}
+                <section className="space-y-6">
+                    <h2 className="text-2xl font-semibold text-brand-text">Formulaires</h2>
+                    <div className="grid md:grid-cols-2 gap-6 p-6 bg-brand-surface rounded-xl border border-brand-border">
+                        <Input label="Email Address" placeholder="exemple@ekrimendarek.dz" />
+                        <Input label="Avec Erreur" placeholder="Erreur..." error="L'adresse email est invalide" />
+                        <Textarea label="Commentaire" placeholder="Écrivez votre message..." className="md:col-span-2" />
+                    </div>
+                </section>
+
+                {/* Cards & Badges */}
+                <section className="space-y-6">
+                    <h2 className="text-2xl font-semibold text-brand-text">Cards & Badges</h2>
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <Card>
+                            <CardHeader>
+                                <div className="flex justify-between items-start">
+                                    <CardTitle>Location Dacia Logan</CardTitle>
+                                    <Badge variant="success">Disponible</Badge>
+                                </div>
+                                <p className="text-sm text-brand-textMuted">Tlemcen, Algérie</p>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-brand-text">Véhicule économique et robuste, idéal pour les routes locales. Climatisation incluse.</p>
+                            </CardContent>
+                            <CardFooter className="justify-between">
+                                <span className="text-brand-accent font-bold text-lg">4500 DA<span className="text-brand-textMuted text-sm font-normal">/jour</span></span>
+                                <Button size="sm">Réserver</Button>
+                            </CardFooter>
+                        </Card>
+
+                        <Card className="flex flex-col justify-center items-center p-6 space-y-4">
+                            <div className="flex gap-2">
+                                <Badge variant="default">Default</Badge>
+                                <Badge variant="secondary">Secondary</Badge>
+                                <Badge variant="warning">Warning</Badge>
+                                <Badge variant="outline">Outline</Badge>
+                            </div>
+                            <div className="w-full space-y-2">
+                                <Skeleton className="h-4 w-[250px]" />
+                                <Skeleton className="h-4 w-[200px]" />
+                            </div>
+                        </Card>
+                    </div>
+                </section>
+
             </div>
         </main>
     )
