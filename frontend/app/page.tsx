@@ -1,86 +1,94 @@
+import { SearchBar } from "@/features/search/components/SearchBar"
 import { Button } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Textarea } from "@/components/ui/Textarea"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
+import { Card, CardContent } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
-import { Skeleton } from "@/components/ui/Skeleton"
 
 export default function Home() {
     return (
-        <div className="p-8 font-sans">
-            <div className="max-w-4xl mx-auto space-y-12">
+        <div className="flex flex-col min-h-screen">
 
-                {/* Header */}
-                <section className="text-center space-y-4">
-                    <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-brand-gradient">
-                        Emerald Road UI Kit
+            {/* Hero Section */}
+            <section className="relative px-4 pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden">
+                {/* Background Decor */}
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-accent/10 via-transparent to-brand-background pointer-events-none" />
+
+                <div className="container mx-auto text-center relative z-10 space-y-8">
+                    <Badge variant="secondary" className="mb-4">
+                        Nouveau : Paiement sécurisé par CIB / Edahabia
+                    </Badge>
+
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-text max-w-4xl mx-auto">
+                        Louez une voiture facilement <br className="hidden sm:block" />
+                        <span className="text-transparent bg-clip-text bg-brand-gradient">partout en Algérie</span>
                     </h1>
-                    <p className="text-brand-textMuted text-lg">
-                        Composants de base pour EkriMenDarek.
+
+                    <p className="text-xl text-brand-textMuted max-w-2xl mx-auto">
+                        Plus de 500 agences vérifiées. Réservez en toute confiance avec un acompte sécurisé.
                     </p>
-                </section>
 
-                {/* Buttons */}
-                <section className="space-y-6">
-                    <h2 className="text-2xl font-semibold text-brand-text">Boutons</h2>
-                    <div className="flex flex-wrap gap-4 items-center p-6 bg-brand-surface rounded-xl border border-brand-border">
-                        <Button variant="primary">Primary (Gradient)</Button>
-                        <Button variant="secondary">Secondary</Button>
-                        <Button variant="outline">Outline</Button>
-                        <Button variant="ghost">Ghost</Button>
-                        <Button variant="link">Link Button</Button>
-                        <Button variant="primary" isLoading>Loading</Button>
-                        <Button variant="primary" disabled>Disabled</Button>
+                    <div className="pt-8">
+                        <SearchBar />
                     </div>
-                </section>
+                </div>
+            </section>
 
-                {/* Inputs */}
-                <section className="space-y-6">
-                    <h2 className="text-2xl font-semibold text-brand-text">Formulaires</h2>
-                    <div className="grid md:grid-cols-2 gap-6 p-6 bg-brand-surface rounded-xl border border-brand-border">
-                        <Input label="Email Address" placeholder="exemple@ekrimendarek.dz" />
-                        <Input label="Avec Erreur" placeholder="Erreur..." error="L'adresse email est invalide" />
-                        <Textarea label="Commentaire" placeholder="Écrivez votre message..." className="md:col-span-2" />
+            {/* Comment ça marche */}
+            <section className="py-16 bg-brand-surface border-y border-brand-border">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold text-brand-text mb-4">Comment ça marche ?</h2>
+                        <p className="text-brand-textMuted">Louer une voiture n&apos;a jamais été aussi simple.</p>
                     </div>
-                </section>
 
-                {/* Cards & Badges */}
-                <section className="space-y-6">
-                    <h2 className="text-2xl font-semibold text-brand-text">Cards & Badges</h2>
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <Card>
-                            <CardHeader>
-                                <div className="flex justify-between items-start">
-                                    <CardTitle>Location Dacia Logan</CardTitle>
-                                    <Badge variant="success">Disponible</Badge>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {[
+                            { title: "1. Cherchez", desc: "Trouvez le véhicule idéal parmi des milliers d'offres." },
+                            { title: "2. Réservez", desc: "Bloquez le véhicule avec un petit acompte sécurisé." },
+                            { title: "3. Roulez", desc: "Récupérez les clés chez l'agence et profitez !" }
+                        ].map((step, i) => (
+                            <div key={i} className="text-center space-y-4">
+                                <div className="w-12 h-12 rounded-full bg-brand-accentSoft text-brand-accent flex items-center justify-center text-xl font-bold mx-auto">
+                                    {i + 1}
                                 </div>
-                                <p className="text-sm text-brand-textMuted">Tlemcen, Algérie</p>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-brand-text">Véhicule économique et robuste, idéal pour les routes locales. Climatisation incluse.</p>
-                            </CardContent>
-                            <CardFooter className="justify-between">
-                                <span className="text-brand-accent font-bold text-lg">4500 DA<span className="text-brand-textMuted text-sm font-normal">/jour</span></span>
-                                <Button size="sm">Réserver</Button>
-                            </CardFooter>
-                        </Card>
-
-                        <Card className="flex flex-col justify-center items-center p-6 space-y-4">
-                            <div className="flex gap-2">
-                                <Badge variant="default">Default</Badge>
-                                <Badge variant="secondary">Secondary</Badge>
-                                <Badge variant="warning">Warning</Badge>
-                                <Badge variant="outline">Outline</Badge>
+                                <h3 className="text-xl font-semibold text-brand-text">{step.title}</h3>
+                                <p className="text-brand-textMuted">{step.desc}</p>
                             </div>
-                            <div className="w-full space-y-2">
-                                <Skeleton className="h-4 w-[250px]" />
-                                <Skeleton className="h-4 w-[200px]" />
-                            </div>
-                        </Card>
+                        ))}
                     </div>
-                </section>
+                </div>
+            </section>
 
-            </div>
+            {/* Pourquoi nous choisir */}
+            <section className="py-16">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold text-brand-text mb-4">Pourquoi choisir EkriMenDarek ?</h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { title: "Agences Vérifiées", desc: "Nous vérifions l'identité de chaque loueur." },
+                            { title: "Prix Transparents", desc: "Pas de frais cachés, vous payez ce que vous voyez." },
+                            { title: "Support Local", desc: "Une équipe basée en Algérie à votre écoute 7j/7." },
+                            { title: "Acompte Sécurisé", desc: "Votre réservation est garantie par notre plateforme." }
+                        ].map((feature, i) => (
+                            <Card key={i} className="border-brand-border/50 hover:border-brand-accent/50 transition-colors">
+                                <CardContent className="pt-6">
+                                    <h3 className="font-semibold text-brand-text mb-2">{feature.title}</h3>
+                                    <p className="text-sm text-brand-textMuted">{feature.desc}</p>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+
+                    <div className="mt-12 text-center">
+                        <Button size="lg" variant="primary">
+                            Voir toutes les offres
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
         </div>
     )
 }
