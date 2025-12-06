@@ -16,7 +16,7 @@ export function Header() {
                     <Link href="#" className="text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
                         Accueil
                     </Link>
-                    <Link href="#" className="text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
+                    <Link href="/recherche" className="text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
                         Trouver une voiture
                     </Link>
                     <Link href="#" className="text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
