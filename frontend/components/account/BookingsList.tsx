@@ -1,11 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
 import { Button, buttonBaseStyles, buttonSizes, buttonVariants } from "@/components/ui/Button"
-import { mockBookings, BookingStatus } from "@/data/mockBookings"
+import { mockBookings, BookingStatus, Booking } from "@/data/mockBookings"
 import { getEnrichedBookings } from "@/lib/mockDataHelpers"
 import { getLocalBookings } from "@/lib/localBookings"
 import { cn } from "@/lib/utils"
@@ -19,13 +19,18 @@ const statusMap: Record<BookingStatus, { label: string; variant: "default" | "se
 }
 
 export function BookingsList() {
-    const [bookings, setBookings] = useState(() => getEnrichedBookings(mockBookings))
+    const [localBookings, setLocalBookings] = useState<Booking[]>([])
 
+    // Charger les réservations locales une seule fois
     useEffect(() => {
-        const local = getLocalBookings()
-        const allBookings = [...mockBookings, ...local]
-        setBookings(getEnrichedBookings(allBookings))
+        setLocalBookings(getLocalBookings())
     }, [])
+
+    // Fusionner et enrichir les réservations (mémoïsé pour éviter recalculs)
+    const bookings = useMemo(() => {
+        const allBookings = [...mockBookings, ...localBookings]
+        return getEnrichedBookings(allBookings)
+    }, [localBookings])
 
     if (bookings.length === 0) {
         return (

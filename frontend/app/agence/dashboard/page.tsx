@@ -1,11 +1,26 @@
 "use client"
 
-import { Metadata } from "next"
+import { useMemo } from "react"
+import dynamic from "next/dynamic"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
 import { StatCard } from "@/components/agency/StatCard"
-import { RevenueChart } from "@/components/agency/RevenueChart"
 import { mockAgencyStats, mockMonthlyRevenue, mockRecentBookings } from "@/data/mockAgencyStats"
+
+// Lazy-load le graphique lourd (Recharts) pour améliorer les performances
+const RevenueChart = dynamic(() => import("@/components/agency/RevenueChart").then(mod => ({ default: mod.RevenueChart })), {
+    ssr: false,
+    loading: () => (
+        <Card className="border-brand-accent/20">
+            <CardHeader>
+                <CardTitle>Évolution des Revenus (6 derniers mois)</CardTitle>
+            </CardHeader>
+            <CardContent className="h-[300px] flex items-center justify-center">
+                <p className="text-brand-textMuted">Chargement du graphique...</p>
+            </CardContent>
+        </Card>
+    )
+})
 
 const statusMap = {
     PENDING_PAYMENT: { label: "En attente", variant: "warning" as const },
@@ -15,6 +30,10 @@ const statusMap = {
 }
 
 export default function AgencyDashboard() {
+    // Mémoïser les données pour éviter les recalculs inutiles
+    const revenueData = useMemo(() => mockMonthlyRevenue, [])
+    const recentBookingsData = useMemo(() => mockRecentBookings, [])
+
     return (
         <div className="min-h-screen bg-brand-background py-12">
             <div className="container mx-auto px-4">
@@ -74,7 +93,7 @@ export default function AgencyDashboard() {
 
                 {/* Revenue Chart */}
                 <div className="mb-8">
-                    <RevenueChart data={mockMonthlyRevenue} />
+                    <RevenueChart data={revenueData} />
                 </div>
 
                 {/* Recent Bookings Table */}
@@ -96,7 +115,7 @@ export default function AgencyDashboard() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {mockRecentBookings.map((booking) => (
+                                    {recentBookingsData.map((booking) => (
                                         <tr key={booking.id} className="border-b border-brand-border/50 hover:bg-brand-surface/30 transition-colors">
                                             <td className="py-3 px-4 text-sm text-brand-textMuted">{booking.id}</td>
                                             <td className="py-3 px-4 text-sm font-medium text-brand-text">{booking.vehicleTitle}</td>

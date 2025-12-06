@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { Card, CardContent } from "@/components/ui/Card"
 
 interface StatCardProps {
@@ -7,7 +8,8 @@ interface StatCardProps {
     icon?: React.ReactNode;
 }
 
-export function StatCard({ title, value, subtitle, icon }: StatCardProps) {
+// Mémoïsé pour éviter les re-renders inutiles (composant purement visuel)
+export const StatCard = memo(function StatCard({ title, value, subtitle, icon }: StatCardProps) {
     return (
         <Card className="border-brand-accent/20 hover:border-brand-accent/40 transition-colors">
             <CardContent className="p-6">
@@ -28,4 +30,4 @@ export function StatCard({ title, value, subtitle, icon }: StatCardProps) {
             </CardContent>
         </Card>
     )
-}
+})
