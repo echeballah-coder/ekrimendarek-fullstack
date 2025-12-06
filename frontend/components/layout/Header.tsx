@@ -13,7 +13,7 @@ export function Header() {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-6">
-                    <Link href="#" className="text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
+                    <Link href="/" className="text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
                         Accueil
                     </Link>
                     <Link href="/recherche" className="text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
@@ -25,7 +25,7 @@ export function Header() {
                 </nav>
 
                 <div className="flex items-center gap-4">
-                    <Link href="#" className="hidden md:block text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
+                    <Link href="/account" className="hidden md:block text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
                         Mon compte
                     </Link>
                     <Button variant="primary" size="sm" className="hidden sm:inline-flex">
