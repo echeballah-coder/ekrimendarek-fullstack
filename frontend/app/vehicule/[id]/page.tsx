@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/Badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card"
 import Link from "next/link"
+import { AnimatedSection } from "@/components/animations/AnimatedSection"
 
 export default function VehicleDetailPage() {
     const params = useParams()
@@ -51,7 +52,7 @@ export default function VehicleDetailPage() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <AnimatedSection className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                     {/* Left Column: Gallery */}
                     <div className="lg:col-span-2 space-y-6">
@@ -135,7 +136,7 @@ export default function VehicleDetailPage() {
                         </div>
                     </div>
 
-                </div>
+                </AnimatedSection>
             </div>
         </div>
     )

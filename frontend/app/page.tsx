@@ -4,13 +4,14 @@ import { buttonBaseStyles, buttonSizes, buttonVariants } from "@/components/ui/B
 import { Card, CardContent } from "@/components/ui/Card"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/Badge"
+import { AnimatedSection } from "@/components/animations/AnimatedSection"
 
 export default function Home() {
     return (
         <div className="flex flex-col min-h-screen">
 
             {/* Hero Section */}
-            <section className="relative px-4 pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden">
+            <AnimatedSection className="relative px-4 pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden">
                 {/* Background Decor */}
                 <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-accent/10 via-transparent to-brand-background pointer-events-none" />
 
@@ -32,10 +33,10 @@ export default function Home() {
                         <SearchBar />
                     </div>
                 </div>
-            </section>
+            </AnimatedSection>
 
             {/* Comment ça marche */}
-            <section className="py-16 bg-brand-surface border-y border-brand-border">
+            <AnimatedSection delay={0.1} className="py-16 bg-brand-surface border-y border-brand-border">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl font-bold text-brand-text mb-4">Comment ça marche ?</h2>
@@ -58,10 +59,10 @@ export default function Home() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </AnimatedSection>
 
             {/* Pourquoi nous choisir */}
-            <section className="py-16">
+            <AnimatedSection delay={0.2} className="py-16">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl font-bold text-brand-text mb-4">Pourquoi choisir EkriMenDarek ?</h2>
@@ -89,7 +90,7 @@ export default function Home() {
                         </Link>
                     </div>
                 </div>
-            </section>
+            </AnimatedSection>
 
         </div>
     )

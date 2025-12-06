@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/Input"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/Card"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { AnimatedSection } from "@/components/animations/AnimatedSection"
 
 export default function KYCPage() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -77,81 +78,83 @@ export default function KYCPage() {
                     </p>
                 </div>
 
-                <Card className="border-brand-accent/20">
-                    <CardHeader>
-                        <CardTitle>Informations du conducteur</CardTitle>
-                        <CardDescription>Veuillez remplir les informations et télécharger les documents requis.</CardDescription>
-                    </CardHeader>
-                    <form onSubmit={handleSubmit}>
-                        <CardContent className="space-y-6">
-                            {/* Text Inputs */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-brand-text">Numéro de permis</label>
-                                    <Input
-                                        name="licenseNumber"
-                                        placeholder="ex: 123456789"
-                                        value={formData.licenseNumber}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-brand-text">Date de délivrance</label>
-                                    <Input
-                                        type="date"
-                                        name="issuedDate"
-                                        value={formData.issuedDate}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="space-y-2 md:col-span-2">
-                                    <label className="text-sm font-medium text-brand-text">Wilaya de délivrance</label>
-                                    <Input
-                                        name="wilaya"
-                                        placeholder="ex: Alger"
-                                        value={formData.wilaya}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                            </div>
-
-                            {/* File Upload Mocks */}
-                            <div className="space-y-4 pt-4 border-t border-brand-border">
-                                <h3 className="font-semibold text-brand-text">Documents numérisés</h3>
-
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-brand-text">Photo du permis (Recto/Verso)</label>
-                                    <div className="flex items-center gap-4">
-                                        <Input type="file" className="text-sm cursor-pointer file:cursor-pointer file:text-brand-accent file:border-0 file:bg-transparent" accept="image/*" />
+                <AnimatedSection>
+                    <Card className="border-brand-accent/20">
+                        <CardHeader>
+                            <CardTitle>Informations du conducteur</CardTitle>
+                            <CardDescription>Veuillez remplir les informations et télécharger les documents requis.</CardDescription>
+                        </CardHeader>
+                        <form onSubmit={handleSubmit}>
+                            <CardContent className="space-y-6">
+                                {/* Text Inputs */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-brand-text">Numéro de permis</label>
+                                        <Input
+                                            name="licenseNumber"
+                                            placeholder="ex: 123456789"
+                                            value={formData.licenseNumber}
+                                            onChange={handleChange}
+                                            required
+                                        />
                                     </div>
-                                    <p className="text-xs text-brand-textMuted">Formats acceptés : JPG, PNG. Max 5MB.</p>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-brand-text">Date de délivrance</label>
+                                        <Input
+                                            type="date"
+                                            name="issuedDate"
+                                            value={formData.issuedDate}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="space-y-2 md:col-span-2">
+                                        <label className="text-sm font-medium text-brand-text">Wilaya de délivrance</label>
+                                        <Input
+                                            name="wilaya"
+                                            placeholder="ex: Alger"
+                                            value={formData.wilaya}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-brand-text">Selfie avec pièce d&apos;identité</label>
-                                    <div className="flex items-center gap-4">
-                                        <Input type="file" className="text-sm cursor-pointer file:cursor-pointer file:text-brand-accent file:border-0 file:bg-transparent" accept="image/*" />
+                                {/* File Upload Mocks */}
+                                <div className="space-y-4 pt-4 border-t border-brand-border">
+                                    <h3 className="font-semibold text-brand-text">Documents numérisés</h3>
+
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-brand-text">Photo du permis (Recto/Verso)</label>
+                                        <div className="flex items-center gap-4">
+                                            <Input type="file" className="text-sm cursor-pointer file:cursor-pointer file:text-brand-accent file:border-0 file:bg-transparent" accept="image/*" />
+                                        </div>
+                                        <p className="text-xs text-brand-textMuted">Formats acceptés : JPG, PNG. Max 5MB.</p>
                                     </div>
-                                    <p className="text-xs text-brand-textMuted">Prenez une photo de vous tenant votre permis près de votre visage.</p>
+
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-brand-text">Selfie avec pièce d&apos;identité</label>
+                                        <div className="flex items-center gap-4">
+                                            <Input type="file" className="text-sm cursor-pointer file:cursor-pointer file:text-brand-accent file:border-0 file:bg-transparent" accept="image/*" />
+                                        </div>
+                                        <p className="text-xs text-brand-textMuted">Prenez une photo de vous tenant votre permis près de votre visage.</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </CardContent>
-                        <CardFooter className="flex justify-end pt-2">
-                            <Button
-                                type="submit"
-                                variant="primary"
-                                size="lg"
-                                className="w-full md:w-auto"
-                                isLoading={isSubmitting}
-                            >
-                                {isSubmitting ? "Envoi en cours..." : "Soumettre mes documents"}
-                            </Button>
-                        </CardFooter>
-                    </form>
-                </Card>
+                            </CardContent>
+                            <CardFooter className="flex justify-end pt-2">
+                                <Button
+                                    type="submit"
+                                    variant="primary"
+                                    size="lg"
+                                    className="w-full md:w-auto"
+                                    isLoading={isSubmitting}
+                                >
+                                    {isSubmitting ? "Envoi en cours..." : "Soumettre mes documents"}
+                                </Button>
+                            </CardFooter>
+                        </form>
+                    </Card>
+                </AnimatedSection>
             </div>
         </div>
     )

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/Input"
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/Card"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { AnimatedSection } from "@/components/animations/AnimatedSection"
 
 function ReservationContent() {
     const searchParams = useSearchParams()
@@ -99,7 +100,7 @@ function ReservationContent() {
             <div className="container mx-auto px-4">
                 <h1 className="text-3xl font-bold text-brand-text mb-8">Finaliser votre réservation</h1>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <AnimatedSection className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Left Column: Details & Dates */}
                     <div className="space-y-6">
                         <Card>
@@ -191,7 +192,7 @@ function ReservationContent() {
                             </CardFooter>
                         </Card>
                     </div>
-                </div>
+                </AnimatedSection>
             </div>
         </div>
     )
