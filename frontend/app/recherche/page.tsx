@@ -59,11 +59,23 @@ export default function SearchPage() {
                                 </Card>
                             ))}
                         </div>
-                    ) : (
+                    ) : vehicles.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {vehicles.map((vehicle) => (
                                 <VehicleCard key={vehicle.id} vehicle={vehicle} />
                             ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-24">
+                            <div className="w-16 h-16 bg-brand-surface border border-brand-border rounded-full flex items-center justify-center mx-auto mb-4 text-brand-textMuted">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-semibold text-brand-text mb-2">Aucun véhicule trouvé</h3>
+                            <p className="text-brand-textMuted max-w-sm mx-auto">
+                                Essayez de modifier vos critères de recherche ou réessayez plus tard.
+                            </p>
                         </div>
                     )}
                 </div>

@@ -1,6 +1,8 @@
 import { SearchBar } from "@/features/search/components/SearchBar"
-import { Button } from "@/components/ui/Button"
+import Link from "next/link"
+import { buttonBaseStyles, buttonSizes, buttonVariants } from "@/components/ui/Button"
 import { Card, CardContent } from "@/components/ui/Card"
+import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/Badge"
 
 export default function Home() {
@@ -82,9 +84,9 @@ export default function Home() {
                     </div>
 
                     <div className="mt-12 text-center">
-                        <Button size="lg" variant="primary">
+                        <Link href="/recherche" className={cn(buttonBaseStyles, buttonVariants.primary, buttonSizes.lg)}>
                             Voir toutes les offres
-                        </Button>
+                        </Link>
                     </div>
                 </div>
             </section>
