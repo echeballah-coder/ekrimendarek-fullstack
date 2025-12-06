@@ -75,10 +75,16 @@ function ReservationContent() {
                         <p>Votre demande pour la <strong>{vehicle.title}</strong> a bien été prise en compte (simulation).</p>
                         <p className="mt-2 text-sm">L&apos;agence reviendra vers vous pour confirmer la disponibilité.</p>
                     </CardContent>
-                    <CardFooter className="justify-center">
+                    <CardFooter className="justify-center flex-col gap-3">
+                        <Link
+                            href="/kyc"
+                            className={cn(buttonBaseStyles, buttonVariants.primary, buttonSizes.lg, "w-full")}
+                        >
+                            Compléter ma vérification d&apos;identité
+                        </Link>
                         <Link
                             href="/recherche"
-                            className={cn(buttonBaseStyles, buttonVariants.outline, buttonSizes.md)}
+                            className={cn(buttonBaseStyles, buttonVariants.outline, buttonSizes.md, "w-full")}
                         >
                             Retourner aux véhicules
                         </Link>
