@@ -1,23 +1,37 @@
+/**
+ * Données Mock pour le Dashboard Agence (B2B)
+ * 
+ * Ce fichier contient toutes les données simulées pour le tableau de bord
+ * des agences de location. Utilisé uniquement pour la démonstration.
+ * 
+ * Contenu :
+ * - AgencyStats : Métriques clés (revenus, réservations, taux)
+ * - MonthlyRevenue : Historique des revenus pour graphique
+ * - RecentBooking : Réservations récentes pour tableau
+ * 
+ * Note : Les chiffres sont réalistes mais fictifs (ordres de grandeur DZD)
+ */
+
 export interface AgencyStats {
-    totalRevenueMonth: number;
-    bookingsThisMonth: number;
-    fleetUtilization: number;
-    kycCompletionRate: number;
+    totalRevenueMonth: number;      // Revenus totaux du mois (DZD)
+    bookingsThisMonth: number;       // Nombre de réservations actives
+    fleetUtilization: number;        // Taux d'occupation de la flotte (%)
+    kycCompletionRate: number;       // Taux de complétion KYC clients (%)
 }
 
 export interface MonthlyRevenue {
-    month: string;
-    revenue: number;
+    month: string;                   // Nom du mois (court)
+    revenue: number;                 // Revenu du mois (DZD)
 }
 
 export interface RecentBooking {
-    id: string;
-    vehicleTitle: string;
-    clientName: string;
-    startDate: string;
-    endDate: string;
+    id: string;                      // Référence unique (ex: RES-DZ-2024-201)
+    vehicleTitle: string;            // Nom du véhicule
+    clientName: string;              // Initiales/Prénom du client
+    startDate: string;               // Date début (ISO format)
+    endDate: string;                 // Date fin (ISO format)
     status: 'PENDING_PAYMENT' | 'CONFIRMED' | 'COMPLETED' | 'CANCELLED';
-    totalAmount: number;
+    totalAmount: number;             // Montant total (DZD)
 }
 
 export const mockAgencyStats: AgencyStats = {
