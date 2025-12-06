@@ -28,6 +28,9 @@ export function Header() {
                     <Link href="/account" className="hidden md:block text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
                         Mon compte
                     </Link>
+                    <Link href="/agence/dashboard" className="hidden md:block text-sm font-medium text-brand-textMuted hover:text-brand-accent transition-colors px-3 py-1.5 border border-brand-accent/30 rounded-md">
+                        Espace Agence
+                    </Link>
                     <Button variant="primary" size="sm" className="hidden sm:inline-flex">
                         Voir les offres
                     </Button>
