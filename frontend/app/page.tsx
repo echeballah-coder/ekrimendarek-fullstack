@@ -2,30 +2,28 @@ import { SearchBar } from "@/features/search/components/SearchBar"
 import Link from "next/link"
 import { buttonBaseStyles, buttonSizes, buttonVariants } from "@/components/ui/Button"
 import { Card, CardContent } from "@/components/ui/Card"
-import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/Badge"
 import { AnimatedSection } from "@/components/animations/AnimatedSection"
+import { HeroTitleAnimated } from "@/components/home/HeroTitleAnimated"
+import { cn } from "@/lib/utils"
 
 export default function Home() {
     return (
         <div className="flex flex-col min-h-screen">
 
             {/* Hero Section */}
-            <AnimatedSection className="relative px-4 pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden">
-                {/* Background Decor */}
-                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-accent/10 via-transparent to-brand-background pointer-events-none" />
+            <AnimatedSection className="relative px-4 pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden hero-gradient-bg">
+                {/* Background Decor OLD - Removed in favor of hero-gradient-bg or kept as overlay */}
+                <div className="absolute top-0 left-0 w-full h-full bg-black/10 pointer-events-none" />
 
                 <div className="container mx-auto text-center relative z-10 space-y-8">
-                    <Badge variant="secondary" className="mb-4">
+                    <Badge variant="secondary" className="mb-4 bg-white/10 text-white border-white/20 backdrop-blur-sm">
                         Nouveau : Paiement sécurisé par CIB / Edahabia
                     </Badge>
 
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-text max-w-4xl mx-auto">
-                        Louez une voiture facilement <br className="hidden sm:block" />
-                        <span className="text-transparent bg-clip-text bg-brand-gradient">partout en Algérie</span>
-                    </h1>
+                    <HeroTitleAnimated />
 
-                    <p className="text-xl text-brand-textMuted max-w-2xl mx-auto">
+                    <p className="text-xl text-brand-textMuted max-w-2xl mx-auto text-white/90">
                         Plus de 500 agences vérifiées. Réservez en toute confiance avec un acompte sécurisé.
                     </p>
 
