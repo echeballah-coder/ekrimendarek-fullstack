@@ -173,9 +173,12 @@ function ReservationContent() {
                                         <span>{deposit > 0 ? `${deposit.toLocaleString()} DA` : "-"}</span>
                                     </div>
                                     <div className="flex justify-between text-xs text-brand-textMuted">
-                                        <span>Reste à payer sur place</span>
+                                        <span>Reste à payer en agence</span>
                                         <span>{remaining > 0 ? `${remaining.toLocaleString()} DA` : "-"}</span>
                                     </div>
+                                    <p className="text-[10px] text-brand-textMuted mt-2 italic">
+                                        * L&apos;acompte garantit votre réservation. Le reste sera réglé lors de la récupération du véhicule (Espèces ou TPE si disponible).
+                                    </p>
                                 </div>
                             </CardContent>
                             <CardFooter>
@@ -187,7 +190,7 @@ function ReservationContent() {
                                     onClick={handlePaymentSimulation}
                                     isLoading={isPaying}
                                 >
-                                    {isPaying ? "Traitement..." : "Simuler le paiement de l'acompte"}
+                                    {isPaying ? "Traitement CIB/Edahabia..." : "Payer l'acompte (Simulation)"}
                                 </Button>
                             </CardFooter>
                         </Card>

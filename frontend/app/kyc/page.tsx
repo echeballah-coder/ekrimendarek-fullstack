@@ -89,7 +89,7 @@ export default function KYCPage() {
                                 {/* Text Inputs */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-brand-text">Numéro de permis</label>
+                                        <label className="text-sm font-medium text-brand-text">Numéro de permis (Biométrique ou Classique)</label>
                                         <Input
                                             name="licenseNumber"
                                             placeholder="ex: 123456789"
@@ -137,7 +137,7 @@ export default function KYCPage() {
                                         <div className="flex items-center gap-4">
                                             <Input type="file" className="text-sm cursor-pointer file:cursor-pointer file:text-brand-accent file:border-0 file:bg-transparent" accept="image/*" />
                                         </div>
-                                        <p className="text-xs text-brand-textMuted">Prenez une photo de vous tenant votre permis près de votre visage.</p>
+                                        <p className="text-xs text-brand-textMuted">Pour vérifier que c&apos;est bien vous (obligatoire pour la validation).</p>
                                     </div>
                                 </div>
                             </CardContent>

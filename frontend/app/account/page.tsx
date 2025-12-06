@@ -13,12 +13,11 @@ export const metadata: Metadata = {
     description: "Gérez vos réservations de véhicules.",
 }
 
-const statusMap: Record<BookingStatus, { label: string; variant: 'default' | 'secondary' | 'outline' | 'success' | 'warning' }> = {
-    'PENDING_PAYMENT': { label: 'En attente de paiement', variant: 'warning' },
-    'PENDING_CONFIRMATION': { label: 'En attente de confirmation', variant: 'secondary' },
-    'CONFIRMED': { label: 'Confirmée', variant: 'success' },
-    'COMPLETED': { label: 'Terminée', variant: 'outline' },
-    'CANCELLED': { label: 'Annulée', variant: 'default' },
+const statusMap: Record<BookingStatus, { label: string; variant: "default" | "secondary" | "outline" | "warning" }> = {
+    PENDING_PAYMENT: { label: "En attente d'acompte", variant: "warning" },
+    CONFIRMED: { label: "Confirmée (Acompte payé)", variant: "default" },
+    COMPLETED: { label: "Terminée", variant: "outline" },
+    CANCELLED: { label: "Annulée", variant: "secondary" },
 }
 
 export default function AccountPage() {
@@ -84,7 +83,7 @@ export default function AccountPage() {
                                                                     {booking.totalAmount.toLocaleString()} DA
                                                                 </div>
                                                                 <div>
-                                                                    <span className="text-brand-textMuted block text-xs">Acompte (payé/dû)</span>
+                                                                    <span className="text-brand-textMuted block text-xs">Acompte (15%)</span>
                                                                     <span className="font-medium text-brand-accent">{booking.depositAmount.toLocaleString()} DA</span>
                                                                 </div>
                                                             </div>

@@ -13,7 +13,7 @@ export default function Home() {
 
             {/* Hero Section */}
             <AnimatedSection className="relative px-4 pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden hero-gradient-bg">
-                {/* Background Decor OLD - Removed in favor of hero-gradient-bg or kept as overlay */}
+                {/* Background Decor */}
                 <div className="absolute top-0 left-0 w-full h-full bg-black/10 pointer-events-none" />
 
                 <div className="container mx-auto text-center relative z-10 space-y-8">
@@ -43,9 +43,9 @@ export default function Home() {
 
                     <div className="grid md:grid-cols-3 gap-8">
                         {[
-                            { title: "1. Cherchez", desc: "Trouvez le véhicule idéal parmi des milliers d'offres." },
-                            { title: "2. Réservez", desc: "Bloquez le véhicule avec un petit acompte sécurisé." },
-                            { title: "3. Roulez", desc: "Récupérez les clés chez l'agence et profitez !" }
+                            { title: "1. Cherchez", desc: "Trouvez le véhicule idéal parmi des milliers d'offres en Algérie." },
+                            { title: "2. Réservez", desc: "Bloquez le véhicule avec un petit acompte sécurisé (15%)." },
+                            { title: "3. Roulez", desc: "Payez le reste en agence et profitez de la route !" }
                         ].map((step, i) => (
                             <div key={i} className="text-center space-y-4">
                                 <div className="w-12 h-12 rounded-full bg-brand-accentSoft text-brand-accent flex items-center justify-center text-xl font-bold mx-auto">
@@ -68,10 +68,10 @@ export default function Home() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
-                            { title: "Agences Vérifiées", desc: "Nous vérifions l'identité de chaque loueur." },
-                            { title: "Prix Transparents", desc: "Pas de frais cachés, vous payez ce que vous voyez." },
-                            { title: "Support Local", desc: "Une équipe basée en Algérie à votre écoute 7j/7." },
-                            { title: "Acompte Sécurisé", desc: "Votre réservation est garantie par notre plateforme." }
+                            { title: "Agences Vérifiées", desc: "Nous vérifions l'identité et le registre de commerce de chaque loueur." },
+                            { title: "Prix en Dinar (DZD)", desc: "Transparence totale, payez en monnaie locale sans frais cachés." },
+                            { title: "Support Local", desc: "Une équipe basée à Alger à votre écoute 7j/7." },
+                            { title: "Acompte CIB/Edahabia", desc: "Paiement sécurisé avec vos cartes nationales." }
                         ].map((feature, i) => (
                             <Card key={i} className="border-brand-border/50 hover:border-brand-accent/50 transition-colors">
                                 <CardContent className="pt-6">
@@ -84,7 +84,7 @@ export default function Home() {
 
                     <div className="mt-12 text-center">
                         <Link href="/recherche" className={cn(buttonBaseStyles, buttonVariants.primary, buttonSizes.lg)}>
-                            Voir toutes les offres
+                            Voir toutes les offres de véhicules
                         </Link>
                     </div>
                 </div>

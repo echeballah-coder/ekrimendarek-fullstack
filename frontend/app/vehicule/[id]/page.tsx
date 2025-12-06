@@ -94,10 +94,11 @@ export default function VehicleDetailPage() {
                             </CardHeader>
                             <CardContent className="space-y-4 text-sm text-brand-text">
                                 <ul className="list-disc pl-5 space-y-2">
-                                    <li>Âge minimum : 21 ans</li>
+                                    <li>Âge minimum : 25 ans (varie selon agence)</li>
                                     <li>Permis de conduire : Validité depuis au moins 2 ans</li>
-                                    <li>Kilométrage : Illimité dans la wilaya, 200km/j hors wilaya</li>
-                                    <li>Caution : Chèque certifié ou empreinte bancaire (bientôt disponible)</li>
+                                    <li>Kilométrage : Illimité (ou 200km/j hors wilaya selon modèle)</li>
+                                    <li>Documents requis : Permis biométrique + Passeport/CNI</li>
+                                    <li>Caution : Chèque certifié ou empreinte bancaire (selon agence)</li>
                                 </ul>
                             </CardContent>
                         </Card>
@@ -128,7 +129,7 @@ export default function VehicleDetailPage() {
                                             Réserver ce véhicule
                                         </Link>
                                         <p className="text-xs text-center text-brand-textMuted">
-                                            Aucun débit immédiat. Acompte sécurisé requis.
+                                            Payez seulement 15% maintenant. Le reste à la livraison.
                                         </p>
                                     </div>
                                 </CardContent>

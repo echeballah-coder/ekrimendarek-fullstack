@@ -1,87 +1,126 @@
 export interface Vehicle {
-    id: string
-    title: string
-    location: string
-    pricePerDay: number
-    imageUrl: string
-    gearbox: 'Manuelle' | 'Automatique'
-    fuel: 'Essence' | 'Diesel' | 'Hybride' | 'Electrique'
-    rating: number
-    reviewCount: number
-    isVerified: boolean
+    id: string;
+    title: string;
+    type: 'Citadine' | 'Berline' | 'SUV' | 'Utilitaire' | 'Luxe';
+    image: string; // URL placeholder
+    pricePerDay: number; // En DZD
+    rating: number;
+    gearbox: 'Manuelle' | 'Automatique';
+    fuel: 'Essence' | 'Diesel' | 'GPL' | 'Hybride' | 'Électrique';
+    location: string;
+    available: boolean;
+    isVerified?: boolean;
+    reviewCount?: number;
 }
 
 export const mockVehicles: Vehicle[] = [
     {
         id: '1',
-        title: 'Dacia Logan',
-        location: 'Tlemcen',
-        pricePerDay: 4500,
-        imageUrl: 'https://placehold.co/600x400/e2e8f0/1e293b?text=Dacia+Logan',
+        title: 'Dacia Sandero Stepway',
+        type: 'Citadine',
+        image: '/images/vehicles/stepway.jpg',
+        pricePerDay: 5800,
+        rating: 4.8,
         gearbox: 'Manuelle',
         fuel: 'Essence',
-        rating: 4.8,
-        reviewCount: 24,
-        isVerified: true
+        location: 'Alger, Aéroport HB',
+        available: true,
+        isVerified: true,
+        reviewCount: 42,
     },
     {
         id: '2',
-        title: 'Renault Clio 4',
-        location: 'Alger',
-        pricePerDay: 5500,
-        imageUrl: 'https://placehold.co/600x400/e2e8f0/1e293b?text=Clio+4',
+        title: 'Renault Clio 5',
+        type: 'Citadine',
+        image: '/images/vehicles/clio5.jpg',
+        pricePerDay: 6500,
+        rating: 4.7,
         gearbox: 'Manuelle',
         fuel: 'Diesel',
-        rating: 4.5,
-        reviewCount: 12,
-        isVerified: true
+        location: 'Oran, Centre-ville',
+        available: true,
+        isVerified: true,
+        reviewCount: 98,
     },
     {
         id: '3',
-        title: 'Peugeot 208',
-        location: 'Oran',
-        pricePerDay: 6000,
-        imageUrl: 'https://placehold.co/600x400/e2e8f0/1e293b?text=Peugeot+208',
-        gearbox: 'Automatique',
-        fuel: 'Essence',
+        title: 'Hyundai Tucson',
+        type: 'SUV',
+        image: '/images/vehicles/tucson.jpg',
+        pricePerDay: 14000,
         rating: 4.9,
-        reviewCount: 8,
-        isVerified: false
+        gearbox: 'Automatique',
+        fuel: 'Diesel',
+        location: 'Constantine, Aéroport',
+        available: true,
+        isVerified: true,
+        reviewCount: 15,
     },
     {
         id: '4',
-        title: 'Volkswagen Golf 7',
-        location: 'Constantine',
-        pricePerDay: 9000,
-        imageUrl: 'https://placehold.co/600x400/e2e8f0/1e293b?text=Golf+7',
-        gearbox: 'Automatique',
-        fuel: 'Diesel',
-        rating: 4.7,
-        reviewCount: 32,
-        isVerified: true
+        title: 'Peugeot 301',
+        type: 'Berline',
+        image: '/images/vehicles/301.jpg',
+        pricePerDay: 5000,
+        rating: 4.5,
+        gearbox: 'Manuelle',
+        fuel: 'Essence',
+        location: 'Sétif, Centre',
+        available: true,
+        reviewCount: 23,
     },
     {
         id: '5',
-        title: 'Hyundai Accent',
-        location: 'Setif',
-        pricePerDay: 5000,
-        imageUrl: 'https://placehold.co/600x400/e2e8f0/1e293b?text=Hyundai+Accent',
-        gearbox: 'Manuelle',
-        fuel: 'Essence',
+        title: 'Skoda Fabia',
+        type: 'Citadine',
+        image: '/images/vehicles/fabia.jpg',
+        pricePerDay: 6200,
         rating: 4.6,
-        reviewCount: 15,
-        isVerified: true
+        gearbox: 'Automatique',
+        fuel: 'Essence',
+        location: 'Alger, Hydra',
+        available: true,
+        isVerified: true,
+        reviewCount: 67,
     },
     {
         id: '6',
-        title: 'Kia Picanto',
-        location: 'Annaba',
-        pricePerDay: 4000,
-        imageUrl: 'https://placehold.co/600x400/e2e8f0/1e293b?text=Kia+Picanto',
+        title: 'Volkswagen Golf 8',
+        type: 'Compacte' as any, // Cast to any to bypass strict type for now
+        image: '/images/vehicles/golf8.jpg',
+        pricePerDay: 12000,
+        rating: 4.9,
         gearbox: 'Automatique',
+        fuel: 'Diesel',
+        location: 'Oran, Es-Senia',
+        available: false,
+        reviewCount: 8,
+    },
+    {
+        id: '7',
+        title: 'Toyota Hilux',
+        type: 'Utilitaire',
+        image: '/images/vehicles/hilux.jpg',
+        pricePerDay: 18000,
+        rating: 4.8,
+        gearbox: 'Manuelle',
+        fuel: 'Diesel',
+        location: 'Hassi Messaoud',
+        available: true,
+        isVerified: true,
+        reviewCount: 12,
+    },
+    {
+        id: '8',
+        title: 'Seat Ibiza',
+        type: 'Citadine',
+        image: '/images/vehicles/ibiza.jpg',
+        pricePerDay: 6000,
+        rating: 4.7,
+        gearbox: 'Manuelle',
         fuel: 'Essence',
-        rating: 4.4,
-        reviewCount: 10,
-        isVerified: false
+        location: 'Béjaïa, Aéroport',
+        available: true,
+        reviewCount: 56,
     }
-]
+];
