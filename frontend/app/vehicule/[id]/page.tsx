@@ -120,9 +120,12 @@ export default function VehicleDetailPage() {
                                     </div>
 
                                     <div className="pt-4 space-y-3">
-                                        <Button className="w-full" size="lg" variant="primary">
+                                        <Link
+                                            href={`/reservation?vehicleId=${vehicle.id}`}
+                                            className={cn(buttonBaseStyles, buttonVariants.primary, buttonSizes.lg, "w-full")}
+                                        >
                                             Réserver ce véhicule
-                                        </Button>
+                                        </Link>
                                         <p className="text-xs text-center text-brand-textMuted">
                                             Aucun débit immédiat. Acompte sécurisé requis.
                                         </p>
