@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { AnimatedSection } from "@/components/animations/AnimatedSection"
+import { toast } from "sonner"
 
 export default function KYCPage() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -23,6 +24,7 @@ export default function KYCPage() {
 
         // Simulate API call
         setTimeout(() => {
+            toast.success("✅ Documents envoyés. Vérification d'identité simulée avec succès.");
             setIsSubmitting(false)
             setIsSuccess(true)
         }, 2000)

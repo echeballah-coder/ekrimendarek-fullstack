@@ -1,82 +1,85 @@
-# EkriMenDarek - Frontend
+# 🇩🇿 EkriMenDarek (Version Démo)
 
-Plateforme de location de voitures en Algérie - Version démo frontend
+## 📌 Présentation
+**EkriMenDarek** est une plateforme moderne de location de voitures en Algérie, conçue pour simplifier la mise en relation entre agences et particuliers.
 
-## 🚀 Technologies
+Ce dépôt contient une **démonstration frontend locale** (Prototype).
+> **Note Importante** : Cette version utilise des données simulées (mock data) pour illustrer le parcours utilisateur. Il n'y a pas de backend réel ni de traitement de paiement effectif.
 
-- **Next.js 14** (App Router)
-- **TypeScript** (mode strict)
-- **TailwindCSS**
-- **ESLint**
+## 🛠️ Stack Technique & Prérequis
 
-## 📁 Structure du Projet
+### Technologies
+*   **Framework** : Next.js 14 (App Router)
+*   **Langage** : TypeScript
+*   **Styling** : TailwindCSS
+*   **Animations** : Framer Motion & Anime.js
+*   **Design System** : Emerald Road (thème Algérie moderne)
 
-```
-ekrimendarek-frontend/
-├── app/                  # Pages et routes (App Router)
-├── components/           # Composants réutilisables
-├── features/             # Modules fonctionnels
-├── lib/                  # Utilitaires et helpers
-├── types/                # Types TypeScript globaux
-├── styles/               # Styles globaux
-├── data/                 # Données mockées
-├── messages/             # Traductions i18n
-├── hooks/                # Custom hooks
-├── context/              # React Contexts
-└── public/               # Assets statiques
-```
+### Prérequis
+*   **Node.js** (v18 ou supérieur recommandé)
+*   **npm** (installé avec Node.js)
+*   **Git**
 
-## 🛠️ Installation
+## 🚀 Installation & Lancement
 
-**Important** : Avant d'installer les dépendances, vous devez activer l'exécution de scripts PowerShell.
+1.  **Cloner le projet**
+    ```bash
+    git clone https://github.com/votre-username/ekrimendarek-fullstack.git
+    cd ekrimendarek-fullstack/frontend
+    ```
 
-### Exécuter en tant qu'administrateur dans PowerShell :
+2.  **Installer les dépendances**
+    ```bash
+    npm install
+    ```
 
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
+3.  **Lancer le serveur de développement**
+    ```bash
+    npm run dev
+    ```
 
-Puis installer les dépendances :
+4.  **Accéder à la démo**
+    Ouvrez votre navigateur sur [http://localhost:3000](http://localhost:3000)
 
-```bash
-npm install
-```
+> 💡 **Utilisateurs Windows** : Si vous rencontrez des problèmes d'exécution de scripts, consultez le fichier [`INSTALLATION.md`](./INSTALLATION.md) pour configurer PowerShell.
 
-## 🏃 Lancement du projet
+## ✨ Fonctionnalités de la Démo
 
-```bash
-# Mode développement
-npm run dev
+Cette version de démonstration inclut les fonctionnalités clés suivantes :
 
-# Build de production
-npm run build
-
-# Lancement en production
-npm start
-
-# Linting
-npm run lint
-```
-
-Le serveur de développement sera accessible sur [http://localhost:3000](http://localhost:3000)
-
-## 📝 Prochaines Étapes
-
-1. Installer les dépendances (`npm install`)
-2. Configurer le design system (palette Wraith)
-3. Installer shadcn/ui
-4. Créer les composants UI de base
-5. Développer les pages principales
-6. Intégrer les données mockées
-
-## 🔧 Configuration
-
-Le projet est configuré avec :
-- TypeScript strict mode
-- TailwindCSS avec configuration de base
-- ESLint avec règles Next.js
-- Support d'images externes (Unsplash, Pexels)
+*   **Page d'Accueil Immersive** : Hero section avec titres animés, barre de recherche intuitive et arguments de réassurance (CIB, 58 Wilayas).
+*   **Recherche de Véhicules** : Listing dynamique avec filtres, affichant des données réalistes (prix en DZD, villes algériennes).
+*   **Fiche Véhicule Complète** : Photos, caractéristiques techniques, et conditions de location adaptées au marché local (âge, permis biométrique).
+*   **Tunnel de Réservation** : Calcul automatique du montant total et de l'acompte (15%), avec simulation de paiement.
+*   **Parcours KYC (Vérification)** : Simulation d'envoi de documents (Permis, Selfie) avec feedback instantané.
+*   **Espace Client** : Page "Mon Compte" affichant l'historique des réservations et leurs statuts (En attente, Confirmée, etc.).
 
 ---
 
-**Créé le** : 5 décembre 2025
+## 🎬 Scénario de Démo (Script de Présentation)
+
+Utilisez ce guide étape par étape lors de votre présentation pour garantir un effet "Wow".
+
+### 1. Accueil : L'Expérience Premium
+*   **Action** : Arriver sur la page d'accueil.
+*   **À dire** : *"Bienvenue sur EkriMenDarek. Nous avons voulu créer une expérience qui inspire confiance dès la première seconde. Notez les animations fluides et l'ancrage local immédiat avec la mention des 58 Wilayas et du paiement CIB."*
+
+### 2. Recherche : Fluidité et Choix
+*   **Action** : Cliquer sur la barre de recherche ou le bouton "Voir toutes les offres".
+*   **À dire** : *"L'utilisateur accède instantanément au parc automobile disponible. Les résultats s'affichent avec des prix clairs en Dinars. Ici, nous avons par exemple une Dacia Stepway à Alger ou un Tucson à Constantine."*
+
+### 3. Fiche Véhicule : Transparence
+*   **Action** : Cliquer sur une carte véhicule (ex: Dacia Stepway).
+*   **À dire** : *"La fiche détaille tout ce qu'il faut savoir pour louer sereinement : l'agence est vérifiée, et les conditions sont explicites (Permis biométrique, Caution). Plus de mauvaises surprises au comptoir."*
+
+### 4. Réservation : Simplicité
+*   **Action** : Cliquer sur "Réserver ce véhicule".
+*   **À dire** : *"Le processus est simplifié. Le client voit exactement ce qu'il paie maintenant (l'acompte de 15%) et ce qu'il paiera à la récupération du véhicule."*
+
+### 5. KYC : Sécurité (Simulation)
+*   **Action** : Après la réservation, cliquer sur "Compléter mon profil" ou simuler le KYC.
+*   **À dire** : *"Pour sécuriser les loueurs, nous intégrons une étape de vérification d'identité numérique. Ici, nous simulons l'envoi du permis et d'un selfie."* -> *Valider le formulaire.*
+
+### 6. Mon Compte : Suivi
+*   **Action** : Se rendre sur la page "Mon Compte".
+*   **À dire** : *"Enfin, le client retrouve toutes ses réservations dans son espace personnel, avec un statut clair pour chacune. L'expérience est bouclée."*

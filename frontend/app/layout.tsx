@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { Toaster } from 'sonner'
 
 export default function RootLayout({
     children,
@@ -25,6 +26,7 @@ export default function RootLayout({
                     {children}
                 </main>
                 <Footer />
+                <Toaster position="top-right" richColors />
             </body>
         </html>
     )

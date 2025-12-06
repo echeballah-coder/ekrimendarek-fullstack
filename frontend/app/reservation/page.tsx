@@ -10,6 +10,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { AnimatedSection } from "@/components/animations/AnimatedSection"
+import { saveBooking } from "@/lib/localBookings"
+import { Booking } from "@/data/mockBookings"
+import { toast } from "sonner"
 
 function ReservationContent() {
     const searchParams = useSearchParams()
@@ -40,6 +43,20 @@ function ReservationContent() {
     const handlePaymentSimulation = () => {
         setIsPaying(true)
         setTimeout(() => {
+            if (vehicle && startDate && endDate) {
+                const newBooking: Booking = {
+                    id: `RES-LOC-${Date.now()}`,
+                    vehicleId: vehicle.id,
+                    startDate: startDate,
+                    endDate: endDate,
+                    totalAmount: total,
+                    depositAmount: deposit,
+                    status: 'PENDING_PAYMENT', // Or CONFIRMED depending on flow, keeping PENDING for realism
+                    agencyName: `Agence ${vehicle.location.split(',')[0]}`, // Mock agency name based on city
+                };
+                saveBooking(newBooking);
+                toast.success("✅ Réservation confirmée ! Acompte enregistré, reste à payer en agence.");
+            }
             setIsPaying(false)
             setIsSuccess(true)
         }, 1500)
