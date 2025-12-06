@@ -1,7 +1,9 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
-import { Button } from "@/components/ui/Button"
+import { Button, buttonBaseStyles, buttonSizes, buttonVariants } from "@/components/ui/Button"
+import { cn } from "@/lib/utils"
 import { Vehicle } from "@/data/mockVehicles"
 
 interface VehicleCardProps {
@@ -54,9 +56,12 @@ export function VehicleCard({ vehicle }: VehicleCardProps) {
                         {vehicle.pricePerDay} <span className="text-sm font-normal text-brand-textMuted">DA/j</span>
                     </span>
                 </div>
-                <Button size="sm">
+                <Link
+                    href={`/vehicule/${vehicle.id}`}
+                    className={cn(buttonBaseStyles, buttonVariants.primary, buttonSizes.sm)}
+                >
                     Voir détails
-                </Button>
+                </Link>
             </CardFooter>
         </Card>
     )
