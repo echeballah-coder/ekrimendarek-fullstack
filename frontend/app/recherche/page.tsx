@@ -1,27 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { SearchBar } from "@/features/search/components/SearchBar"
 import { VehicleCard } from "@/features/vehicle/components/VehicleCard"
-import { mockVehicles, Vehicle } from "@/data/mockVehicles"
-import { Skeleton } from "@/components/ui/Skeleton"
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/Card"
+import { mockVehicles } from "@/data/mockVehicles"
 import { AnimatedSection } from "@/components/animations/AnimatedSection"
 import { AnimatedList, AnimatedItem } from "@/components/animations/AnimatedList"
 
 export default function SearchPage() {
-    const [isLoading, setIsLoading] = useState(true)
-    const [vehicles, setVehicles] = useState<Vehicle[]>([])
-
-    useEffect(() => {
-        // Simulate API latency
-        const timer = setTimeout(() => {
-            setVehicles(mockVehicles)
-            setIsLoading(false)
-        }, 1500)
-
-        return () => clearTimeout(timer)
-    }, [])
+    // Load vehicles immediately (no artificial delay)
+    const vehicles = mockVehicles
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -39,29 +26,7 @@ export default function SearchPage() {
             {/* Results Grid */}
             <section className="flex-1 bg-brand-background py-12">
                 <div className="container mx-auto px-4">
-                    {isLoading ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {[1, 2, 3, 4, 5, 6].map((i) => (
-                                <Card key={i} className="overflow-hidden">
-                                    <div className="aspect-[4/3] bg-brand-accentSoft/30 animate-pulse" />
-                                    <CardHeader className="p-4 space-y-2">
-                                        <Skeleton className="h-6 w-3/4" />
-                                        <Skeleton className="h-4 w-1/2" />
-                                    </CardHeader>
-                                    <CardContent className="p-4 pt-0">
-                                        <div className="flex gap-2">
-                                            <Skeleton className="h-5 w-16" />
-                                            <Skeleton className="h-5 w-16" />
-                                        </div>
-                                    </CardContent>
-                                    <CardFooter className="p-4 border-t border-brand-border/50 flex justify-between">
-                                        <Skeleton className="h-8 w-24" />
-                                        <Skeleton className="h-9 w-24" />
-                                    </CardFooter>
-                                </Card>
-                            ))}
-                        </div>
-                    ) : vehicles.length > 0 ? (
+                    {vehicles.length > 0 ? (
                         <AnimatedList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {vehicles.map((vehicle) => (
                                 <AnimatedItem key={vehicle.id}>
