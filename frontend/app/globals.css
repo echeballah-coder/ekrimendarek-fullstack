@@ -109,6 +109,93 @@
   }
 }
 
+@layer components {
+
+  /* Layout */
+  .container-emd {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+
+  /* Surfaces */
+  .card {
+    @apply bg-surface border border-border rounded-2xl shadow-sm;
+  }
+
+  .card-soft {
+    @apply bg-surface2 border border-border rounded-2xl;
+  }
+
+  /* Links */
+  .link {
+    @apply text-brand2 hover:text-brand underline-offset-4 hover:underline transition-colors;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm border;
+  }
+
+  .badge-brand {
+    @apply badge bg-brand/10 text-brand border-brand/25;
+  }
+
+  .badge-warning {
+    @apply badge bg-warning/15 text-warning border-warning/30;
+  }
+
+  .badge-muted {
+    @apply badge bg-border/30 text-muted border-border;
+  }
+
+  .badge-danger {
+    @apply badge bg-danger/10 text-danger border-danger/25;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-60 disabled:pointer-events-none;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand text-onBrand hover:bg-brand/90;
+  }
+
+  .btn-secondary {
+    @apply btn bg-surface border border-border text-text hover:bg-surface2;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-text hover:bg-brand/10;
+  }
+
+  /* Inputs */
+  .input {
+    @apply w-full rounded-xl bg-surface border border-border px-3 py-2 text-sm text-text placeholder:text-muted/80 focus:outline-none focus-visible:ring-2 focus-visible:ring ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  }
+
+  .input-error {
+    @apply border-danger focus-visible:ring-danger;
+  }
+
+  .help-text {
+    @apply text-xs text-muted;
+  }
+
+  .error-text {
+    @apply text-xs text-danger;
+  }
+
+  /* Navbar */
+  .nav {
+    @apply bg-surface/80 backdrop-blur border-b border-border;
+  }
+
+  /* Hero (panel lisible sur gradient animé) */
+  .hero-panel {
+    @apply hero-scrim rounded-3xl p-6 sm:p-10 shadow-sm;
+  }
+}
+
 @layer utilities {
 
   /* Hero Signature Gradient - Basé sur brand colors */
