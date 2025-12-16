@@ -29,7 +29,7 @@ function ReservationContent() {
     const days = calculateDays(startDate, endDate)
     const pricePerDay = vehicle ? vehicle.pricePerDay : 0
     const total = calculateTotal(pricePerDay, days)
-    const deposit = calculateDeposit(total, 0.15) // 15% deposit rate (current rate)
+    const deposit = calculateDeposit(total, 0.05) // 5% deposit rate
     const remaining = total - deposit
 
     const handlePaymentSimulation = () => {
