@@ -178,7 +178,7 @@ function ReservationContent() {
 
                                 <div className="bg-brand-background p-4 rounded-lg border border-brand-border space-y-2 mt-4">
                                     <div className="flex justify-between text-brand-accent font-bold">
-                                        <span>Acompte à payer (15%)</span>
+                                        <span>Acompte à payer (5%)</span>
                                         <span>{deposit > 0 ? `${deposit.toLocaleString()} DA` : "-"}</span>
                                     </div>
                                     <div className="flex justify-between text-xs text-brand-textMuted">

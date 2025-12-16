@@ -129,7 +129,7 @@ export default function VehicleDetailPage() {
                                             Réserver ce véhicule
                                         </Link>
                                         <p className="text-xs text-center text-brand-textMuted">
-                                            Payez seulement 15% maintenant. Le reste à la livraison.
+                                            Payez seulement 5% maintenant. Le reste à la livraison.
                                         </p>
                                     </div>
                                 </CardContent>

@@ -50,7 +50,7 @@ export function calculateTotal(dailyPrice: number, days: number): number {
  * Calculate deposit amount based on total and rate
  * 
  * @param total - Total rental price in DZD
- * @param rate - Deposit rate as decimal (e.g., 0.15 for 15%)
+ * @param rate - Deposit rate as decimal (e.g., 0.05 for 5%)
  * @returns Deposit amount in DZD (rounded)
  * 
  * Note: Uses Math.round for consistency with current implementation

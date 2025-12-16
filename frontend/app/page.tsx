@@ -44,7 +44,7 @@ export default function Home() {
                     <div className="grid md:grid-cols-3 gap-8">
                         {[
                             { title: "1. Cherchez", desc: "Trouvez le véhicule idéal parmi des milliers d'offres en Algérie." },
-                            { title: "2. Réservez", desc: "Bloquez le véhicule avec un petit acompte sécurisé (15%)." },
+                            { title: "2. Réservez", desc: "Bloquez le véhicule avec un petit acompte sécurisé (5%)." },
                             { title: "3. Roulez", desc: "Payez le reste en agence et profitez de la route !" }
                         ].map((step, i) => (
                             <div key={i} className="text-center space-y-4">

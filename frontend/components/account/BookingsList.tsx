@@ -101,7 +101,7 @@ export function BookingsList() {
                                                     {booking.totalAmount.toLocaleString()} DA
                                                 </div>
                                                 <div>
-                                                    <span className="text-brand-textMuted block text-xs">Acompte (15%)</span>
+                                                    <span className="text-brand-textMuted block text-xs">Acompte (5%)</span>
                                                     <span className="font-medium text-brand-accent">{booking.depositAmount.toLocaleString()} DA</span>
                                                 </div>
                                             </div>
