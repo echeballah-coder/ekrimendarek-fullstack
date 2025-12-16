@@ -27,6 +27,7 @@ export const metadata: Metadata = {
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Toaster } from 'sonner' // Provider de toasts globaux
+import { ThemeProvider } from '@/components/theme/ThemeProvider'
 
 export default function RootLayout({
     children,
@@ -34,14 +35,16 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="fr">
+        <html lang="fr" suppressHydrationWarning>
             <body className={`${inter.variable} font-sans bg-brand-background text-brand-text antialiased min-h-screen flex flex-col`}>
-                <Header />
-                <main className="flex-1">
-                    {children}
-                </main>
-                <Footer />
-                <Toaster position="top-right" richColors />
+                <ThemeProvider>
+                    <Header />
+                    <main className="flex-1">
+                        {children}
+                    </main>
+                    <Footer />
+                    <Toaster position="top-right" richColors />
+                </ThemeProvider>
             </body>
         </html>
     )

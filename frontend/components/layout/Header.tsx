@@ -6,6 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/Button"
 import { getSession, clearSession, UserSession } from "@/lib/authSession"
 import { toast } from "sonner"
+import { ThemeToggle } from "@/components/theme/ThemeToggle"
 
 export function Header() {
     const router = useRouter()
@@ -49,7 +50,9 @@ export function Header() {
                     </Link>
                 </nav>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
+                    <ThemeToggle />
+
                     {session ? (
                         // Connecté
                         <>

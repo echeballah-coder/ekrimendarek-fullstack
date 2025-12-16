@@ -83,6 +83,14 @@
 }
 
 @layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
   body {
     background-color: rgb(var(--bg));
     color: rgb(var(--text));
