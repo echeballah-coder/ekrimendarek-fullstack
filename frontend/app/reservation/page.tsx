@@ -13,6 +13,7 @@ import { AnimatedSection } from "@/components/animations/AnimatedSection"
 import { saveBooking } from "@/lib/localBookings"
 import { Booking } from "@/data/mockBookings"
 import { toast } from "sonner"
+import { calculateDays, calculateTotal, calculateDeposit } from "@/lib/pricing"
 
 function ReservationContent() {
     const searchParams = useSearchParams()
@@ -24,20 +25,11 @@ function ReservationContent() {
     const [isPaying, setIsPaying] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
 
-    // Calculations
-    const start = startDate ? new Date(startDate) : null
-    const end = endDate ? new Date(endDate) : null
-
-    let days = 0
-    if (start && end) {
-        const diffTime = Math.abs(end.getTime() - start.getTime())
-        days = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-        if (days === 0) days = 1 // Minimum 1 day
-    }
-
+    // Calculations using pricing utilities
+    const days = calculateDays(startDate, endDate)
     const pricePerDay = vehicle ? vehicle.pricePerDay : 0
-    const total = days * pricePerDay
-    const deposit = Math.round(total * 0.15)
+    const total = calculateTotal(pricePerDay, days)
+    const deposit = calculateDeposit(total, 0.15) // 15% deposit rate (current rate)
     const remaining = total - deposit
 
     const handlePaymentSimulation = () => {
