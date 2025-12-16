@@ -2,47 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * PALETTE EMD - Emerald Sand Pro (Clear) / Emerald Night Premium (Dark)
+ * Variables CSS en format RGB pour support alpha Tailwind (/xx)
+ */
+:root {
+  /* Clear Mode - Emerald Sand Pro */
+  --bg: 248 245 240;           /* #F8F5F0 - Fond principal sable */
+  --surface: 255 255 255;      /* #FFFFFF - Surface cards */
+  --surface2: 250 248 245;     /* #FAF8F5 - Surface alternative */
+  --border: 229 231 235;       /* #E5E7EB - Bordures subtiles */
+  --text: 30 27 24;            /* #1E1B18 - Texte principal */
+  --muted: 107 106 100;        /* #6B6A64 - Texte secondaire */
+  
+  /* Brand - Emerald Green */
+  --brand: 4 108 78;           /* #046C4E - Primary emerald */
+  --brand2: 31 122 140;        /* #1F7A8C - Secondary teal */
+  --brandSoft: 225 243 236;    /* #E1F3EC - Brand soft bg */
+  
+  /* Status colors */
+  --warning: 247 165 0;        /* #F7A500 - Amber warning */
+  --danger: 185 28 28;         /* #B91C1C - Red error */
+  --info: 59 130 246;          /* #3B82F6 - Blue info */
+  
+  /* UI states */
+  --ring: 4 108 78;            /* #046C4E - Focus ring (brand) */
+  --onBrand: 255 255 255;      /* #FFFFFF - Text on brand bg */
+}
+
+.dark {
+  /* Dark Mode - Emerald Night Premium */
+  --bg: 15 23 20;              /* #0F1714 - Fond principal dark */
+  --surface: 26 34 30;         /* #1A221E - Surface cards dark */
+  --surface2: 34 44 39;        /* #222C27 - Surface alternative */
+  --border: 52 65 58;          /* #34413A - Bordures dark */
+  --text: 248 250 248;         /* #F8FAF8 - Texte principal clair */
+  --muted: 156 163 155;        /* #9CA39B - Texte secondaire */
+  
+  /* Brand - Emerald Green (légèrement plus clair en dark) */
+  --brand: 16 185 129;         /* #10B981 - Primary emerald light */
+  --brand2: 45 212 191;        /* #2DD4BF - Secondary teal light */
+  --brandSoft: 6 78 59;        /* #064E3B - Brand soft bg dark */
+  
+  /* Status colors (ajustés pour dark) */
+  --warning: 251 191 36;       /* #FBBF24 - Amber warning bright */
+  --danger: 239 68 68;         /* #EF4444 - Red error bright */
+  --info: 96 165 250;          /* #60A5FA - Blue info bright */
+  
+  /* UI states */
+  --ring: 16 185 129;          /* #10B981 - Focus ring */
+  --onBrand: 15 23 20;         /* #0F1714 - Text on brand (dark bg) */
+}
+
 @layer base {
   body {
-    @apply bg-brand-background text-brand-text;
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
   }
 
   h1 {
-    @apply text-4xl font-bold tracking-tight text-brand-text mb-4;
+    @apply text-4xl font-bold tracking-tight text-text mb-4;
   }
 
   h2 {
-    @apply text-2xl font-semibold tracking-tight text-brand-text mb-3;
+    @apply text-2xl font-semibold tracking-tight text-text mb-3;
   }
 
   h3 {
-    @apply text-xl font-semibold text-brand-accent mb-2;
+    @apply text-xl font-semibold text-brand mb-2;
   }
 
   p {
-    @apply text-brand-text leading-relaxed;
+    @apply text-text leading-relaxed;
   }
 
   a {
-    @apply text-brand-accentHighlight hover:text-brand-accent transition-colors;
+    @apply text-brand2 hover:text-brand transition-colors;
   }
 }
 
 @layer utilities {
-  .bg-brand-gradient {
-    background-image: linear-gradient(135deg, #046C4E 0%, #1F7A8C 100%);
-  }
-
-  .text-brand-gradient {
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-image: linear-gradient(135deg, #046C4E 0%, #1F7A8C 100%);
-  }
-
-  /* Hero Signature Gradient */
+  /* Hero Signature Gradient - Basé sur brand colors */
   .hero-gradient-bg {
-    background: linear-gradient(-45deg, #022c22, #064e3b, #115e59, #0f766e);
+    background: linear-gradient(-45deg, 
+      rgb(var(--bg)), 
+      rgb(var(--brand) / 0.15),
+      rgb(var(--brand2) / 0.1),
+      rgb(var(--brandSoft)));
     background-size: 400% 400%;
     animation: gradient-flow 15s ease infinite;
   }
@@ -66,5 +112,28 @@
       animation: none;
       background-size: 100% 100%;
     }
+  }
+
+  /* Hero Scrim - Panel lisible avec backdrop */
+  .hero-scrim {
+    background: rgb(var(--surface) / 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .dark .hero-scrim {
+    background: rgb(var(--surface) / 0.92);
+  }
+
+  /* Gradient utilities */
+  .bg-brand-gradient {
+    background-image: linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand2)));
+  }
+
+  .text-brand-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand2)));
   }
 }

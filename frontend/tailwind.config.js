@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: 'class', // Activation du dark mode via class="dark" sur <html>
     content: [
         './app/**/*.{js,ts,jsx,tsx,mdx}',
         './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -15,23 +16,42 @@ module.exports = {
         },
         extend: {
             colors: {
-                brand: {
-                    background: '#F8F5F0', // --emd-bg
-                    surface: '#FFFFFF', // --emd-surface
-                    border: '#E5E7EB', // --emd-border-subtle
-                    text: '#1E1B18', // --emd-text-main
-                    textMuted: '#6B6A64', // --emd-text-muted
-                    accent: '#046C4E', // --emd-primary (Emerald)
-                    accentHighlight: '#1F7A8C', // --emd-secondary (Teal)
-                    accentSoft: '#E1F3EC', // --emd-primary-soft
-                    success: '#047857',
-                    error: '#B91C1C',
-                    warning: '#F7A500', // --emd-accent (Amber)
-                },
+                // Tokens sémantiques EMD (avec support alpha /xx)
+                bg: 'rgb(var(--bg) / <alpha-value>)',
+                surface: 'rgb(var(--surface) / <alpha-value>)',
+                surface2: 'rgb(var(--surface2) / <alpha-value>)',
+                border: 'rgb(var(--border) / <alpha-value>)',
+                text: 'rgb(var(--text) / <alpha-value>)',
+                muted: 'rgb(var(--muted) / <alpha-value>)',
+
+                brand: 'rgb(var(--brand) / <alpha-value>)',
+                brand2: 'rgb(var(--brand2) / <alpha-value>)',
+                brandSoft: 'rgb(var(--brandSoft) / <alpha-value>)',
+
+                warning: 'rgb(var(--warning) / <alpha-value>)',
+                danger: 'rgb(var(--danger) / <alpha-value>)',
+                info: 'rgb(var(--info) / <alpha-value>)',
+
+                ring: 'rgb(var(--ring) / <alpha-value>)',
+                onBrand: 'rgb(var(--onBrand) / <alpha-value>)',
+
+                // ⚠️ COMPATIBILITÉ : Anciens noms brand.* pour éviter build errors
+                // Ces alias pointent vers les mêmes variables pour rétro-compatibilité
+                'brand-background': 'rgb(var(--bg) / <alpha-value>)',
+                'brand-surface': 'rgb(var(--surface) / <alpha-value>)',
+                'brand-border': 'rgb(var(--border) / <alpha-value>)',
+                'brand-text': 'rgb(var(--text) / <alpha-value>)',
+                'brand-textMuted': 'rgb(var(--muted) / <alpha-value>)',
+                'brand-accent': 'rgb(var(--brand) / <alpha-value>)',
+                'brand-accentHighlight': 'rgb(var(--brand2) / <alpha-value>)',
+                'brand-accentSoft': 'rgb(var(--brandSoft) / <alpha-value>)',
+                'brand-success': 'rgb(var(--brand) / <alpha-value>)', // Success = brand
+                'brand-error': 'rgb(var(--danger) / <alpha-value>)',
+                'brand-warning': 'rgb(var(--warning) / <alpha-value>)',
             },
             backgroundImage: {
-                'brand-gradient': 'linear-gradient(135deg, #046C4E 0%, #1F7A8C 100%)',
-                'brand-gradient-hero': 'linear-gradient(135deg, #046C4E 0%, #1F7A8C 45%, #F1ECE3 100%)',
+                'brand-gradient': 'linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand2)))',
+                'brand-gradient-hero': 'linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand2)), rgb(var(--bg)))',
             },
             fontFamily: {
                 sans: ['var(--font-inter)', 'sans-serif'],
