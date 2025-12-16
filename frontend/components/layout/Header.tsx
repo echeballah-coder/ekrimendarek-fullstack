@@ -53,6 +53,9 @@ export function Header() {
                     {session ? (
                         // Connecté
                         <>
+                            <span className="hidden lg:block text-sm text-brand-textMuted">
+                                Bonjour, <span className="font-medium text-brand-text">{session.fullName || session.email}</span>
+                            </span>
                             <Link href="/account" className="hidden md:block text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
                                 Mon compte
                             </Link>

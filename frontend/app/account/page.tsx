@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import { BookingsList } from "@/components/account/BookingsList"
 import { RequireAuth } from "@/components/auth/RequireAuth"
+import { ProfileCard } from "@/components/account/ProfileCard"
 
 export const metadata: Metadata = {
     title: "Mon Compte - EkriMenDarek",
@@ -16,10 +17,12 @@ export default function AccountPage() {
                         <div>
                             <h1 className="text-3xl font-bold text-brand-text">Mon Compte</h1>
                             <p className="text-brand-textMuted mt-2">
-                                Ceci est un espace de démonstration. Vos nouvelles réservations sont sauvegardées localement.
+                                Gérez votre profil et vos réservations.
                             </p>
                         </div>
                     </div>
+
+                    <ProfileCard />
 
                     <BookingsList />
                 </div>
