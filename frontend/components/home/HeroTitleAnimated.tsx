@@ -1,66 +1,67 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import anime from "animejs"
-import { useReducedMotion } from "framer-motion" // Reusing framer hook for convenience consistency
+import { useReducedMotion } from "framer-motion"
 
 export function HeroTitleAnimated() {
     const titleRef = useRef<HTMLHeadingElement>(null)
     const underlineRef = useRef<SVGPathElement>(null)
+    const hasAnimatedRef = useRef(false) // Prevent re-animation on re-renders
     const shouldReduceMotion = useReducedMotion()
 
     useEffect(() => {
+        // Skip if reduced motion is preferred
         if (shouldReduceMotion) return
 
-        // Text reveal animation
-        const titleAnimation = anime.timeline({
-            easing: 'easeOutExpo',
-            duration: 1000,
-            delay: 300 // Slight delay after page load
-        })
+        // Skip if already animated (prevent re-runs)
+        if (hasAnimatedRef.current) return
 
-        // Select all letters (we'll split them manually in JSX or use a helper, 
-        // strictly for this component simple generic words split is easier/cleaner)
-        // Here we target specific spans we will put in the JSX
+        // Mark as animated
+        hasAnimatedRef.current = true
 
-        titleAnimation
-            .add({
-                targets: '.hero-title-word',
-                translateY: [20, 0],
-                opacity: [0, 1],
-                delay: anime.stagger(100),
-                easing: 'easeOutExpo'
+        // Lazy-load anime.js only when needed (non-blocking)
+        import("animejs")
+            .then((anime) => {
+                const animeInstance = anime.default
+
+                // Text reveal animation
+                const titleAnimation = animeInstance.timeline({
+                    easing: 'easeOutExpo',
+                    duration: 1000,
+                    delay: 300 // Slight delay after page load
+                })
+
+                titleAnimation
+                    .add({
+                        targets: '.hero-title-word',
+                        translateY: [20, 0],
+                        opacity: [0, 1],
+                        delay: animeInstance.stagger(100),
+                        easing: 'easeOutExpo'
+                    })
+                    .add({
+                        targets: underlineRef.current,
+                        strokeDashoffset: [animeInstance.setDashoffset, 0],
+                        opacity: [0, 1],
+                        easing: 'easeInOutSine',
+                        duration: 800
+                    }, '-=600') // Overlap with text
             })
-            .add({
-                targets: underlineRef.current,
-                strokeDashoffset: [anime.setDashoffset, 0],
-                opacity: [0, 1],
-                easing: 'easeInOutSine',
-                duration: 800
-            }, '-=600') // Overlap with text
-
-        return () => {
-            titleAnimation.pause()
-        }
-    }, [shouldReduceMotion])
-
-    // Static fallback for reduced motion is simply the initial state being visible via CSS or logic.
-    // However, anime.js operates on DOM. To ensure visibility without JS or with reduced motion,
-    // we can set initial styles in CSS, or just rely on the fact that if we don't run anime, 
-    // we need them to be visible.
-    // Strategy: Elements start visible. Anime hides them initially if it runs? 
-    // Better: Elements start invisible only if animation is going to run. 
-    // Or simpler: Use a class to hide initially, remove it if reduced motion.
-
-    // Simplest robust approach:
-    // Default opacity 1. 
-    // In useEffect, if not reduced motion, set opacity 0 and animate to 1. 
-    // (This might cause a flash).
-    // Better: "opacity-0" class in JSX, and if reduced motion, we force opacity 1 via style or class replacement.
-
-    // Let's use Tailwind "opacity-0" and remove it if reduced motion? No, logic is complex.
-    // Let's stick to standard anime.js pattern: 
-    // Set initial state via anime.set immediately in effect? Yes.
+            .catch((error) => {
+                console.error('Failed to load anime.js:', error)
+                // Fallback: show content immediately if animation fails
+                const words = document.querySelectorAll('.hero-title-word')
+                const path = underlineRef.current
+                words.forEach(word => {
+                    (word as HTMLElement).style.opacity = '1';
+                    (word as HTMLElement).style.transform = 'none'
+                })
+                if (path) {
+                    path.style.opacity = '1'
+                    path.style.strokeDashoffset = '0'
+                }
+            })
+    }, [shouldReduceMotion]) // Dependencies: only shouldReduceMotion
 
     return (
         <div className="relative inline-block">
@@ -103,11 +104,7 @@ export function HeroTitleAnimated() {
                 </span>
             </h1>
 
-            {/* If reduced motion/no-js fallback needed, CSS would be ideal, 
-                but for this demo we assume standard modern browser behavior. 
-                If reduced motion, the effect simply won't run, 
-                so we need to ensure they are visible.
-                We can use a simple style injection or class toggle. */}
+            {/* CSS fallback for prefers-reduced-motion */}
             <style jsx global>{`
                 @media (prefers-reduced-motion: reduce) {
                     .hero-title-word, path {
