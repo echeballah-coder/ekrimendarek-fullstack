@@ -1,6 +1,6 @@
 import { SearchBar } from "@/features/search/components/SearchBar"
 import Link from "next/link"
-import { buttonBaseStyles, buttonSizes, buttonVariants } from "@/components/ui/Button"
+import { Button } from "@/components/ui/Button"
 import { Card, CardContent } from "@/components/ui/Card"
 import { Badge } from "@/components/ui/Badge"
 import { AnimatedSection } from "@/components/animations/AnimatedSection"
@@ -11,34 +11,105 @@ export default function Home() {
     return (
         <div className="flex flex-col min-h-screen">
 
-            {/* Hero Section */}
-            <AnimatedSection className="relative px-4 pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden hero-gradient-bg">
-                {/* Background Decor */}
-                <div className="absolute top-0 left-0 w-full h-full bg-black/10 pointer-events-none" />
+            {/* Hero Section Premium */}
+            <section className="relative px-4 py-16 lg:py-24 overflow-hidden hero-gradient-bg">
+                <div className="container-emd relative z-10">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-                <div className="container mx-auto text-center relative z-10 space-y-8">
-                    <Badge variant="secondary" className="mb-4 bg-white/10 text-white border-white/20 backdrop-blur-sm">
-                        Nouveau : Paiement sécurisé par CIB / Edahabia
-                    </Badge>
+                        {/* Gauche : Contenu principal */}
+                        <AnimatedSection className="hero-panel space-y-6">
+                            <Badge className="badge-brand">
+                                Tiers de confiance • Réservation sécurisée
+                            </Badge>
 
-                    <HeroTitleAnimated />
+                            <HeroTitleAnimated />
 
-                    <p className="text-xl text-brand-textMuted max-w-2xl mx-auto text-white/90">
-                        Plus de 500 agences vérifiées. Réservez en toute confiance avec un acompte sécurisé.
-                    </p>
+                            <p className="text-lg text-muted">
+                                Agences vérifiées, acompte 5% en ligne, solde sur place.<br />
+                                Conditions claires et support réactif.
+                            </p>
 
-                    <div className="pt-8">
-                        <SearchBar />
+                            {/* CTAs */}
+                            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                                <Link href="/recherche">
+                                    <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                                        Trouver une voiture
+                                    </Button>
+                                </Link>
+                                <Link href="/comment-ca-marche">
+                                    <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                                        Comment ça marche ?
+                                    </Button>
+                                </Link>
+                            </div>
+
+                            {/* Trust line */}
+                            <div className="flex flex-wrap items-center gap-4 pt-4 text-sm text-muted">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-brand">✓</span>
+                                    <span>Acompte 5%</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-brand">✓</span>
+                                    <span>Paiement sécurisé</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-brand">✓</span>
+                                    <span>Annulation encadrée</span>
+                                </div>
+                            </div>
+
+                            {/* SearchBar intégrée */}
+                            <div className="pt-6">
+                                <SearchBar />
+                            </div>
+                        </AnimatedSection>
+
+                        {/* Droite : Card suggestion */}
+                        <AnimatedSection delay={0.2} className="hidden lg:block">
+                            <Card className="card border-border/50 shadow-lg">
+                                <CardContent className="p-6 space-y-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-12 h-12 rounded-full bg-brandSoft flex items-center justify-center text-brand text-2xl">
+                                            🚗
+                                        </div>
+                                        <div>
+                                            <h3 className="font-semibold text-text">Suggestion populaire</h3>
+                                            <p className="text-sm text-muted">Alger - Constantine</p>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-muted">Durée moyenne</span>
+                                            <span className="font-medium text-text">3-5 jours</span>
+                                        </div>
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-muted">Prix moyen/jour</span>
+                                            <span className="font-medium text-text">5 800 DA</span>
+                                        </div>
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-muted">Catégorie populaire</span>
+                                            <span className="font-medium text-text">Citadine</span>
+                                        </div>
+                                    </div>
+                                    <Link href="/recherche?wilaya=alger">
+                                        <Button variant="ghost" size="sm" className="w-full">
+                                            Voir les offres →
+                                        </Button>
+                                    </Link>
+                                </CardContent>
+                            </Card>
+                        </AnimatedSection>
                     </div>
                 </div>
-            </AnimatedSection>
+            </section>
 
             {/* Comment ça marche */}
-            <AnimatedSection delay={0.1} className="py-16 bg-brand-surface border-y border-brand-border">
-                <div className="container mx-auto px-4">
+            <AnimatedSection delay={0.1} className="py-16 bg-surface border-y border-border">
+                <div className="container-emd">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-brand-text mb-4">Comment ça marche ?</h2>
-                        <p className="text-brand-textMuted">Louer une voiture n&apos;a jamais été aussi simple.</p>
+                        <h2 className="text-3xl font-bold text-text mb-4">Comment ça marche ?</h2>
+                        <p className="text-muted">Louer une voiture n&apos;a jamais été aussi simple.</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
@@ -48,11 +119,11 @@ export default function Home() {
                             { title: "3. Roulez", desc: "Payez le reste en agence et profitez de la route !" }
                         ].map((step, i) => (
                             <div key={i} className="text-center space-y-4">
-                                <div className="w-12 h-12 rounded-full bg-brand-accentSoft text-brand-accent flex items-center justify-center text-xl font-bold mx-auto">
+                                <div className="w-12 h-12 rounded-full bg-brandSoft text-brand flex items-center justify-center text-xl font-bold mx-auto">
                                     {i + 1}
                                 </div>
-                                <h3 className="text-xl font-semibold text-brand-text">{step.title}</h3>
-                                <p className="text-brand-textMuted">{step.desc}</p>
+                                <h3 className="text-xl font-semibold text-text">{step.title}</h3>
+                                <p className="text-muted">{step.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -61,9 +132,9 @@ export default function Home() {
 
             {/* Pourquoi nous choisir */}
             <AnimatedSection delay={0.2} className="py-16">
-                <div className="container mx-auto px-4">
+                <div className="container-emd">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-brand-text mb-4">Pourquoi choisir EkriMenDarek ?</h2>
+                        <h2 className="text-3xl font-bold text-text mb-4">Pourquoi choisir EkriMenDarek ?</h2>
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -73,23 +144,16 @@ export default function Home() {
                             { title: "Support Local", desc: "Une équipe basée à Alger à votre écoute 7j/7." },
                             { title: "Acompte CIB/Edahabia", desc: "Paiement sécurisé avec vos cartes nationales." }
                         ].map((feature, i) => (
-                            <Card key={i} className="border-brand-border/50 hover:border-brand-accent/50 transition-colors">
+                            <Card key={i} className="card-soft border-border/50 hover:border-brand/50 transition-colors">
                                 <CardContent className="pt-6">
-                                    <h3 className="font-semibold text-brand-text mb-2">{feature.title}</h3>
-                                    <p className="text-sm text-brand-textMuted">{feature.desc}</p>
+                                    <h3 className="font-semibold text-text mb-2">{feature.title}</h3>
+                                    <p className="text-sm text-muted">{feature.desc}</p>
                                 </CardContent>
                             </Card>
                         ))}
                     </div>
-
-                    <div className="mt-12 text-center">
-                        <Link href="/recherche" className={cn(buttonBaseStyles, buttonVariants.primary, buttonSizes.lg)}>
-                            Voir toutes les offres de véhicules
-                        </Link>
-                    </div>
                 </div>
             </AnimatedSection>
-
         </div>
     )
 }

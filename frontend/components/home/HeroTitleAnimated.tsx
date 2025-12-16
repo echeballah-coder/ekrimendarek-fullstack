@@ -6,7 +6,7 @@ import { useReducedMotion } from "framer-motion"
 export function HeroTitleAnimated() {
     const titleRef = useRef<HTMLHeadingElement>(null)
     const underlineRef = useRef<SVGPathElement>(null)
-    const hasAnimatedRef = useRef(false) // Prevent re-animation on re-renders
+    const hasAnimatedRef = useRef(false)
     const shouldReduceMotion = useReducedMotion()
 
     useEffect(() => {
@@ -19,6 +19,20 @@ export function HeroTitleAnimated() {
         // Mark as animated
         hasAnimatedRef.current = true
 
+        // Get colors from CSS variables (EMD tokens)
+        const root = document.documentElement
+        const computedStyle = getComputedStyle(root)
+
+        // Extract RGB values and convert to hex for anime.js
+        const brand = `rgb(${computedStyle.getPropertyValue('--brand').trim()})`
+        const brand2 = `rgb(${computedStyle.getPropertyValue('--brand2').trim()})`
+
+        // Set will-change for performance
+        const words = document.querySelectorAll('.hero-title-word')
+        words.forEach(word => {
+            (word as HTMLElement).style.willChange = 'transform, opacity'
+        })
+
         // Lazy-load anime.js only when needed (non-blocking)
         import("animejs")
             .then((anime) => {
@@ -27,16 +41,16 @@ export function HeroTitleAnimated() {
                 // Text reveal animation
                 const titleAnimation = animeInstance.timeline({
                     easing: 'easeOutExpo',
-                    duration: 1000,
-                    delay: 300 // Slight delay after page load
+                    duration: 800,
+                    delay: 200
                 })
 
                 titleAnimation
                     .add({
                         targets: '.hero-title-word',
-                        translateY: [20, 0],
+                        translateY: [15, 0],
                         opacity: [0, 1],
-                        delay: animeInstance.stagger(100),
+                        delay: animeInstance.stagger(80),
                         easing: 'easeOutExpo'
                     })
                     .add({
@@ -44,8 +58,13 @@ export function HeroTitleAnimated() {
                         strokeDashoffset: [animeInstance.setDashoffset, 0],
                         opacity: [0, 1],
                         easing: 'easeInOutSine',
-                        duration: 800
-                    }, '-=600') // Overlap with text
+                        duration: 600
+                    }, '-=400') // Overlap with text
+
+                // Apply token colors to SVG inline
+                if (underlineRef.current) {
+                    underlineRef.current.style.stroke = brand2
+                }
             })
             .catch((error) => {
                 console.error('Failed to load anime.js:', error)
@@ -61,47 +80,47 @@ export function HeroTitleAnimated() {
                     path.style.strokeDashoffset = '0'
                 }
             })
-    }, [shouldReduceMotion]) // Dependencies: only shouldReduceMotion
+            .finally(() => {
+                // Remove will-change after animation
+                setTimeout(() => {
+                    words.forEach(word => {
+                        (word as HTMLElement).style.willChange = 'auto'
+                    })
+                }, 1200)
+            })
+    }, [shouldReduceMotion])
 
     return (
-        <div className="relative inline-block">
-            <h1 ref={titleRef} className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-text max-w-4xl mx-auto relative z-10">
+        <div className="relative">
+            <h1 ref={titleRef} className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-text max-w-4xl relative z-10">
                 <span className="hero-title-word inline-block opacity-0">Louez</span>{' '}
                 <span className="hero-title-word inline-block opacity-0">une</span>{' '}
                 <span className="hero-title-word inline-block opacity-0">voiture</span>{' '}
-                <span className="hero-title-word inline-block opacity-0">facilement</span>{' '}
-                <br className="hidden sm:block" />
-                <span className="hero-title-word inline-block opacity-0 text-transparent bg-clip-text bg-brand-gradient pb-2">
-                    partout
-                </span>{' '}
-                <span className="hero-title-word inline-block opacity-0 text-transparent bg-clip-text bg-brand-gradient pb-2">
-                    en
-                </span>{' '}
-                <span className="hero-title-word inline-block opacity-0 text-transparent bg-clip-text bg-brand-gradient pb-2 relative">
+                <span className="hero-title-word inline-block opacity-0">en</span>{' '}
+                <span className="hero-title-word inline-block opacity-0 text-brand relative">
                     Algérie
-                    {/* SVG Accent under "Algérie" */}
+                    {/* SVG Underline signature sous "Algérie" */}
                     <svg
                         className="absolute w-full h-3 -bottom-1 left-0 pointer-events-none"
                         viewBox="0 0 100 10"
                         preserveAspectRatio="none"
+                        aria-hidden="true"
                     >
                         <path
                             ref={underlineRef}
                             d="M0 5 Q 50 10 100 5"
                             fill="none"
-                            stroke="url(#gradient-accent)"
+                            stroke="currentColor"
                             strokeWidth="3"
-                            className="opacity-0"
+                            className="opacity-0 text-brand2"
                             strokeLinecap="round"
                         />
-                        <defs>
-                            <linearGradient id="gradient-accent" x1="0" x2="1" y1="0" y2="0">
-                                <stop offset="0%" stopColor="#10b981" />
-                                <stop offset="100%" stopColor="#3b82f6" />
-                            </linearGradient>
-                        </defs>
                     </svg>
-                </span>
+                </span>,{' '}
+                <br className="hidden sm:block" />
+                <span className="hero-title-word inline-block opacity-0">en</span>{' '}
+                <span className="hero-title-word inline-block opacity-0">toute</span>{' '}
+                <span className="hero-title-word inline-block opacity-0">confiance.</span>
             </h1>
 
             {/* CSS fallback for prefers-reduced-motion */}
