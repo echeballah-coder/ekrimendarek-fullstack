@@ -1,7 +1,7 @@
 export interface Vehicle {
     id: string;
     title: string;
-    type: 'Citadine' | 'Berline' | 'SUV' | 'Utilitaire' | 'Luxe';
+    type: 'Citadine' | 'Berline' | 'SUV' | 'Utilitaire' | 'Luxe' | 'Compacte';
     image: string; // URL placeholder
     pricePerDay: number; // En DZD
     rating: number;
@@ -86,7 +86,7 @@ export const mockVehicles: Vehicle[] = [
     {
         id: '6',
         title: 'Volkswagen Golf 8',
-        type: 'Compacte' as any, // Cast to any to bypass strict type for now
+        type: 'Compacte',
         image: '/images/vehicles/golf8.jpg',
         pricePerDay: 12000,
         rating: 4.9,
