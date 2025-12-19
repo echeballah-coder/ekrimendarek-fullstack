@@ -3,7 +3,6 @@
 import * as React from "react"
 import { Button } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
-import { Card } from "@/components/ui/Card"
 
 export function SearchBar() {
     const handleSubmit = (e: React.FormEvent) => {
@@ -12,35 +11,38 @@ export function SearchBar() {
     }
 
     return (
-        <Card className="p-4 bg-brand-surface border-brand-border shadow-lg max-w-4xl mx-auto">
-            <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 items-end">
-                <div className="w-full md:flex-1">
+        <div className="card p-4 sm:p-6 shadow-lg w-full">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <div className="flex-1 min-w-0">
                     <Input
-                        label="Lieu de prise en charge"
+                        label="Lieu"
                         placeholder="Ex: Alger, Oran..."
                         id="location"
+                        className="input"
                     />
                 </div>
-                <div className="w-full md:w-48">
+                <div className="w-full sm:w-40">
                     <Input
                         type="date"
                         label="Début"
                         id="startDate"
+                        className="input"
                     />
                 </div>
-                <div className="w-full md:w-48">
+                <div className="w-full sm:w-40">
                     <Input
                         type="date"
                         label="Fin"
                         id="endDate"
+                        className="input"
                     />
                 </div>
-                <div className="w-full md:w-auto">
-                    <Button type="submit" variant="primary" className="w-full md:w-auto">
+                <div className="w-full sm:w-auto flex items-end">
+                    <Button type="submit" variant="primary" className="w-full sm:w-auto whitespace-nowrap">
                         Rechercher
                     </Button>
                 </div>
             </form>
-        </Card>
+        </div>
     )
 }
