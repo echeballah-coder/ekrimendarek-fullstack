@@ -8,12 +8,14 @@ import { getSession, clearSession, UserSession } from "@/lib/authSession"
 import { toast } from "sonner"
 import { ThemeToggle } from "@/components/theme/ThemeToggle"
 import { NAV_PRIMARY, isActivePath } from "@/lib/routes"
+import { AppDrawer } from "@/components/layout/AppDrawer"
 
 export function Header() {
     const router = useRouter()
     const pathname = usePathname()
     const [session, setSession] = useState<UserSession | null>(null)
     const [mounted, setMounted] = useState(false)
+    const [drawerOpen, setDrawerOpen] = useState(false)
 
     useEffect(() => {
         setMounted(true)
@@ -48,8 +50,8 @@ export function Header() {
                                 key={item.href}
                                 href={item.href}
                                 className={`text-sm font-medium transition-colors relative pb-1 ${isActive
-                                        ? "text-brand-accent"
-                                        : "text-brand-text hover:text-brand-accent"
+                                    ? "text-brand-accent"
+                                    : "text-brand-text hover:text-brand-accent"
                                     }`}
                             >
                                 {item.label}
@@ -98,8 +100,12 @@ export function Header() {
                         Espace Agence
                     </Link>
 
-                    {/* Mobile Menu Placeholder - Simple Icon for now */}
-                    <button className="md:hidden text-brand-text p-2">
+                    {/* Mobile Menu Button */}
+                    <button
+                        onClick={() => setDrawerOpen(true)}
+                        className="md:hidden text-brand-text p-2 hover:bg-surface2 rounded-lg transition-colors"
+                        aria-label="Ouvrir le menu"
+                    >
                         <span className="sr-only">Menu</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -107,6 +113,9 @@ export function Header() {
                     </button>
                 </div>
             </div>
+
+            {/* App Drawer */}
+            <AppDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
         </header>
     )
 }
