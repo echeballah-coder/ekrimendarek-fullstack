@@ -111,6 +111,7 @@ export default function SignupPage() {
                                 value={formData.password}
                                 onChange={handleChange("password")}
                                 disabled={isLoading}
+                                autoComplete="new-password"
                             />
                             {errors.password && (
                                 <p className="text-xs text-brand-error mt-1">{errors.password}</p>
@@ -125,6 +126,7 @@ export default function SignupPage() {
                                 value={formData.confirmPassword}
                                 onChange={handleChange("confirmPassword")}
                                 disabled={isLoading}
+                                autoComplete="new-password"
                             />
                             {errors.confirmPassword && (
                                 <p className="text-xs text-brand-error mt-1">{errors.confirmPassword}</p>
