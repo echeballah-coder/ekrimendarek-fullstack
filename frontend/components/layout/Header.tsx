@@ -4,9 +4,9 @@ import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/Button"
-import { getSession, clearSession, UserSession } from "@/lib/authSession"
+import { getSession, clearSession, UserSession, getUserDisplayName } from "@/lib/authSession"
 import { toast } from "sonner"
-import { NAV_PRIMARY, isActivePath } from "@/lib/routes"
+import { NAV_PRIMARY, isActivePath, ROUTES } from "@/lib/routes"
 import { AppDrawer } from "@/components/layout/AppDrawer"
 
 export function Header() {
@@ -66,15 +66,17 @@ export function Header() {
                     {session ? (
                         // Connecté
                         <>
-                            <span className="hidden lg:block text-sm text-brand-textMuted">
-                                Bonjour, <span className="font-medium text-brand-text">{session.fullName || session.email}</span>
+                            <span className="hidden lg:block text-sm text-muted">
+                                Bienvenue, <span className="font-medium text-text">{getUserDisplayName(session)}</span>
                             </span>
-                            <Link href="/account" className="hidden md:block text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
-                                Mon compte
+                            <Link href={ROUTES.ACCOUNT}>
+                                <Button variant="secondary" size="sm" className="hidden md:inline-flex">
+                                    Mon compte
+                                </Button>
                             </Link>
                             <button
                                 onClick={handleLogout}
-                                className="hidden md:block text-sm font-medium text-brand-textMuted hover:text-brand-error transition-colors"
+                                className="hidden md:block text-sm font-medium text-muted hover:text-danger transition-colors"
                             >
                                 Déconnexion
                             </button>
@@ -82,12 +84,9 @@ export function Header() {
                     ) : (
                         // Déconnecté
                         <>
-                            <Link href="/auth/login" className="hidden md:block text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
-                                Connexion
-                            </Link>
-                            <Link href="/auth/signup">
+                            <Link href={ROUTES.AUTH_LOGIN}>
                                 <Button variant="primary" size="sm" className="hidden sm:inline-flex">
-                                    Inscription
+                                    Connexion/Adhésion
                                 </Button>
                             </Link>
                         </>

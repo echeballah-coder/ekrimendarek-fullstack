@@ -81,3 +81,21 @@ export const clearSession = (): void => {
         console.error("Failed to clear session:", error);
     }
 };
+
+/**
+ * Retourne le nom d'affichage de l'utilisateur (sans exposer l'email)
+ * 
+ * @param session - Session utilisateur
+ * @returns Nom d'affichage (fullName si disponible, sinon "Utilisateur")
+ */
+export const getUserDisplayName = (session: UserSession | null): string => {
+    if (!session) return "";
+
+    // Priorité 1: fullName si disponible
+    if (session.fullName && session.fullName.trim()) {
+        return session.fullName.trim();
+    }
+
+    // Fallback: ne pas exposer l'email, retourner "Utilisateur"
+    return "Utilisateur";
+};
