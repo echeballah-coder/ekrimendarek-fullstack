@@ -1,6 +1,7 @@
 "use client"
 
 import { Drawer } from "./Drawer"
+import { ThemeToggle } from "@/components/theme/ThemeToggle"
 
 /**
  * AppDrawer - Menu drawer de l'application
@@ -31,13 +32,14 @@ export function AppDrawer({ open, onClose }: AppDrawerProps) {
                 </section>
 
                 {/* Section 2: Thème */}
-                <section className="space-y-2">
+                <section className="space-y-3">
                     <h3 className="text-sm font-semibold text-brand uppercase tracking-wide">
                         Thème
                     </h3>
-                    <div className="card-soft p-4">
-                        <p className="text-sm text-muted">
-                            Toggle thème ici (P1.4)
+                    <div className="card-soft p-4 space-y-3">
+                        <ThemeToggle />
+                        <p className="text-xs text-muted">
+                            Choisissez l&apos;apparence du site.
                         </p>
                     </div>
                 </section>
