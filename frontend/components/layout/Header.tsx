@@ -1,15 +1,17 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/Button"
 import { getSession, clearSession, UserSession } from "@/lib/authSession"
 import { toast } from "sonner"
 import { ThemeToggle } from "@/components/theme/ThemeToggle"
+import { NAV_PRIMARY, isActivePath } from "@/lib/routes"
 
 export function Header() {
     const router = useRouter()
+    const pathname = usePathname()
     const [session, setSession] = useState<UserSession | null>(null)
     const [mounted, setMounted] = useState(false)
 
@@ -39,15 +41,24 @@ export function Header() {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-6">
-                    <Link href="/" className="text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
-                        Accueil
-                    </Link>
-                    <Link href="/recherche" className="text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
-                        Trouver une voiture
-                    </Link>
-                    <Link href="#" className="text-sm font-medium text-brand-text hover:text-brand-accent transition-colors">
-                        Agences
-                    </Link>
+                    {NAV_PRIMARY.map((item) => {
+                        const isActive = isActivePath(pathname, item.href)
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className={`text-sm font-medium transition-colors relative pb-1 ${isActive
+                                        ? "text-brand-accent"
+                                        : "text-brand-text hover:text-brand-accent"
+                                    }`}
+                            >
+                                {item.label}
+                                {isActive && (
+                                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-accent rounded-full" />
+                                )}
+                            </Link>
+                        )
+                    })}
                 </nav>
 
                 <div className="flex items-center gap-3">
