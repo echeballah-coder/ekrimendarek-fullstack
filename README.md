@@ -42,8 +42,7 @@ Checklist rapide (5–10 min) pour vérifier que le frontend fonctionne correcte
 ```bash
 cd frontend
 npm install          # Si nécessaire
-npm run lint         # Vérifier qu'il n'y a pas d'erreurs ESLint
-npm run build        # Vérifier que le build passe sans erreur
+npm run check        # Lint + Build (validation complète)
 npm run dev          # Lancer le serveur de développement
 ```
 
