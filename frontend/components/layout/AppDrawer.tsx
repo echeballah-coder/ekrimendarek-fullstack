@@ -6,7 +6,7 @@ import Link from "next/link"
 import { Drawer } from "./Drawer"
 import { ThemeToggle } from "@/components/theme/ThemeToggle"
 import { getSession, clearSession, getUserDisplayName, UserSession } from "@/lib/authSession"
-import { ROUTES } from "@/lib/routes"
+import { ROUTES, UTIL_CTA } from "@/lib/routes"
 import { toast } from "sonner"
 
 /**
@@ -101,7 +101,30 @@ export function AppDrawer({ open, onClose }: AppDrawerProps) {
                     </div>
                 </section>
 
-                {/* Section 2: Thème */}
+                {/* Section 2: Actions rapides */}
+                <section className="space-y-3">
+                    <h3 className="text-sm font-semibold text-brand uppercase tracking-wide">
+                        Actions rapides
+                    </h3>
+                    <div className="card-soft p-4 space-y-3">
+                        <div className="flex flex-col gap-2">
+                            {UTIL_CTA.map((item) => (
+                                <button
+                                    key={item.href}
+                                    onClick={() => handleNavigate(item.href)}
+                                    className="btn-secondary w-full text-left"
+                                >
+                                    {item.label}
+                                </button>
+                            ))}
+                        </div>
+                        <p className="text-xs text-muted">
+                            Accédez aux étapes clés en 1 clic.
+                        </p>
+                    </div>
+                </section>
+
+                {/* Section 3: Thème */}
                 <section className="space-y-3">
                     <h3 className="text-sm font-semibold text-brand uppercase tracking-wide">
                         Thème
