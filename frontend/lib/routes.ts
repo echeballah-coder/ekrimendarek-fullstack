@@ -44,6 +44,9 @@ export const ROUTES = {
     // Légal
     LEGAL: "/legal",
 
+    // Reçu
+    RECEIPT: "/receipt",
+
     // Véhicule détail (fonction helper)
     vehicleDetail: (id: string | number) => `/vehicule/${id}`,
 
