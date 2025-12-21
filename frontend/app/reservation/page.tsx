@@ -15,6 +15,7 @@ import { toast } from "sonner"
 import { calculateDays, calculateTotal, calculateDeposit } from "@/lib/pricing"
 import { getSession } from "@/lib/authSession"
 import { buildReturnTo, buildLoginUrl } from "@/lib/returnTo"
+import { saveReservationDraft } from "@/lib/reservationDraft"
 
 function AuthGuard({ children }: { children: React.ReactNode }) {
     const router = useRouter()
@@ -28,6 +29,22 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
         const session = getSession()
 
         if (!session) {
+            // Save reservation draft before redirect
+            const draftData = {
+                vehicleId: searchParams.get("vehicleId") || searchParams.get("vehiculeId") || searchParams.get("id") || undefined,
+                pickupDate: searchParams.get("pickupDate") || undefined,
+                pickupTime: searchParams.get("pickupTime") || undefined,
+                returnDate: searchParams.get("returnDate") || undefined,
+                returnTime: searchParams.get("returnTime") || undefined,
+                pickupWilaya: searchParams.get("pickupWilaya") || undefined,
+                pickupPlace: searchParams.get("pickupPlace") || undefined,
+                returnDifferent: (searchParams.get("returnDifferent") === "1" ? "1" : searchParams.get("returnDifferent") === "0" ? "0" : undefined) as "0" | "1" | undefined,
+                returnWilaya: searchParams.get("returnWilaya") || undefined,
+                returnPlace: searchParams.get("returnPlace") || undefined,
+            }
+
+            saveReservationDraft(draftData)
+
             // Build returnTo URL
             const search = searchParams.toString()
             const returnTo = buildReturnTo(pathname, search ? `?${search}` : "")

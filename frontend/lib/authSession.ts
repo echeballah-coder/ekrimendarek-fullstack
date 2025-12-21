@@ -20,6 +20,7 @@
 const SESSION_KEY = "ekrimendarek_auth_v1";
 
 import { clearKycState } from "./kyc"
+import { clearReservationDraft } from "./reservationDraft"
 
 /** Structure de la session utilisateur */
 export interface UserSession {
@@ -80,6 +81,7 @@ export const clearSession = (): void => {
     try {
         localStorage.removeItem(SESSION_KEY);
         clearKycState(); // Purge KYC data on logout (demo)
+        clearReservationDraft(); // Purge reservation draft on logout (demo)
     } catch (error) {
         console.error("Failed to clear session:", error);
     }
