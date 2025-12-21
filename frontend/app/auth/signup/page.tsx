@@ -21,6 +21,19 @@ export default function SignupPage() {
     const [errors, setErrors] = useState<SignupErrors>({})
     const [isLoading, setIsLoading] = useState(false)
 
+    // KYC Documents
+    const [passport, setPassport] = useState<File | null>(null)
+    const [license, setLicense] = useState<File | null>(null)
+    const [selfie, setSelfie] = useState<File | null>(null)
+    const [kycErrors, setKycErrors] = useState<Record<string, string>>({})
+
+    // Helper to format file size
+    const formatFileSize = (bytes: number): string => {
+        if (bytes < 1024) return `${bytes} B`
+        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+        return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+    }
+
     const handleChange = (field: keyof SignupPayload) => (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData(prev => ({ ...prev, [field]: e.target.value }))
         // Clear error when user types
@@ -32,10 +45,21 @@ export default function SignupPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        // Validate
+        // Validate form fields
         const validationErrors = validateSignup(formData)
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors)
+            return
+        }
+
+        // Validate KYC documents
+        const newKycErrors: Record<string, string> = {}
+        if (!passport) newKycErrors.passport = "Le passeport est obligatoire."
+        if (!license) newKycErrors.license = "Le permis de conduire est obligatoire."
+        if (!selfie) newKycErrors.selfie = "La photo d'identité est obligatoire."
+
+        if (Object.keys(newKycErrors).length > 0) {
+            setKycErrors(newKycErrors)
             return
         }
 
@@ -131,6 +155,168 @@ export default function SignupPage() {
                             {errors.confirmPassword && (
                                 <p className="text-xs text-brand-error mt-1">{errors.confirmPassword}</p>
                             )}
+                        </div>
+
+                        {/* KYC Documents Section */}
+                        <div className="pt-6 border-t border-border space-y-4">
+                            <div className="space-y-2">
+                                <h2 className="text-base font-semibold text-text">Documents officiels</h2>
+                                <p className="text-sm text-muted">
+                                    Obligatoire pour activer votre compte. Vos documents ne sont jamais affichés en clair.
+                                </p>
+                            </div>
+
+                            {/* Global KYC Error */}
+                            {Object.keys(kycErrors).length > 0 && (
+                                <div className="card-soft p-4 border-l-4 border-danger" role="alert">
+                                    <p className="text-sm text-danger font-medium">
+                                        Veuillez fournir tous les documents requis pour continuer.
+                                    </p>
+                                </div>
+                            )}
+
+                            <div className="grid grid-cols-1 gap-4">
+                                {/* Passport */}
+                                <div className="card p-4 space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <label htmlFor="passport" className="text-sm font-medium text-text">
+                                            Passeport
+                                        </label>
+                                        <span className="badge-danger text-xs">Obligatoire</span>
+                                    </div>
+                                    <input
+                                        id="passport"
+                                        type="file"
+                                        accept="image/*,application/pdf"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0] || null
+                                            setPassport(file)
+                                            if (file && kycErrors.passport) {
+                                                setKycErrors((prev) => {
+                                                    const newErrors = { ...prev }
+                                                    delete newErrors.passport
+                                                    return newErrors
+                                                })
+                                            }
+                                        }}
+                                        className={`input w-full text-sm ${kycErrors.passport ? "input-error" : ""}`}
+                                        disabled={isLoading}
+                                    />
+                                    <p className="help-text">Formats : Image ou PDF • Max 10 Mo (démo)</p>
+                                    {passport && (
+                                        <div className="flex items-center justify-between text-sm">
+                                            <span className="text-text">
+                                                Fichier : {passport.name} — {formatFileSize(passport.size)}
+                                            </span>
+                                            <button
+                                                type="button"
+                                                onClick={() => setPassport(null)}
+                                                className="btn-ghost text-xs"
+                                                disabled={isLoading}
+                                            >
+                                                Retirer
+                                            </button>
+                                        </div>
+                                    )}
+                                    {kycErrors.passport && (
+                                        <p className="error-text">{kycErrors.passport}</p>
+                                    )}
+                                </div>
+
+                                {/* License */}
+                                <div className="card p-4 space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <label htmlFor="license" className="text-sm font-medium text-text">
+                                            Permis de conduire
+                                        </label>
+                                        <span className="badge-danger text-xs">Obligatoire</span>
+                                    </div>
+                                    <input
+                                        id="license"
+                                        type="file"
+                                        accept="image/*,application/pdf"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0] || null
+                                            setLicense(file)
+                                            if (file && kycErrors.license) {
+                                                setKycErrors((prev) => {
+                                                    const newErrors = { ...prev }
+                                                    delete newErrors.license
+                                                    return newErrors
+                                                })
+                                            }
+                                        }}
+                                        className={`input w-full text-sm ${kycErrors.license ? "input-error" : ""}`}
+                                        disabled={isLoading}
+                                    />
+                                    <p className="help-text">Formats : Image ou PDF • Max 10 Mo (démo)</p>
+                                    {license && (
+                                        <div className="flex items-center justify-between text-sm">
+                                            <span className="text-text">
+                                                Fichier : {license.name} — {formatFileSize(license.size)}
+                                            </span>
+                                            <button
+                                                type="button"
+                                                onClick={() => setLicense(null)}
+                                                className="btn-ghost text-xs"
+                                                disabled={isLoading}
+                                            >
+                                                Retirer
+                                            </button>
+                                        </div>
+                                    )}
+                                    {kycErrors.license && (
+                                        <p className="error-text">{kycErrors.license}</p>
+                                    )}
+                                </div>
+
+                                {/* Selfie */}
+                                <div className="card p-4 space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <label htmlFor="selfie" className="text-sm font-medium text-text">
+                                            Selfie / Photo d&apos;identité
+                                        </label>
+                                        <span className="badge-danger text-xs">Obligatoire</span>
+                                    </div>
+                                    <input
+                                        id="selfie"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0] || null
+                                            setSelfie(file)
+                                            if (file && kycErrors.selfie) {
+                                                setKycErrors((prev) => {
+                                                    const newErrors = { ...prev }
+                                                    delete newErrors.selfie
+                                                    return newErrors
+                                                })
+                                            }
+                                        }}
+                                        className={`input w-full text-sm ${kycErrors.selfie ? "input-error" : ""}`}
+                                        disabled={isLoading}
+                                    />
+                                    <p className="help-text">Formats : Image uniquement • Max 10 Mo (démo)</p>
+                                    {selfie && (
+                                        <div className="flex items-center justify-between text-sm">
+                                            <span className="text-text">
+                                                Fichier : {selfie.name} — {formatFileSize(selfie.size)}
+                                            </span>
+                                            <button
+                                                type="button"
+                                                onClick={() => setSelfie(null)}
+                                                className="btn-ghost text-xs"
+                                                disabled={isLoading}
+                                            >
+                                                Retirer
+                                            </button>
+                                        </div>
+                                    )}
+                                    {kycErrors.selfie && (
+                                        <p className="error-text">{kycErrors.selfie}</p>
+                                    )}
+                                </div>
+                            </div>
                         </div>
 
                         <Button
