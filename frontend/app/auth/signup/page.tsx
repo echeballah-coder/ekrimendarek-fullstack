@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Input } from "@/components/ui/Input"
@@ -9,10 +9,14 @@ import { Button } from "@/components/ui/Button"
 import { validateSignup, SignupPayload, SignupErrors } from "@/lib/validation"
 import { setSession } from "@/lib/authSession"
 import { initKycPending } from "@/lib/kyc"
+import { buildPostAuthRedirectUrl } from "@/lib/postAuthRedirect"
 import { toast } from "sonner"
 
 export default function SignupPage() {
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const returnTo = searchParams.get("returnTo")
+
     const [formData, setFormData] = useState<SignupPayload>({
         fullName: "",
         email: "",
@@ -85,8 +89,15 @@ export default function SignupPage() {
             })
 
             toast.success("✅ Compte créé avec succès !")
+
+            // Build post-auth redirect URL
+            const nextUrl = buildPostAuthRedirectUrl({
+                returnTo,
+                fallbackHref: "/"
+            })
+
             setIsLoading(false)
-            router.push("/account")
+            router.replace(nextUrl)
         }, 500)
     }
 
@@ -102,8 +113,13 @@ export default function SignupPage() {
                 <CardHeader>
                     <CardTitle className="text-center text-2xl">Créer un compte</CardTitle>
                     <p className="text-center text-sm text-brand-textMuted mt-2">
-                        Rejoignez EkriMenDarek en quelques clics
+                        Rejoignez EkriMenDarek pour louer vos véhicules
                     </p>
+                    {returnTo && (
+                        <p className="text-center text-xs text-muted mt-2">
+                            Après création du compte, vous reprenez là où vous vous étiez arrêté.
+                        </p>
+                    )}
                 </CardHeader>
 
                 <CardContent>

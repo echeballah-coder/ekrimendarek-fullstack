@@ -1,18 +1,21 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card"
 import { Input } from "@/components/ui/Input"
 import { Button } from "@/components/ui/Button"
 import { validateLogin, LoginPayload, LoginErrors } from "@/lib/validation"
 import { setSession } from "@/lib/authSession"
+import { buildPostAuthRedirectUrl } from "@/lib/postAuthRedirect"
 import { toast } from "sonner"
-import { cn } from "@/lib/utils"
 
 export default function LoginPage() {
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const returnTo = searchParams.get("returnTo")
+
     const [formData, setFormData] = useState<LoginPayload>({
         email: "",
         password: ""
@@ -51,8 +54,15 @@ export default function LoginPage() {
             })
 
             toast.success("✅ Connexion réussie !")
+
+            // Build post-auth redirect URL
+            const nextUrl = buildPostAuthRedirectUrl({
+                returnTo,
+                fallbackHref: "/"
+            })
+
             setIsLoading(false)
-            router.push("/account")
+            router.replace(nextUrl)
         }, 400)
     }
 
@@ -66,6 +76,11 @@ export default function LoginPage() {
                     <p className="text-center text-sm text-brand-textMuted mt-2">
                         Accédez à votre espace client
                     </p>
+                    {returnTo && (
+                        <p className="text-center text-xs text-muted mt-2">
+                            Après connexion, vous serez renvoyé vers l&apos;étape où vous étiez.
+                        </p>
+                    )}
                 </CardHeader>
 
                 <CardContent>
