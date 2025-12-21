@@ -47,6 +47,9 @@ export const ROUTES = {
     // Reçu
     RECEIPT: "/receipt",
 
+    // Documentation
+    DOCUMENTATION: "/documentation",
+
     // Véhicule détail (fonction helper)
     vehicleDetail: (id: string | number) => `/vehicule/${id}`,
 
