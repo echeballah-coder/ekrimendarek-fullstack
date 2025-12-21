@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/Input"
 import { Button } from "@/components/ui/Button"
 import { validateSignup, SignupPayload, SignupErrors } from "@/lib/validation"
 import { setSession } from "@/lib/authSession"
+import { initKycPending } from "@/lib/kyc"
 import { toast } from "sonner"
 
 export default function SignupPage() {
@@ -61,6 +62,14 @@ export default function SignupPage() {
         if (Object.keys(newKycErrors).length > 0) {
             setKycErrors(newKycErrors)
             return
+        }
+
+        // Initialize KYC pending state (demo)
+        try {
+            initKycPending()
+        } catch (error) {
+            console.warn("[Signup] Failed to init KYC state:", error)
+            // Don't block signup on KYC init failure
         }
 
         // Simulate loading

@@ -19,6 +19,8 @@
 /** Clé de stockage localStorage pour la session */
 const SESSION_KEY = "ekrimendarek_auth_v1";
 
+import { clearKycState } from "./kyc"
+
 /** Structure de la session utilisateur */
 export interface UserSession {
     email: string;
@@ -77,6 +79,7 @@ export const clearSession = (): void => {
 
     try {
         localStorage.removeItem(SESSION_KEY);
+        clearKycState(); // Purge KYC data on logout (demo)
     } catch (error) {
         console.error("Failed to clear session:", error);
     }
