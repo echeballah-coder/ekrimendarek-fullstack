@@ -1,162 +1,69 @@
 "use client"
 
-import { useState } from "react"
-import { Button, buttonBaseStyles, buttonSizes, buttonVariants } from "@/components/ui/Button"
-import { Input } from "@/components/ui/Input"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/Card"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { cn } from "@/lib/utils"
-import { AnimatedSection } from "@/components/animations/AnimatedSection"
-import { toast } from "sonner"
+import { ROUTES } from "@/lib/routes"
 
-export default function KYCPage() {
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [isSuccess, setIsSuccess] = useState(false)
-    const [formData, setFormData] = useState({
-        licenseNumber: "",
-        issuedDate: "",
-        wilaya: ""
-    })
+export default function KycPage() {
+    const router = useRouter()
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        setIsSubmitting(true)
+    useEffect(() => {
+        // Auto-redirect after 800ms
+        const timer = setTimeout(() => {
+            router.push(ROUTES.SETTINGS_DOCUMENTS)
+        }, 800)
 
-        // Simulate API call
-        setTimeout(() => {
-            toast.success("✅ Documents envoyés. Vérification d'identité simulée avec succès.");
-            setIsSubmitting(false)
-            setIsSuccess(true)
-        }, 2000)
-    }
-
-    // Handle Input Changes
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormData(prev => ({ ...prev, [name]: value }))
-    }
-
-    if (isSuccess) {
-        return (
-            <div className="min-h-screen bg-brand-background py-16 px-4 flex justify-center items-center">
-                <Card className="max-w-lg w-full bg-brand-surface border-brand-success/50 animate-in fade-in zoom-in duration-300">
-                    <CardHeader className="text-center">
-                        <div className="mx-auto bg-brand-success/20 text-brand-success w-20 h-20 rounded-full flex items-center justify-center mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-10 h-10">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <CardTitle className="text-2xl text-brand-text mb-2">Documents reçus !</CardTitle>
-                        <CardDescription>
-                            Vos informations ont été transmises à l&apos;agence.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="text-center text-brand-text/80 space-y-4">
-                        <p>La vérification de votre identité est en cours de traitement.</p>
-                        <div className="bg-brand-background p-4 rounded-lg border border-brand-border text-sm text-brand-textMuted">
-                            <strong>Note pour la démo :</strong> Aucun document n&apos;a été réellement envoyé. C&apos;est une simulation.
-                        </div>
-                    </CardContent>
-                    <CardFooter className="justify-center pt-6">
-                        <Link
-                            href="/recherche"
-                            className={cn(buttonBaseStyles, buttonVariants.primary, buttonSizes.lg)}
-                        >
-                            Retour à l&apos;accueil
-                        </Link>
-                    </CardFooter>
-                </Card>
-            </div>
-        )
-    }
+        return () => clearTimeout(timer)
+    }, [router])
 
     return (
-        <div className="min-h-screen bg-brand-background py-16">
-            <div className="container mx-auto px-4 max-w-2xl">
-                <div className="text-center mb-10">
-                    <h1 className="text-3xl font-bold text-brand-text mb-4">Vérification d&apos;identité (KYC)</h1>
-                    <p className="text-brand-textMuted max-w-lg mx-auto">
-                        Pour assurer la sécurité des locations, nous avons besoin de vérifier votre identité et votre permis de conduire.
+        <div className="container-emd py-16 sm:py-20">
+            <div className="max-w-2xl mx-auto text-center space-y-8">
+                <div className="space-y-4">
+                    <span className="badge-muted">KYC</span>
+                    <h1 className="text-2xl sm:text-3xl font-semibold text-text">
+                        La gestion KYC a été déplacée
+                    </h1>
+                    <p className="text-muted">
+                        Vous allez être redirigé vers la nouvelle page de gestion des documents...
                     </p>
                 </div>
 
-                <AnimatedSection>
-                    <Card className="border-brand-accent/20">
-                        <CardHeader>
-                            <CardTitle>Informations du conducteur</CardTitle>
-                            <CardDescription>Veuillez remplir les informations et télécharger les documents requis.</CardDescription>
-                        </CardHeader>
-                        <form onSubmit={handleSubmit}>
-                            <CardContent className="space-y-6">
-                                {/* Text Inputs */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-brand-text">Numéro de permis (Biométrique ou Classique)</label>
-                                        <Input
-                                            name="licenseNumber"
-                                            placeholder="ex: 123456789"
-                                            value={formData.licenseNumber}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-brand-text">Date de délivrance</label>
-                                        <Input
-                                            type="date"
-                                            name="issuedDate"
-                                            value={formData.issuedDate}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="space-y-2 md:col-span-2">
-                                        <label className="text-sm font-medium text-brand-text">Wilaya de délivrance</label>
-                                        <Input
-                                            name="wilaya"
-                                            placeholder="ex: Alger"
-                                            value={formData.wilaya}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </div>
-                                </div>
+                <div className="card-soft p-8 space-y-6">
+                    <div className="w-12 h-12 mx-auto rounded-full bg-brand/10 flex items-center justify-center">
+                        <svg
+                            className="w-6 h-6 text-brand animate-spin"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                            <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                            />
+                            <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            />
+                        </svg>
+                    </div>
 
-                                {/* File Upload Mocks */}
-                                <div className="space-y-4 pt-4 border-t border-brand-border">
-                                    <h3 className="font-semibold text-brand-text">Documents numérisés</h3>
+                    <Link href={ROUTES.SETTINGS_DOCUMENTS}>
+                        <button className="btn-primary">
+                            Gérer mes documents
+                        </button>
+                    </Link>
+                </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-brand-text">Photo du permis (Recto/Verso)</label>
-                                        <div className="flex items-center gap-4">
-                                            <Input type="file" className="text-sm cursor-pointer file:cursor-pointer file:text-brand-accent file:border-0 file:bg-transparent" accept="image/*" />
-                                        </div>
-                                        <p className="text-xs text-brand-textMuted">Formats acceptés : JPG, PNG. Max 5MB.</p>
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-brand-text">Selfie avec pièce d&apos;identité</label>
-                                        <div className="flex items-center gap-4">
-                                            <Input type="file" className="text-sm cursor-pointer file:cursor-pointer file:text-brand-accent file:border-0 file:bg-transparent" accept="image/*" />
-                                        </div>
-                                        <p className="text-xs text-brand-textMuted">Pour vérifier que c&apos;est bien vous (obligatoire pour la validation).</p>
-                                    </div>
-                                </div>
-                            </CardContent>
-                            <CardFooter className="flex justify-end pt-2">
-                                <Button
-                                    type="submit"
-                                    variant="primary"
-                                    size="lg"
-                                    className="w-full md:w-auto"
-                                    isLoading={isSubmitting}
-                                >
-                                    {isSubmitting ? "Envoi en cours..." : "Soumettre mes documents"}
-                                </Button>
-                            </CardFooter>
-                        </form>
-                    </Card>
-                </AnimatedSection>
+                <p className="text-xs text-muted">
+                    Mode démo : redirection automatique dans quelques instants
+                </p>
             </div>
         </div>
     )

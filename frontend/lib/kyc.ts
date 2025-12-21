@@ -112,3 +112,39 @@ export function initKycPending(): void {
         console.warn("[KYC] Failed to initialize pending state:", error)
     }
 }
+
+/**
+ * Update a specific KYC document status
+ * @param docKey - Document to update (passport, license, or selfie)
+ * @param updates - Partial updates to apply
+ */
+export function updateKycDoc(
+    docKey: KycDocKey,
+    updates: Partial<KycDocState>
+): void {
+    if (typeof window === "undefined") return
+
+    try {
+        const currentState = loadKycState()
+
+        if (!currentState) {
+            console.warn("[KYC] No state found, cannot update document")
+            return
+        }
+
+        const updatedDoc: KycDocState = {
+            ...currentState[docKey],
+            ...updates,
+            updatedAt: new Date().toISOString(),
+        }
+
+        const newState: KycState = {
+            ...currentState,
+            [docKey]: updatedDoc,
+        }
+
+        saveKycState(newState)
+    } catch (error) {
+        console.warn("[KYC] Failed to update document:", error)
+    }
+}

@@ -50,6 +50,9 @@ export const ROUTES = {
     // Documentation
     DOCUMENTATION: "/documentation",
 
+    // Settings
+    SETTINGS_DOCUMENTS: "/settings/documents",
+
     // Véhicule détail (fonction helper)
     vehicleDetail: (id: string | number) => `/vehicule/${id}`,
 
