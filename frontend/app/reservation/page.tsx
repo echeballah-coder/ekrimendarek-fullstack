@@ -1,8 +1,7 @@
 "use client"
 
-import { Suspense } from "react"
-import { useSearchParams } from "next/navigation"
-import { useState, useEffect } from "react"
+import { Suspense, useEffect, useState } from "react"
+import { useSearchParams, usePathname, useRouter } from "next/navigation"
 import { mockVehicles } from "@/data/mockVehicles"
 import { Button, buttonBaseStyles, buttonSizes, buttonVariants } from "@/components/ui/Button"
 import { Input } from "@/components/ui/Input"
@@ -14,6 +13,100 @@ import { saveBooking } from "@/lib/localBookings"
 import { Booking } from "@/data/mockBookings"
 import { toast } from "sonner"
 import { calculateDays, calculateTotal, calculateDeposit } from "@/lib/pricing"
+import { getSession } from "@/lib/authSession"
+import { buildReturnTo, buildLoginUrl } from "@/lib/returnTo"
+
+function AuthGuard({ children }: { children: React.ReactNode }) {
+    const router = useRouter()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+    const [isChecking, setIsChecking] = useState(true)
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+    useEffect(() => {
+        // Check authentication
+        const session = getSession()
+
+        if (!session) {
+            // Build returnTo URL
+            const search = searchParams.toString()
+            const returnTo = buildReturnTo(pathname, search ? `?${search}` : "")
+            const loginUrl = buildLoginUrl(returnTo)
+
+            // Redirect to login
+            router.replace(loginUrl)
+        } else {
+            setIsAuthenticated(true)
+        }
+
+        setIsChecking(false)
+    }, [router, pathname, searchParams])
+
+    // Show loading/redirect UI while checking or redirecting
+    if (isChecking || !isAuthenticated) {
+        return (
+            <div className="container-emd py-16 sm:py-20">
+                <div className="max-w-2xl mx-auto text-center space-y-8">
+                    <div className="space-y-4">
+                        <span className="badge-muted">Accès requis</span>
+                        <h1 className="text-2xl sm:text-3xl font-semibold text-text">
+                            Connexion nécessaire
+                        </h1>
+                        <p className="text-muted">
+                            Pour continuer votre réservation, veuillez vous connecter.
+                        </p>
+                    </div>
+
+                    <div className="card-soft p-8 space-y-6">
+                        <div className="w-12 h-12 mx-auto rounded-full bg-brand/10 flex items-center justify-center">
+                            <svg
+                                className="w-6 h-6 text-brand animate-spin"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                />
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                />
+                            </svg>
+                        </div>
+
+                        <p className="text-sm text-muted" role="status" aria-live="polite">
+                            Redirection…
+                        </p>
+
+                        <button
+                            onClick={() => {
+                                const search = searchParams.toString()
+                                const returnTo = buildReturnTo(pathname, search ? `?${search}` : "")
+                                router.push(buildLoginUrl(returnTo))
+                            }}
+                            className="btn-secondary"
+                        >
+                            Aller à la connexion
+                        </button>
+                    </div>
+
+                    <p className="text-xs text-muted">
+                        Mode démo : redirection automatique vers la page de connexion
+                    </p>
+                </div>
+            </div>
+        )
+    }
+
+    return <>{children}</>
+}
 
 function ReservationContent() {
     const searchParams = useSearchParams()
@@ -43,8 +136,8 @@ function ReservationContent() {
                     endDate: endDate,
                     totalAmount: total,
                     depositAmount: deposit,
-                    status: 'PENDING_PAYMENT', // Or CONFIRMED depending on flow, keeping PENDING for realism
-                    agencyName: `Agence ${vehicle.location.split(',')[0]}`, // Mock agency name based on city
+                    status: 'PENDING_PAYMENT',
+                    agencyName: `Agence ${vehicle.location.split(',')[0]}`,
                 };
                 saveBooking(newBooking);
                 toast.success("✅ Réservation confirmée ! Acompte enregistré, reste à payer en agence.");
@@ -114,7 +207,9 @@ function ReservationContent() {
                     <div className="space-y-6">
                         <Card>
                             <CardHeader>
-                                <CardTitle>Véhicule sélectionné</CardTitle>
+                                <CardTitle>V
+
+                                    éhicule sélectionné</CardTitle>
                             </CardHeader>
                             <CardContent className="flex gap-4">
                                 <div className="w-24 h-24 bg-brand-background rounded-md flex items-center justify-center border border-brand-border shrink-0">
@@ -213,7 +308,9 @@ function ReservationContent() {
 export default function ReservationPage() {
     return (
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Chargement...</div>}>
-            <ReservationContent />
+            <AuthGuard>
+                <ReservationContent />
+            </AuthGuard>
         </Suspense>
     )
 }
