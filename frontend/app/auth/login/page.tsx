@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from "react"
 import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
@@ -11,7 +12,7 @@ import { setSession } from "@/lib/authSession"
 import { buildPostAuthRedirectUrl } from "@/lib/postAuthRedirect"
 import { toast } from "sonner"
 
-export default function LoginPage() {
+function LoginForm() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const returnTo = searchParams.get("returnTo")
@@ -33,18 +34,18 @@ export default function LoginPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        setIsLoading(true)
+        setErrors({})
 
         // Validate
         const validationErrors = validateLogin(formData)
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors)
+            setIsLoading(false)
             return
         }
 
-        // Simulate loading
-        setIsLoading(true)
-
-        // Mode démo : accepte n'importe quel email/password valide
+        // Simulate login
         setTimeout(() => {
             setSession({
                 email: formData.email,
@@ -66,11 +67,9 @@ export default function LoginPage() {
         }, 400)
     }
 
-    const isFormValid = formData.email && formData.password
-
     return (
-        <div className="min-h-screen bg-brand-background flex items-center justify-center px-4 py-12">
-            <Card className="w-full max-w-md border-brand-border">
+        <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-surface">
+            <Card className="w-full max-w-md">
                 <CardHeader>
                     <CardTitle className="text-center text-2xl">Connexion</CardTitle>
                     <p className="text-center text-sm text-brand-textMuted mt-2">
@@ -83,64 +82,90 @@ export default function LoginPage() {
                     )}
                 </CardHeader>
 
-                <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit}>
+                    <CardContent className="space-y-4">
+                        {/* Email */}
                         <div>
+                            <label htmlFor="email" className="block text-sm font-medium mb-1.5">
+                                Email
+                            </label>
                             <Input
+                                id="email"
                                 type="email"
-                                label="Adresse email"
-                                placeholder="exemple@email.dz"
                                 value={formData.email}
                                 onChange={handleChange("email")}
+                                placeholder="exemple@mail.dz"
                                 disabled={isLoading}
+                                autoComplete="email"
                             />
                             {errors.email && (
-                                <p className="text-xs text-brand-error mt-1">{errors.email}</p>
+                                <p className="text-sm text-red-600 mt-1">{errors.email}</p>
                             )}
                         </div>
 
+                        {/* Password */}
                         <div>
+                            <label htmlFor="password" className="block text-sm font-medium mb-1.5">
+                                Mot de passe
+                            </label>
                             <Input
+                                id="password"
                                 type="password"
-                                label="Mot de passe"
-                                placeholder="••••••••"
                                 value={formData.password}
                                 onChange={handleChange("password")}
+                                placeholder="••••••••"
                                 disabled={isLoading}
+                                autoComplete="current-password"
                             />
                             {errors.password && (
-                                <p className="text-xs text-brand-error mt-1">{errors.password}</p>
+                                <p className="text-sm text-red-600 mt-1">{errors.password}</p>
                             )}
                         </div>
 
+                        {/* Forgot password */}
+                        <div className="text-right">
+                            <Link href="/auth/forgot-password" className="text-sm text-brand hover:underline">
+                                Mot de passe oublié ?
+                            </Link>
+                        </div>
+                    </CardContent>
+
+                    <CardFooter className="flex flex-col gap-4">
                         <Button
                             type="submit"
                             variant="primary"
                             size="lg"
                             className="w-full"
-                            disabled={!isFormValid || isLoading}
-                            isLoading={isLoading}
+                            disabled={isLoading}
                         >
                             {isLoading ? "Connexion..." : "Se connecter"}
                         </Button>
-                    </form>
 
-                    <div className="mt-6 p-4 bg-brand-background rounded-lg border border-brand-border">
-                        <p className="text-xs text-brand-textMuted text-center">
-                            <strong>Mode démo :</strong> Entrez n&apos;importe quel email valide et un mot de passe de 8+ caractères
+                        <p className="text-sm text-center text-muted">
+                            Pas encore de compte ?{" "}
+                            <Link href="/auth/signup" className="text-brand hover:underline font-medium">
+                                Créer un compte
+                            </Link>
                         </p>
-                    </div>
-                </CardContent>
-
-                <CardFooter className="justify-center border-t border-brand-border/50 pt-6">
-                    <p className="text-sm text-brand-textMuted">
-                        Pas encore de compte ?{" "}
-                        <Link href="/auth/signup" className="text-brand-accent hover:text-brand-accentHighlight font-medium">
-                            Créer un compte
-                        </Link>
-                    </p>
-                </CardFooter>
+                    </CardFooter>
+                </form>
             </Card>
         </div>
+    )
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-surface">
+                <Card className="w-full max-w-md">
+                    <CardContent className="py-12 text-center">
+                        <p className="text-muted">Chargement...</p>
+                    </CardContent>
+                </Card>
+            </div>
+        }>
+            <LoginForm />
+        </Suspense>
     )
 }

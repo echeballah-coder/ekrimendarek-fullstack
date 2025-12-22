@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from "react"
 import { useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
@@ -12,7 +13,7 @@ import { initKycPending } from "@/lib/kyc"
 import { buildPostAuthRedirectUrl } from "@/lib/postAuthRedirect"
 import { toast } from "sonner"
 
-export default function SignupPage() {
+function SignupForm() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const returnTo = searchParams.get("returnTo")
@@ -373,5 +374,21 @@ export default function SignupPage() {
                 </CardFooter>
             </Card>
         </div>
+    )
+}
+
+export default function SignupPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-surface">
+                <Card className="w-full max-w-md">
+                    <CardContent className="py-12 text-center">
+                        <p className="text-muted">Chargement...</p>
+                    </CardContent>
+                </Card>
+            </div>
+        }>
+            <SignupForm />
+        </Suspense>
     )
 }
