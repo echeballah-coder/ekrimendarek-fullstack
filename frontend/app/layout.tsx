@@ -12,11 +12,13 @@
  */
 
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, DM_Sans, DM_Serif_Display } from 'next/font/google'
 import './globals.css'
 
-/** Configuration de la font Inter (Google Fonts) */
+/** Configuration des fonts Google Fonts */
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
+const dmSerif = DM_Serif_Display({ weight: '400', subsets: ['latin'], variable: '--font-dm-serif' })
 
 /** Métadonnées SEO de l'application */
 export const metadata: Metadata = {
@@ -36,7 +38,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="fr" suppressHydrationWarning>
-            <body className={`${inter.variable} font-sans bg-bg text-text antialiased min-h-screen flex flex-col`} suppressHydrationWarning>
+            <body className={`${inter.variable} ${dmSans.variable} ${dmSerif.variable} font-sans bg-bg text-text antialiased min-h-screen flex flex-col`} suppressHydrationWarning>
                 <ThemeProvider>
                     <Header />
                     <main className="flex-1">

@@ -48,6 +48,35 @@ module.exports = {
                 'brand-success': 'rgb(var(--brand) / <alpha-value>)', // Success = brand
                 'brand-error': 'rgb(var(--danger) / <alpha-value>)',
                 'brand-warning': 'rgb(var(--warning) / <alpha-value>)',
+
+                // Lovable (Organic Tech) Colors
+                lovable: {
+                    background: "hsl(var(--lovable-background))",
+                    foreground: "hsl(var(--lovable-foreground))",
+                    card: "hsl(var(--lovable-card))",
+                    "card-foreground": "hsl(var(--lovable-card-foreground))",
+                    popover: "hsl(var(--lovable-popover))",
+                    "popover-foreground": "hsl(var(--lovable-popover-foreground))",
+                    primary: "hsl(var(--lovable-primary))",
+                    "primary-foreground": "hsl(var(--lovable-primary-foreground))",
+                    secondary: "hsl(var(--lovable-secondary))",
+                    "secondary-foreground": "hsl(var(--lovable-secondary-foreground))",
+                    muted: "hsl(var(--lovable-muted))",
+                    "muted-foreground": "hsl(var(--lovable-muted-foreground))",
+                    accent: "hsl(var(--lovable-accent))",
+                    "accent-foreground": "hsl(var(--lovable-accent-foreground))",
+                    destructive: "hsl(var(--lovable-destructive))",
+                    "destructive-foreground": "hsl(var(--lovable-destructive-foreground))",
+                    border: "hsl(var(--lovable-border))",
+                    input: "hsl(var(--lovable-input))",
+                    ring: "hsl(var(--lovable-ring))",
+                    terracotta: "hsl(var(--lovable-terracotta))",
+                    forest: "hsl(var(--lovable-forest))",
+                    sage: "hsl(var(--lovable-sage))",
+                    sand: "hsl(var(--lovable-sand))",
+                    cream: "hsl(var(--lovable-cream))",
+                    mint: "hsl(var(--lovable-mint))",
+                },
             },
             backgroundImage: {
                 'brand-gradient': 'linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand2)))',
@@ -55,6 +84,8 @@ module.exports = {
             },
             fontFamily: {
                 sans: ['var(--font-inter)', 'sans-serif'],
+                lovable: ['var(--font-dm-sans)', 'sans-serif'],
+                serif: ['var(--font-dm-serif)', 'serif'],
             },
             borderRadius: {
                 lg: '0.5rem',

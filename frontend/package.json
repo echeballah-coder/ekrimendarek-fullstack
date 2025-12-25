@@ -10,6 +10,8 @@
     "check": "npm run lint && npm run build"
   },
   "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
     "@types/animejs": "^3.1.13",
     "animejs": "^3.2.2",
     "clsx": "^2.1.1",
