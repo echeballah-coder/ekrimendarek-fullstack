@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { ArrowRight, MapPin, Calendar, Search, ShieldCheck, Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { fadeInUp } from "@/lib/animations";
+import { HomeReservationSheet } from "./HomeReservationSheet";
 
 // Wilayas list for select
 const WILAYAS = ["Alger", "Oran", "Constantine", "Annaba", "Blida", "Sétif", "Tizi Ouzou", "Béjaïa", "Tlemcen", "Batna"];
@@ -16,14 +17,10 @@ export function HeroSection() {
     const router = useRouter();
     // Removed useScrollReveal and isLoaded state for declarative motion
 
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
-    const [location, setLocation] = useState("");
-    const [pickupDate, setPickupDate] = useState("");
-    const [returnDate, setReturnDate] = useState("");
-    // Removed scrollY state in favor of framer-motion useScroll
+    const [isReservationOpen, setIsReservationOpen] = useState(false);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
-    const sectionRef = useRef<HTMLElement>(null);
+    const sectionRef = useRef<HTMLElement | null>(null);
 
     // useScroll hook for performant scroll animations
     const { scrollY } = useScroll();
@@ -37,15 +34,7 @@ export function HeroSection() {
     const yGradient1 = useTransform(scrollY, [0, 1000], [0, 50]);
     const yGradient2 = useTransform(scrollY, [0, 1000], [0, 80]);
 
-    const handleSearch = () => {
-        const params = new URLSearchParams();
-        if (location) params.set("wilaya", location);
-        if (pickupDate) params.set("pickupDate", pickupDate);
-        if (returnDate) params.set("returnDate", returnDate);
 
-        setIsSearchOpen(false);
-        router.push(`/recherche${params.toString() ? `?${params.toString()}` : ""}`);
-    };
 
     // Handle mouse movement for cursor glow
     const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
@@ -196,7 +185,7 @@ export function HeroSection() {
                         transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <button
-                            onClick={() => setIsSearchOpen(true)}
+                            onClick={() => setIsReservationOpen(true)}
                             className="group inline-flex items-center gap-3 px-8 py-4 bg-lovable-primary text-lovable-primary-foreground font-semibold text-lg rounded-full shadow-xl shadow-lovable-primary/30 hover:shadow-2xl hover:shadow-lovable-primary/40 hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300"
                         >
                             Commencer une réservation
@@ -209,114 +198,31 @@ export function HeroSection() {
                 </div>
 
                 {/* Scroll Indicator */}
-                {
-                    !isSearchOpen && (
-                        <motion.div
-                            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group"
-                            variants={fadeInUp}
-                            initial="hidden"
-                            animate="visible"
-                            transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                            onClick={() => {
-                                window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
-                            }}
-                        >
-                            <span className="text-xs font-medium text-muted/60 uppercase tracking-widest group-hover:text-lovable-foreground transition-colors">
-                                Découvrir
-                            </span>
-                            <div className="relative w-6 h-10 rounded-full border-2 border-muted/30 group-hover:border-lovable-primary/70 transition-colors flex justify-center">
-                                <div className="absolute top-2 w-1.5 h-1.5 rounded-full bg-lovable-primary animate-bounce" />
-                            </div>
-                        </motion.div>
-                    )
-                }
+                <motion.div
+                    className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group"
+                    variants={fadeInUp}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    onClick={() => {
+                        window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+                    }}
+                >
+                    <span className="text-xs font-medium text-muted/60 uppercase tracking-widest group-hover:text-lovable-foreground transition-colors">
+                        Découvrir
+                    </span>
+                    <div className="relative w-6 h-10 rounded-full border-2 border-muted/30 group-hover:border-lovable-primary/70 transition-colors flex justify-center">
+                        <div className="absolute top-2 w-1.5 h-1.5 rounded-full bg-lovable-primary animate-bounce" />
+                    </div>
+                </motion.div>
             </div>
 
-            {/* Search Modal */}
-            <div className={
-                cn(
-                    "fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-500",
-                    isSearchOpen
-                        ? "opacity-100 pointer-events-auto"
-                        : "opacity-0 pointer-events-none"
-                )
-            }>
-                <div
-                    className="absolute inset-0 bg-lovable-background/60 backdrop-blur-sm"
-                    onClick={() => setIsSearchOpen(false)}
-                />
 
-                <div className={cn(
-                    "relative w-full max-w-3xl bg-lovable-card rounded-2xl shadow-2xl border border-border overflow-hidden transition-all duration-500",
-                    isSearchOpen ? "scale-100 translate-y-0" : "scale-95 translate-y-8"
-                )}>
-                    <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-muted/30">
-                        <div>
-                            <h3 className="text-lg font-semibold text-lovable-foreground">Rechercher un véhicule</h3>
-                            <p className="text-sm text-muted/80">Trouvez la voiture idéale près de chez vous</p>
-                        </div>
-                        <button
-                            onClick={() => setIsSearchOpen(false)}
-                            className="w-10 h-10 flex items-center justify-center rounded-full bg-muted hover:bg-muted/80 text-muted/60 hover:text-lovable-foreground transition-all"
-                        >
-                            ✕
-                        </button>
-                    </div>
-
-                    <div className="p-6">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label className="flex items-center gap-1.5 text-sm font-medium text-lovable-foreground mb-2">
-                                    <MapPin className="w-4 h-4 text-lovable-primary" />
-                                    Lieu
-                                </label>
-                                <select
-                                    value={location}
-                                    onChange={e => setLocation(e.target.value)}
-                                    className="w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-lovable-foreground focus:outline-none focus:ring-2 focus:ring-lovable-primary/30 transition-all appearance-none cursor-pointer"
-                                >
-                                    <option value="">Toute l&apos;Algérie</option>
-                                    {WILAYAS.map(wilaya => <option key={wilaya} value={wilaya.toLowerCase()}>{wilaya}</option>)}
-                                </select>
-                            </div>
-
-                            <div>
-                                <label className="flex items-center gap-1.5 text-sm font-medium text-lovable-foreground mb-2">
-                                    <Calendar className="w-4 h-4 text-lovable-primary" />
-                                    Départ
-                                </label>
-                                <input
-                                    type="date"
-                                    value={pickupDate}
-                                    onChange={e => setPickupDate(e.target.value)}
-                                    className="w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-lovable-foreground focus:outline-none focus:ring-2 focus:ring-lovable-primary/30 transition-all"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="flex items-center gap-1.5 text-sm font-medium text-lovable-foreground mb-2">
-                                    <Calendar className="w-4 h-4 text-lovable-primary" />
-                                    Retour
-                                </label>
-                                <input
-                                    type="date"
-                                    value={returnDate}
-                                    onChange={e => setReturnDate(e.target.value)}
-                                    className="w-full px-4 py-3 bg-muted/50 border border-border rounded-xl text-lovable-foreground focus:outline-none focus:ring-2 focus:ring-lovable-primary/30 transition-all"
-                                />
-                            </div>
-                        </div>
-
-                        <button
-                            onClick={handleSearch}
-                            className="w-full mt-6 inline-flex items-center justify-center gap-2 px-6 py-4 bg-lovable-primary text-lovable-primary-foreground font-semibold rounded-xl shadow-lg shadow-lovable-primary/20 hover:bg-lovable-primary/90 transition-all"
-                        >
-                            <Search className="w-5 h-5" />
-                            Rechercher des véhicules
-                        </button>
-                    </div>
-                </div>
-            </div>
+            {/* Reservation Sheet */}
+            <HomeReservationSheet
+                open={isReservationOpen}
+                onOpenChange={setIsReservationOpen}
+            />
         </section>
     );
 }

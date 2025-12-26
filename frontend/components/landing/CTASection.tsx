@@ -7,12 +7,14 @@ import { cn } from "@/lib/utils";
 import { fadeInUp, defaultViewport } from "@/lib/animations";
 import { ArrowRight, Phone, MessageCircle, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 // You might need to add hero-car.jpg to the assets folder or use a placeholder
 const heroCar = "/assets/landing/hero-car.jpg";
 
 export function CTASection() {
     const router = useRouter();
+    const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
 
     return (
         <section className="py-28 lg:py-36 relative overflow-hidden bg-lovable-primary">
