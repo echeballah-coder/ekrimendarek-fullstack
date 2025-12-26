@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Logo } from "@/components/ui/Logo";
 
 const footerLinks = {
     produit: [
@@ -48,7 +49,7 @@ export function LovableFooter() {
     };
 
     return (
-        <footer className="relative overflow-hidden bg-lovable-background text-lovable-foreground border-t border-border/40">
+        <footer className="relative overflow-hidden bg-lovable-surface-elevated border-t-2 border-lovable-primary/20 text-lovable-foreground shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
 
 
             {/* Main content */}
@@ -58,12 +59,8 @@ export function LovableFooter() {
                     {/* Brand & Contact column */}
                     <div className="lg:col-span-4">
                         <Link href="/" className="inline-flex items-center gap-2.5 mb-6">
-                            <svg width="36" height="27" viewBox="0 0 48 36" fill="none" className="text-lovable-primary">
-                                <path d="M0 0h16v16H0V0z" fill="currentColor" />
-                                <path d="M16 0l20 16H16V0z" fill="currentColor" />
-                                <path d="M0 16h16v20L0 16z" fill="currentColor" />
-                            </svg>
-                            <span className="text-2xl font-semibold text-lovable-foreground tracking-tight font-serif">Kerya</span>
+                            <Logo variant="auto" width={44} height={44} />
+                            <span className="text-2xl font-semibold text-lovable-foreground tracking-tight font-serif">EkriMenDarek</span>
                         </Link>
 
                         <p className="text-sm text-muted/80 leading-relaxed mb-6 max-w-xs font-sans">
@@ -92,7 +89,7 @@ export function LovableFooter() {
                             className="inline-flex items-center gap-2 text-sm text-muted/80 hover:text-lovable-primary transition-colors font-sans"
                         >
                             <Mail className="w-4 h-4" />
-                            <span>contact@kerya.app</span>
+                            <span>contact@ekrimendarek.dz</span>
                         </a>
                     </div>
 
@@ -239,7 +236,7 @@ export function LovableFooter() {
 
                     {/* Copyright & Legal */}
                     <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted/60 font-sans">
-                        <span>© {new Date().getFullYear()} Kerya. Tous droits réservés.</span>
+                        <span>© {new Date().getFullYear()} EkriMenDarek. Tous droits réservés.</span>
                         <span className="hidden sm:inline text-border">|</span>
                         <Link href="/legal?tab=terms" className="hover:text-lovable-primary transition-colors">
                             CGU
