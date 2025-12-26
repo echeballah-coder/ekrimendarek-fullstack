@@ -13,6 +13,7 @@ import {
     ChevronRight,
     LucideIcon
 } from "lucide-react";
+import { fadeInUp, staggerContainer, defaultViewport } from "@/lib/animations";
 
 interface Feature {
     icon: LucideIcon;
@@ -142,10 +143,10 @@ export function FeaturesSection() {
                 {/* Header */}
                 <motion.div
                     className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10"
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={defaultViewport}
+                    variants={fadeInUp}
                 >
                     <div>
                         <p className="text-sm font-medium text-lovable-forest tracking-wide uppercase mb-2 font-sans">
@@ -194,10 +195,12 @@ export function FeaturesSection() {
                             <motion.div
                                 key={index}
                                 className="flex-shrink-0 w-[280px] md:w-[320px] snap-start"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1, duration: 0.4 }}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={defaultViewport}
+                                variants={fadeInUp}
+                                // Custom transition for stagger effect manual implementation (since horizontal scroll)
+                                transition={{ delay: index * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                             >
                                 <div className="group h-full rounded-2xl border border-border/60 bg-lovable-card p-6 transition-all duration-300 hover:border-lovable-forest/30 hover:shadow-md">
                                     {/* Icon */}

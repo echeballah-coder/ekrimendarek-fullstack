@@ -83,9 +83,10 @@ module.exports = {
                 'brand-gradient-hero': 'linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand2)), rgb(var(--bg)))',
             },
             fontFamily: {
-                sans: ['var(--font-inter)', 'sans-serif'],
-                lovable: ['var(--font-dm-sans)', 'sans-serif'],
-                serif: ['var(--font-dm-serif)', 'serif'],
+                sans: ['var(--font-ui)', 'sans-serif'], // Remplace Inter par Fraunces (UI)
+                ui: ['var(--font-ui)', 'sans-serif'],
+                display: ['var(--font-display)', 'serif'],
+                serif: ['var(--font-display)', 'serif'],
             },
             borderRadius: {
                 lg: '0.5rem',

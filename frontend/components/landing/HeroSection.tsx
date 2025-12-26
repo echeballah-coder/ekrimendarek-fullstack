@@ -5,28 +5,22 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { ArrowRight, MapPin, Calendar, Search, ShieldCheck, Star } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { fadeInUp } from "@/lib/animations";
 
 // Wilayas list for select
 const WILAYAS = ["Alger", "Oran", "Constantine", "Annaba", "Blida", "Sétif", "Tizi Ouzou", "Béjaïa", "Tlemcen", "Batna"];
 
 export function HeroSection() {
     const router = useRouter();
-    const {
-        ref: heroRef,
-        isVisible: heroVisible
-    } = useScrollReveal({
-        threshold: 0.1
-    });
+    // Removed useScrollReveal and isLoaded state for declarative motion
 
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [location, setLocation] = useState("");
     const [pickupDate, setPickupDate] = useState("");
     const [returnDate, setReturnDate] = useState("");
     // Removed scrollY state in favor of framer-motion useScroll
-    const [isLoaded, setIsLoaded] = useState(false);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
@@ -42,12 +36,6 @@ export function HeroSection() {
     const yDecoration2 = useTransform(scrollY, [0, 1000], [0, 250]);
     const yGradient1 = useTransform(scrollY, [0, 1000], [0, 50]);
     const yGradient2 = useTransform(scrollY, [0, 1000], [0, 80]);
-
-    // Trigger entrance animations after mount
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoaded(true), 100);
-        return () => clearTimeout(timer);
-    }, []);
 
     const handleSearch = () => {
         const params = new URLSearchParams();
@@ -70,15 +58,12 @@ export function HeroSection() {
         }
     };
 
-    // Use a high-quality placeholder image
-    const heroImageUrl = "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2670";
+    // Updated background image from user upload
+    const heroImageUrl = "/hero-bg-new.png";
 
     return (
         <section
-            ref={(node) => {
-                if (heroRef) (heroRef as any).current = node;
-                if (sectionRef) (sectionRef as any).current = node;
-            }}
+            ref={sectionRef}
             className="relative min-h-screen overflow-hidden bg-lovable-background"
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovering(true)}
@@ -108,8 +93,8 @@ export function HeroSection() {
                 <motion.div
                     className="absolute inset-0 transition-opacity duration-300"
                     style={{
-                        backgroundColor: "rgba(0,0,0,1)", // Base black, opacity handled by motion
-                        opacity: overlayOpacity
+                        backgroundColor: "rgba(0,0,0,1)",
+                        opacity: useTransform(scrollY, [0, 500], [0.15, 0.4]) // Reduced for better visibility of new image
                     }}
                 />
 
@@ -154,11 +139,13 @@ export function HeroSection() {
             <div className="relative z-10 container-emd min-h-screen flex flex-col justify-center pt-28 pb-32">
                 <div className="max-w-3xl">
                     {/* Trust Badge */}
-                    <div className={cn(
-                        "inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-lovable-card/80 backdrop-blur-md border border-border/50 mb-8 shadow-lg",
-                        "transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]",
-                        isLoaded && heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                    )}>
+                    {/* Trust Badge */}
+                    <motion.div
+                        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-lovable-card/80 backdrop-blur-md border border-border/50 mb-8 shadow-lg"
+                        variants={fadeInUp}
+                        initial="hidden"
+                        animate="visible"
+                    >
                         <div className="flex items-center gap-1">
                             {[...Array(5)].map((_, i) => (
                                 <Star key={i} className="w-4 h-4 text-lovable-primary fill-lovable-primary" />
@@ -171,34 +158,43 @@ export function HeroSection() {
                                 Tiers de confiance certifié
                             </span>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Main Headline */}
-                    <h1 className={cn(
-                        "font-serif text-4xl sm:text-5xl lg:text-5xl xl:text-6xl text-lovable-foreground leading-[1.1] mb-6",
-                        "transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] delay-150",
-                        isLoaded && heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    )}>
+                    {/* Main Headline */}
+                    <motion.h1
+                        className="font-serif text-4xl sm:text-5xl lg:text-5xl xl:text-6xl text-lovable-foreground leading-[1.1] mb-6"
+                        variants={fadeInUp}
+                        initial="hidden"
+                        animate="visible"
+                        transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    >
                         L&apos;excellence de la <br />
                         <span className="lovable-text-gradient">location automobile</span>
-                    </h1>
+                    </motion.h1>
 
                     {/* Subtitle */}
-                    <p className={cn(
-                        "text-lg lg:text-xl text-muted/80 mb-10 max-w-xl leading-relaxed font-lovable",
-                        "transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] delay-300",
-                        isLoaded && heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    )}>
+                    {/* Subtitle */}
+                    <motion.p
+                        className="text-lg lg:text-xl text-muted/80 mb-10 max-w-xl leading-relaxed font-lovable"
+                        variants={fadeInUp}
+                        initial="hidden"
+                        animate="visible"
+                        transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    >
                         Agences partenaires vérifiées, acompte 5% sécurisé,
                         <span className="text-lovable-foreground font-medium"> solde sur place</span>.
-                    </p>
+                    </motion.p>
 
                     {/* CTA Buttons */}
-                    <div className={cn(
-                        "flex flex-wrap items-center gap-4",
-                        "transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] delay-[450ms]",
-                        isLoaded && heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    )}>
+                    {/* CTA Buttons */}
+                    <motion.div
+                        className="flex flex-wrap items-center gap-4"
+                        variants={fadeInUp}
+                        initial="hidden"
+                        animate="visible"
+                        transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    >
                         <button
                             onClick={() => setIsSearchOpen(true)}
                             className="group inline-flex items-center gap-3 px-8 py-4 bg-lovable-primary text-lovable-primary-foreground font-semibold text-lg rounded-full shadow-xl shadow-lovable-primary/30 hover:shadow-2xl hover:shadow-lovable-primary/40 hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300"
@@ -209,18 +205,18 @@ export function HeroSection() {
                         <Link href="/comment-ca-marche" className="inline-flex items-center gap-2 px-6 py-4 bg-lovable-card/60 backdrop-blur-sm border border-border/50 text-lovable-foreground font-medium rounded-full hover:bg-lovable-card hover:border-border transition-all duration-300">
                             Comment ça marche ?
                         </Link>
-                    </div>
+                    </motion.div>
                 </div>
 
                 {/* Scroll Indicator */}
                 {
                     !isSearchOpen && (
-                        <div
-                            className={cn(
-                                "absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group",
-                                "transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] delay-[800ms]",
-                                isLoaded && heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                            )}
+                        <motion.div
+                            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group"
+                            variants={fadeInUp}
+                            initial="hidden"
+                            animate="visible"
+                            transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                             onClick={() => {
                                 window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
                             }}
@@ -231,7 +227,7 @@ export function HeroSection() {
                             <div className="relative w-6 h-10 rounded-full border-2 border-muted/30 group-hover:border-lovable-primary/70 transition-colors flex justify-center">
                                 <div className="absolute top-2 w-1.5 h-1.5 rounded-full bg-lovable-primary animate-bounce" />
                             </div>
-                        </div>
+                        </motion.div>
                     )
                 }
             </div>

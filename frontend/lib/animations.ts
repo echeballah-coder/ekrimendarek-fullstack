@@ -1,19 +1,16 @@
 import { Variants } from "framer-motion"
 
-// Fade Up variant for sections and items
-// Opacity 0 -> 1
-// Y-axis 20px -> 0
 export const fadeInUp: Variants = {
     hidden: {
         opacity: 0,
-        y: 20
+        y: 18, // Reduced slightly for subtlety
     },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.4,
-            ease: "easeOut"
+            duration: 0.6,
+            ease: [0.22, 1, 0.36, 1], // "Branding" ease (sober & smooth)
         }
     }
 }
@@ -25,8 +22,8 @@ export const staggerContainer: Variants = {
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.1
+            staggerChildren: 0.08, // Slightly faster stagger
+            delayChildren: 0.05
         }
     }
 }
@@ -36,9 +33,16 @@ export const fadeIn: Variants = {
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
-        transition: { duration: 0.3 }
+        transition: {
+            duration: 0.6,
+            ease: [0.22, 1, 0.36, 1]
+        }
     }
 }
 
-// Viewport settings to trigger animation once when 20% of element is visible
-export const defaultViewport = { once: true, amount: 0.2 }
+// Viewport settings to trigger animation once
+export const defaultViewport = {
+    once: true,
+    amount: 0.2,
+    margin: "-10% 0px -10% 0px" // Trigger slightly before element is fully in view, but with margin
+}

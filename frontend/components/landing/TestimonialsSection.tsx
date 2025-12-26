@@ -1,8 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+
+import { fadeInUp, defaultViewport } from "@/lib/animations";
 import { Star, Quote } from "lucide-react";
+import { motion } from "framer-motion";
 
 const testimonials = [
     {
@@ -36,8 +38,6 @@ const testimonials = [
 ];
 
 export function TestimonialsSection() {
-    const { ref: titleRef, isVisible: titleVisible } = useScrollReveal({ threshold: 0.2 });
-    const { ref: cardsRef, isVisible: cardsVisible } = useScrollReveal({ threshold: 0.1 });
 
     return (
         <section className="py-28 bg-lovable-background relative overflow-hidden">
@@ -47,54 +47,53 @@ export function TestimonialsSection() {
 
             <div className="container-emd relative">
                 {/* Section header */}
-                <div
-                    ref={titleRef as any}
-                    className="text-center max-w-2xl mx-auto mb-16"
-                >
-                    <span
-                        className={cn(
-                            "inline-block text-sm font-medium text-lovable-primary mb-4 font-sans uppercase tracking-wider transition-all duration-500",
-                            titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                        )}
+                <div className="text-center max-w-2xl mx-auto mb-16">
+                    <motion.span
+                        className="inline-block text-sm font-medium text-lovable-primary mb-4 font-sans uppercase tracking-wider"
+                        variants={fadeInUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={defaultViewport}
                     >
                         Témoignages
-                    </span>
-                    <h2
-                        className={cn(
-                            "font-serif text-3xl sm:text-4xl lg:text-5xl text-lovable-foreground mb-4 transition-all duration-700 delay-100",
-                            titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                        )}
+                    </motion.span>
+                    <motion.h2
+                        className="font-serif text-3xl sm:text-4xl lg:text-5xl text-lovable-foreground mb-4"
+                        variants={fadeInUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={defaultViewport}
+                        transition={{ duration: 0.6, delay: 0.1 }}
                     >
                         Ce que nos clients disent
-                    </h2>
-                    <p
-                        className={cn(
-                            "text-lg text-muted/80 font-sans transition-all duration-700 delay-200",
-                            titleVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                        )}
+                    </motion.h2>
+                    <motion.p
+                        className="text-lg text-muted/80 font-sans"
+                        variants={fadeInUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={defaultViewport}
+                        transition={{ duration: 0.6, delay: 0.2 }}
                     >
                         Des milliers de clients satisfaits nous font confiance chaque jour.
-                    </p>
+                    </motion.p>
                 </div>
 
                 {/* Testimonials grid */}
-                <div ref={cardsRef as any} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {testimonials.map((testimonial, index) => (
-                        <div
+                        <motion.div
                             key={index}
-                            className={cn(
-                                "group relative bg-lovable-surface-elevated rounded-2xl border border-border p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
-                                cardsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                            )}
-                            style={{ transitionDelay: `${200 + index * 120}ms` }}
+                            className="group relative bg-lovable-surface-elevated rounded-2xl border border-border p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                            variants={fadeInUp}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={defaultViewport}
+                            transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
                         >
                             {/* Quote icon */}
                             <Quote
-                                className={cn(
-                                    "absolute top-4 right-4 w-8 h-8 text-lovable-primary/10 transition-all duration-500",
-                                    cardsVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-                                )}
-                                style={{ transitionDelay: `${400 + index * 120}ms` }}
+                                className="absolute top-4 right-4 w-8 h-8 text-lovable-primary/10 transition-all duration-500 opacity-100 scale-100"
                             />
 
                             {/* Stars */}
@@ -102,11 +101,7 @@ export function TestimonialsSection() {
                                 {[...Array(testimonial.rating)].map((_, i) => (
                                     <Star
                                         key={i}
-                                        className={cn(
-                                            "w-4 h-4 fill-lovable-primary text-lovable-primary transition-all duration-300",
-                                            cardsVisible ? "opacity-100 scale-100" : "opacity-0 scale-0"
-                                        )}
-                                        style={{ transitionDelay: `${300 + index * 100 + i * 50}ms` }}
+                                        className="w-4 h-4 fill-lovable-primary text-lovable-primary"
                                     />
                                 ))}
                             </div>
@@ -124,7 +119,7 @@ export function TestimonialsSection() {
                                     <div className="text-xs text-muted/60 font-sans">{testimonial.role}</div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

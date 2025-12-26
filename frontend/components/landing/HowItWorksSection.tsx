@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { fadeInUp, defaultViewport } from "@/lib/animations";
 import { Search, CreditCard, Car, Check } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -46,18 +46,18 @@ const steps = [
 ];
 
 export function HowItWorksSection() {
-    const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
     const [openItem, setOpenItem] = useState<string>("item-0");
 
     return (
         <section className="py-16 lg:py-24 bg-lovable-background relative overflow-hidden">
-            <div className="container-emd max-w-5xl relative" ref={sectionRef as any}>
+            <div className="container-emd max-w-5xl relative">
                 {/* Header */}
-                <div
-                    className={cn(
-                        "text-center mb-12 transition-all duration-700",
-                        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    )}
+                <motion.div
+                    className="text-center mb-12"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={defaultViewport}
+                    variants={fadeInUp}
                 >
                     <span className="inline-block px-4 py-1.5 rounded-full bg-lovable-primary/10 text-lovable-primary text-sm font-medium mb-4 font-sans">
                         Comment ça marche
@@ -68,14 +68,15 @@ export function HowItWorksSection() {
                     <p className="text-muted/80 font-sans max-w-lg mx-auto text-sm">
                         Un processus transparent et sécurisé, conçu pour vous faire gagner du temps.
                     </p>
-                </div>
+                </motion.div>
 
                 {/* Accordion Steps */}
-                <div
-                    className={cn(
-                        "transition-all duration-700 delay-200",
-                        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                    )}
+                <motion.div
+                    className="transition-all duration-700 delay-200"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={defaultViewport}
+                    variants={fadeInUp}
                 >
                     <Accordion
                         type="single"
@@ -192,14 +193,15 @@ export function HowItWorksSection() {
                             );
                         })}
                     </Accordion>
-                </div>
+                </motion.div>
 
                 {/* Progress indicator */}
-                <div
-                    className={cn(
-                        "flex justify-center gap-2 mt-8 transition-all duration-700 delay-400",
-                        isVisible ? "opacity-100" : "opacity-0"
-                    )}
+                <motion.div
+                    className="flex justify-center gap-2 mt-8"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={defaultViewport}
+                    variants={fadeInUp}
                 >
                     {steps.map((_, index) => (
                         <button
@@ -214,8 +216,8 @@ export function HowItWorksSection() {
                             aria-label={`Étape ${index + 1}`}
                         />
                     ))}
-                </div>
+                </motion.div>
             </div>
-        </section>
+        </section >
     );
 }

@@ -12,13 +12,13 @@
  */
 
 import type { Metadata } from 'next'
-import { Inter, DM_Sans, DM_Serif_Display } from 'next/font/google'
+import { DM_Serif_Display, Fraunces } from 'next/font/google'
 import './globals.css'
 
 /** Configuration des fonts Google Fonts */
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans' })
-const dmSerif = DM_Serif_Display({ weight: '400', subsets: ['latin'], variable: '--font-dm-serif' })
+// const inter = Inter({ subsets: ['latin'], variable: '--font-inter' }) // Deprecated: Replaced by Fraunces
+const dmSerif = DM_Serif_Display({ weight: '400', subsets: ['latin'], variable: '--font-display' })
+const fraunces = Fraunces({ subsets: ['latin'], variable: '--font-ui' })
 
 /** Métadonnées SEO de l'application */
 export const metadata: Metadata = {
@@ -26,10 +26,12 @@ export const metadata: Metadata = {
     description: 'Plateforme de location de voitures simplifiée pour l\'Algérie',
 }
 
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
+import { LovableHeader } from '@/components/layout/LovableHeader'
+import { LovableFooter } from '@/components/layout/LovableFooter'
 import { Toaster } from 'sonner' // Provider de toasts globaux
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
+
+import { HeaderSpacer } from '@/components/layout/HeaderSpacer'
 
 export default function RootLayout({
     children,
@@ -38,13 +40,14 @@ export default function RootLayout({
 }) {
     return (
         <html lang="fr" suppressHydrationWarning>
-            <body className={`${inter.variable} ${dmSans.variable} ${dmSerif.variable} font-sans bg-bg text-text antialiased min-h-screen flex flex-col`} suppressHydrationWarning>
+            <body className={`${dmSerif.variable} ${fraunces.variable} font-ui bg-bg text-text antialiased min-h-screen flex flex-col`} suppressHydrationWarning>
                 <ThemeProvider>
-                    <Header />
+                    <LovableHeader />
+                    <HeaderSpacer />
                     <main className="flex-1">
                         {children}
                     </main>
-                    <Footer />
+                    <LovableFooter />
                     <Toaster position="top-right" richColors />
                 </ThemeProvider>
             </body>

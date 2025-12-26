@@ -94,14 +94,17 @@
   body {
     background-color: rgb(var(--bg));
     color: rgb(var(--text));
+    font-family: var(--font-ui), sans-serif;
   }
 
   h1 {
     @apply text-4xl font-bold tracking-tight text-text mb-4;
+    font-family: var(--font-display), serif;
   }
 
   h2 {
     @apply text-2xl font-semibold tracking-tight text-text mb-3;
+    font-family: var(--font-display), serif;
   }
 
   h3 {

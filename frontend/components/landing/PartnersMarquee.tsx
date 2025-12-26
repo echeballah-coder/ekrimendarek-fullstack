@@ -1,7 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+
+import { fadeInUp, defaultViewport } from "@/lib/animations";
+import { motion } from "framer-motion";
 
 const partners = [
     "AutoLoc Alger",
@@ -19,35 +21,38 @@ const partners = [
 ];
 
 export function PartnersMarquee() {
-    const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
+
 
     return (
-        <section ref={ref as any} className="py-16 bg-lovable-background overflow-hidden relative border-y border-border/30">
+        <section className="py-16 bg-lovable-background overflow-hidden relative border-y border-border/30">
             {/* Section reveal overlay */}
-            <div
-                className={cn(
-                    "absolute inset-0 bg-lovable-background z-10 pointer-events-none transition-all duration-1000 ease-out",
-                    isVisible ? "opacity-0" : "opacity-100"
-                )}
+            <motion.div
+                className="absolute inset-0 bg-lovable-background z-10 pointer-events-none"
+                initial={{ opacity: 1 }}
+                whileInView={{ opacity: 0 }}
+                viewport={defaultViewport}
+                transition={{ duration: 1, ease: "easeOut" }}
             />
 
             <div className="container-emd mb-8">
-                <p
-                    className={cn(
-                        "text-center text-muted/60 text-xs uppercase tracking-[0.2em] font-medium transition-all duration-700 ease-out",
-                        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                    )}
+                <motion.p
+                    className="text-center text-muted/60 text-xs uppercase tracking-[0.2em] font-medium"
+                    variants={fadeInUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={defaultViewport}
                 >
                     Ils nous font confiance
-                </p>
+                </motion.p>
             </div>
 
             {/* Single row marquee */}
-            <div
-                className={cn(
-                    "relative transition-all duration-700 delay-200",
-                    isVisible ? "opacity-100" : "opacity-0"
-                )}
+            <motion.div
+                className="relative"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={defaultViewport}
+                transition={{ duration: 0.7, delay: 0.2 }}
             >
                 <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-lovable-background to-transparent z-10" />
                 <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-lovable-background to-transparent z-10" />
@@ -62,7 +67,7 @@ export function PartnersMarquee() {
                         </span>
                     ))}
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 }
