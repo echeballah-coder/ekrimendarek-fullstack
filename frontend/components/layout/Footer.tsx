@@ -1,19 +1,18 @@
 import Link from "next/link"
 import { ROUTES } from "@/lib/routes"
 import { Mail, Phone, MapPin, Facebook, Instagram } from "lucide-react"
+import { Logo } from "@/components/ui/Logo"
 
 export function Footer() {
     return (
-        <footer className="bg-surface border-t border-border mt-auto">
+        <footer className="bg-lovable-surface-elevated border-t-2 border-lovable-primary/20 mt-auto shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
             <div className="container-emd py-10 sm:py-12 space-y-8">
                 {/* Main Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {/* Col 1: Brand */}
                     <div className="space-y-4">
-                        <div className="space-y-2">
-                            <h3 className="text-base font-semibold text-text">
-                                EkriMenDarek
-                            </h3>
+                        <div className="space-y-3">
+                            <Logo variant="auto" width={48} height={48} />
                             <p className="text-sm text-muted leading-relaxed">
                                 Location de véhicules simple, transparente, et accessible en Algérie.
                             </p>

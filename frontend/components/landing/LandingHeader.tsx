@@ -23,12 +23,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu";
+import { Logo } from "@/components/ui/Logo";
 
 const navItems = [
     { label: "Accueil", href: "/" },
     { label: "Véhicules", href: "/vehicules" },
+    { label: "Comment ça marche", href: "/aide" },
     { label: "À propos", href: "/about" },
-    { label: "Contact", href: "/contact" },
 ];
 
 export function LandingHeader() {
@@ -75,21 +76,11 @@ export function LandingHeader() {
                     {/* Logo */}
                     <Link
                         href="/"
-                        className="flex items-center gap-2.5 text-lovable-foreground hover:opacity-80 transition-opacity"
+                        className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
                     >
-                        <svg
-                            width="32"
-                            height="24"
-                            viewBox="0 0 48 36"
-                            fill="none"
-                            className="text-lovable-primary"
-                        >
-                            <path d="M0 0h16v16H0V0z" fill="currentColor" />
-                            <path d="M16 0l20 16H16V0z" fill="currentColor" />
-                            <path d="M0 16h16v20L0 16z" fill="currentColor" />
-                        </svg>
+                        <Logo variant="auto" width={40} height={40} />
                         <span className="text-xl font-sans font-semibold tracking-tight text-lovable-foreground">
-                            Kerya
+                            EkriMenDarek
                         </span>
                     </Link>
 
