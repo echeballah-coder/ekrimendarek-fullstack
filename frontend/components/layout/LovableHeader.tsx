@@ -82,10 +82,7 @@ export function LovableHeader() {
                         href="/"
                         className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
                     >
-                        <Logo variant="auto" width={40} height={40} />
-                        <span className="text-xl font-sans font-semibold tracking-tight text-lovable-foreground">
-                            EkriMenDarek
-                        </span>
+                        <Logo variant="auto" width={140} height={50} />
                     </Link>
 
                     {/* Center Navigation */}

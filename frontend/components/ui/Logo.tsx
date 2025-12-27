@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
@@ -48,19 +47,18 @@ export function Logo({
             <div
                 style={{ width, height }}
                 className={className}
-                aria-label="EkriMenDarek Logo"
+                aria-label="EkriGo Logo"
             />
         );
     }
 
     return (
-        <Image
+        <img
             src={getLogoPath()}
-            alt="EkriMenDarek"
+            alt="EkriGo"
             width={width}
             height={height}
             className={className}
-            priority
         />
     );
 }

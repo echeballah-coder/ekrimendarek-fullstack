@@ -60,7 +60,7 @@ export function LovableFooter() {
                     <div className="lg:col-span-4">
                         <Link href="/" className="inline-flex items-center gap-2.5 mb-6">
                             <Logo variant="auto" width={44} height={44} />
-                            <span className="text-2xl font-semibold text-lovable-foreground tracking-tight font-serif">EkriMenDarek</span>
+                            <span className="text-2xl font-semibold text-lovable-foreground tracking-tight font-serif">EkriGo</span>
                         </Link>
 
                         <p className="text-sm text-muted/80 leading-relaxed mb-6 max-w-xs font-sans">
@@ -236,7 +236,7 @@ export function LovableFooter() {
 
                     {/* Copyright & Legal */}
                     <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-muted/60 font-sans">
-                        <span>© {new Date().getFullYear()} EkriMenDarek. Tous droits réservés.</span>
+                        <span>© {new Date().getFullYear()} EkriGo. Tous droits réservés.</span>
                         <span className="hidden sm:inline text-border">|</span>
                         <Link href="/legal?tab=terms" className="hover:text-lovable-primary transition-colors">
                             CGU
