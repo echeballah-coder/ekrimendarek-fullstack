@@ -14,8 +14,8 @@ interface LogoProps {
 export function Logo({
     variant = "auto",
     className = "",
-    width = 40,
-    height = 40
+    width = 48,
+    height = 48
 }: LogoProps) {
     const { theme, systemTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
@@ -28,18 +28,18 @@ export function Logo({
     // Determine logo path based on variant and theme
     const getLogoPath = () => {
         if (variant !== "auto") {
-            return `/logos/logo-${variant}.png`;
+            return `/logos/logo-${variant}.svg`;
         }
 
         // Auto mode: adapt to theme
         if (!mounted) {
-            return "/logos/logo-dark.png"; // Default fallback
+            return "/logos/logo-dark.svg"; // Default fallback
         }
 
         const currentTheme = theme === "system" ? systemTheme : theme;
         return currentTheme === "dark"
-            ? "/logos/logo-light.png"
-            : "/logos/logo-dark.png";
+            ? "/logos/logo-light.svg"
+            : "/logos/logo-dark.svg";
     };
 
     if (!mounted) {
