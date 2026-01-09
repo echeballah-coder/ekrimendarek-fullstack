@@ -3,63 +3,68 @@
 @tailwind utilities;
 
 /**
- * PALETTE ALGERENT - Marine Clair (Light) / Violet Profond (Dark)
+ * PALETTE ALGERENT - Glass + Gradient Pro
  * Variables CSS en format RGB pour support alpha Tailwind (/xx)
  */
 :root {
-  /* Palette ALGERENT - Laranja / Ceu / Deep / Neve / Midnight */
-  --c-laranja: 236 57 16;   /* #EC3910 */
-  --c-ceu: 179 229 254;     /* #B3E5FE */
-  --c-deep: 36 61 102;      /* #243D66 */
-  --c-neve: 240 241 246;    /* #F0F1F6 */
-  --c-midnight: 22 31 40;   /* #161F28 */
-  --c-azure-800: 5 38 152;  /* #052698 */
-  --c-azure-600: 17 107 251; /* #116BFB */
-  --c-azure-500: 33 188 238; /* #21BCEE */
-  --c-azure-300: 220 227 235; /* #DCE3EB */
+  /* Palette ALGERENT - Azure + Graphite + Emerald + Navy */
+  --c-graphite: 11 18 32;    /* #0B1220 */
+  --c-navy: 14 42 71;        /* #0E2A47 */
+  --c-emerald-600: 31 138 91; /* #1F8A5B */
+  --c-emerald-500: 58 196 136; /* #3AC488 */
+  --c-azure-800: 14 58 140;  /* #0E3A8C */
+  --c-azure-600: 27 108 255; /* #1B6CFF */
+  --c-azure-500: 60 140 255; /* #3C8CFF */
+  --c-azure-400: 75 203 255; /* #4BCBFF */
+  --c-azure-300: 221 234 255; /* #DDEAFF */
+  --c-azure-100: 238 244 255; /* #EEF4FF */
+  --c-ice: 246 248 252;      /* #F6F8FC */
 
   /* Surfaces & text (Light Mode) */
-  --bg: 240 241 246;        /* Neve */
-  --bg-warm: 246 247 251;   /* Neve lighter */
+  --bg: 246 248 252;        /* Ice */
+  --bg-warm: 244 247 252;   /* Slight warm tint */
   --surface: 255 255 255;   /* White */
-  --surface2: 235 240 248;  /* Ceu tint very light */
-  --border: 215 220 230;    /* Neutral cool */
-  --text: 22 31 40;         /* Midnight */
-  --text-muted: 84 96 118;  /* Cool Gray */
-  --muted: 84 96 118;       /* Alias for compatibility */
+  --surface2: 238 244 255;  /* Azure tint */
+  --border: 230 235 244;    /* Subtle border */
+  --text: 11 18 32;         /* Graphite */
+  --text-muted: 91 102 122; /* Muted graphite */
+  --muted: 91 102 122;      /* Alias for compatibility */
 
   /* Brand roles */
-  --primary: 36 61 102;     /* Deep Blue */
-  --primary-hover: 30 51 86;
-  --primary-active: 24 42 70;
+  --primary: 31 138 91;     /* Emerald */
+  --primary-hover: 27 122 82;
+  --primary-active: 23 103 70;
   
-  --cta: 236 57 16;         /* Laranja */
-  --cta-hover: 215 51 17;
-  --cta-active: 194 46 16;
+  --cta: 31 138 91;         /* Emerald base */
+  --cta-hover: 28 124 83;
+  --cta-active: 23 103 70;
+  --cta-end: 27 108 255;    /* Azure end */
+  --cta-end-hover: 24 98 232;
+  --cta-end-active: 20 85 205;
   
-  --focus: 17 107 251;       /* Azure focus ring */
+  --focus: 27 108 255;       /* Azure focus ring */
 
   /* Legacy brand mapping (Compatiblity) */
-  --brand: 36 61 102;
-  --brand-hover: 30 51 86;
-  --brand2: 17 107 251;
-  --pop: 179 229 254;       /* Ceu */
-  --brandSoft: 240 241 246; /* Neve */
-  --brand-blue-soft: 220 227 235;
+  --brand: 14 42 71;        /* Navy */
+  --brand-hover: 12 36 61;
+  --brand2: 27 108 255;     /* Azure */
+  --pop: 238 244 255;       /* Azure soft */
+  --brandSoft: 246 248 252; /* Ice */
+  --brand-blue-soft: 224 232 245;
 
   /* Status colors - Refined */
-  --warning: 245 158 11;
-  --danger: 220 38 38;      /* Red 600 */
-  --info: 33 188 238;       /* Azure 500 */
-  --success: 22 163 74;     /* Green 600 */
+  --warning: 216 154 0;
+  --danger: 209 69 69;
+  --info: 27 108 255;       /* Azure */
+  --success: 31 138 91;     /* Emerald */
 
   /* UI states */
-  --ring: 17 107 251;
+  --ring: 27 108 255;
   --onBrand: 255 255 255;
 
   /* Utility tokens - Spacing Base 8px logic implicitly used in Tailwind */
-  --shadow-sm: 0 1px 3px rgb(22 31 40 / 0.08);
-  --shadow-md: 0 4px 12px rgb(22 31 40 / 0.08);
+  --shadow-sm: 0 6px 16px rgb(12 24 45 / 0.08);
+  --shadow-md: 0 16px 40px rgb(12 24 45 / 0.12);
   --r-sm: 8px;
   --r-md: 12px;
   --t-fast: 150ms;
@@ -67,61 +72,74 @@
   --ease: cubic-bezier(0.2, 0.0, 0.2, 1);
 
   /* Lovable / component tokens (HSL - Keep existing for compatibility but align hues) */
-  --lovable-background: 210 20% 98%; /* Neve HSL approx */
-  --lovable-foreground: 213 27% 12%; /* Midnight HSL approx */
+  --lovable-background: 220 33% 98%; /* Ice HSL */
+  --lovable-foreground: 220 30% 12%; /* Graphite HSL */
   /* ... keeping other lovable tokens as is for now to avoid breaking too much, but mapped conceptually ... */
-  --lovable-primary: 217 48% 27%;    /* Deep Blue HSL */
-  --lovable-accent: 194 84% 53%;     /* Azure 500 HSL */
+  --lovable-primary: 214 66% 20%;    /* Navy HSL */
+  --lovable-accent: 220 100% 55%;    /* Azure HSL */
   /* ... */
 }
 
 .dark, [data-theme="dark"] {
   /* Dark Mode - Sobriety first (Midnight Base) */
-  --bg: 22 31 40;           /* Midnight */
-  --bg-warm: 18 25 32;      /* Darker Midnight */
-  --surface: 30 41 55;      /* Lighter Midnight */
-  --surface2: 38 52 70;     /* Highlight */
-  --border: 50 65 85;       /* Muted Blue/Grey - Visible but not harsh */
+  --bg: 11 17 26;           /* Deep graphite */
+  --bg-warm: 14 20 30;      /* Deep warm */
+  --surface: 18 26 38;      /* Dark surface */
+  --surface2: 22 32 48;     /* Elevated surface */
+  --border: 34 49 69;       /* Subtle border */
   
-  --text: 240 241 246;      /* Neve (White-ish) */
-  --text-muted: 156 166 184; /* Muted Blue/Grey */
-  --muted: 156 166 184;
+  --text: 231 236 245;      /* Light text */
+  --text-muted: 154 166 186; /* Muted text */
+  --muted: 154 166 186;
 
   /* Brand roles - Adjusted for Dark Mode Contrast */
-  --primary: 60 90 140;     /* Lightened Deep Blue for visibility */
-  --primary-hover: 75 110 165;
-  --primary-active: 50 80 120;
+  --primary: 58 196 136;     /* Emerald */
+  --primary-hover: 50 175 121;
+  --primary-active: 40 150 104;
   
-  --cta: 236 57 16;         /* Keep Laranja as accent (it pops well on dark) */
-  --cta-hover: 240 80 40;
-  --cta-active: 220 50 10;
+  --cta: 58 196 136;
+  --cta-hover: 54 182 128;
+  --cta-active: 43 150 106;
+  --cta-end: 60 140 255;    /* Azure */
+  --cta-end-hover: 52 124 228;
+  --cta-end-active: 45 108 206;
   
-  --focus: 26 88 196;
+  --focus: 60 140 255;
 
   /* Legacy brand mapping */
-  --brand: 60 90 140;
-  --brand-hover: 75 110 165;
-  --brand2: 11 63 156;
-  --pop: 30 45 60;          /* Muted Pop */
-  --brandSoft: 30 41 55;    /* Surface match */
-  --brand-blue-soft: 14 35 70;
+  --brand: 26 58 92;        /* Navy */
+  --brand-hover: 22 50 80;
+  --brand2: 60 140 255;     /* Azure */
+  --pop: 19 30 44;          /* Muted Pop */
+  --brandSoft: 18 26 38;    /* Surface match */
+  --brand-blue-soft: 20 38 60;
 
   /* Status colors */
-  --warning: 180 83 9;      /* Darker Amber */
-  --danger: 153 27 27;      /* Darker Red */
-  --info: 42 127 219;       /* Azure dark */
-  --success: 22 101 52;     /* Darker Green */
+  --warning: 224 178 0;
+  --danger: 224 101 101;
+  --info: 60 140 255;
+  --success: 58 196 136;
 
-  --ring: 26 88 196;
-  --onBrand: 22 31 40;
+  --ring: 60 140 255;
+  --onBrand: 11 17 26;
 
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow-md: 0 8px 16px rgb(0 0 0 / 0.4);
-  --c-azure-800: 7 32 88;   /* Deep azure for dark */
-  --c-azure-600: 26 88 196; /* #1A58C4 */
-  --c-azure-500: 42 127 219; /* #2A7FDB */
-  --c-azure-300: 26 50 86;  /* soft azure tint */
-  --lovable-accent: 214 70% 45%;
+  --shadow-sm: 0 8px 18px rgb(0 0 0 / 0.35);
+  --shadow-md: 0 18px 44px rgb(0 0 0 / 0.45);
+  --c-graphite: 11 17 26;
+  --c-navy: 26 58 92;
+  --c-emerald-600: 58 196 136;
+  --c-emerald-500: 70 214 154;
+  --c-azure-800: 20 50 100;
+  --c-azure-600: 60 140 255;
+  --c-azure-500: 78 156 255;
+  --c-azure-400: 103 212 255;
+  --c-azure-300: 26 42 66;
+  --c-azure-100: 22 32 48;
+  --c-ice: 11 17 26;
+  --lovable-background: 220 25% 10%;
+  --lovable-foreground: 220 25% 92%;
+  --lovable-primary: 214 50% 40%;
+  --lovable-accent: 216 80% 60%;
 }
 
 
@@ -217,19 +235,27 @@
   .btn-primary {
     @apply btn text-onBrand;
     background: rgb(var(--primary));
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-primary:hover {
     background: rgb(var(--primary-hover));
+    box-shadow: var(--shadow-md);
   }
 
   .btn-cta {
     @apply btn text-onBrand;
-    background: rgb(var(--cta));
+    background: linear-gradient(135deg, rgb(var(--cta)), rgb(var(--cta-end)));
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-cta:hover {
-    background: rgb(var(--cta-hover));
+    background: linear-gradient(135deg, rgb(var(--cta-hover)), rgb(var(--cta-end-hover)));
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-cta:active {
+    background: linear-gradient(135deg, rgb(var(--cta-active)), rgb(var(--cta-end-active)));
   }
 
   .btn-secondary {
@@ -259,7 +285,7 @@
 
   /* Navbar */
   .nav {
-    @apply bg-surface/80 backdrop-blur border-b border-border;
+    @apply bg-surface/70 backdrop-blur-md border-b border-border;
   }
 
   /* Hero (panel lisible sur gradient animé) */
@@ -329,9 +355,10 @@
 
   /* Hero Scrim - Panel lisible avec backdrop */
   .hero-scrim {
-    background: rgb(var(--surface) / 0.82);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgb(var(--surface) / 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgb(var(--border) / 0.6);
   }
 
   .dark .hero-scrim {
