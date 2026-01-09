@@ -240,7 +240,7 @@ export default function DevHealthPage() {
                 {/* Footer Info */}
                 <footer className="text-center text-xs text-muted pt-8 border-t border-border">
                     <p>
-                        🔧 Page de développement • EkriMenDarek Frontend • Next.js 14 + TailwindCSS
+                        🔧 Page de développement • ALGERENT Frontend • Next.js 14 + TailwindCSS
                     </p>
                 </footer>
             </div>

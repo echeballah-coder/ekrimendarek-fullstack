@@ -43,7 +43,7 @@ export default function AgencyDashboard() {
                         Tableau de bord agence
                     </h1>
                     <p className="text-brand-textMuted">
-                        Vue d&apos;ensemble des performances de vos locations sur EkriMenDarek (données de démo)
+                        Vue d&apos;ensemble des performances de vos locations sur ALGERENT (données de démo)
                     </p>
                 </div>
 

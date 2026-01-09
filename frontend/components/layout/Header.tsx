@@ -36,7 +36,7 @@ export function Header() {
             <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center gap-2">
                     <Link href="/" className="text-xl font-bold tracking-tight text-brand-accent">
-                        EkriMenDarek
+                        ALGERENT
                     </Link>
                 </div>
 

@@ -159,7 +159,7 @@ export default function HomeLegacy() {
                 <AnimatedSection delay={0.2} className="py-16">
                     <div className="container-emd">
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-text mb-4">Pourquoi choisir EkriMenDarek ?</h2>
+                            <h2 className="text-3xl font-bold text-text mb-4">Pourquoi choisir ALGERENT ?</h2>
                         </div>
 
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
