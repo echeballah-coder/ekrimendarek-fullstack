@@ -16,14 +16,43 @@ module.exports = {
         },
         extend: {
             colors: {
-                // Tokens sémantiques EMD (avec support alpha /xx)
+                // Tokens sémantiques ALGERENT
                 bg: 'rgb(var(--bg) / <alpha-value>)',
+                'bg-warm': 'rgb(var(--bg-warm) / <alpha-value>)',
                 surface: 'rgb(var(--surface) / <alpha-value>)',
                 surface2: 'rgb(var(--surface2) / <alpha-value>)',
                 border: 'rgb(var(--border) / <alpha-value>)',
                 text: 'rgb(var(--text) / <alpha-value>)',
                 muted: 'rgb(var(--muted) / <alpha-value>)',
 
+                // Main Semantic Roles
+                primary: {
+                    DEFAULT: 'rgb(var(--primary) / <alpha-value>)',
+                    foreground: 'rgb(var(--onBrand) / <alpha-value>)',
+                    hover: 'rgb(var(--primary-hover) / <alpha-value>)',
+                    active: 'rgb(var(--primary-active) / <alpha-value>)',
+                },
+                cta: {
+                    DEFAULT: 'rgb(var(--cta) / <alpha-value>)',
+                    hover: 'rgb(var(--cta-hover) / <alpha-value>)',
+                    active: 'rgb(var(--cta-active) / <alpha-value>)',
+                },
+                focus: 'rgb(var(--focus) / <alpha-value>)',
+
+                // Raw Brand Palette
+                laranja: 'rgb(var(--c-laranja) / <alpha-value>)',
+                ceu: 'rgb(var(--c-ceu) / <alpha-value>)',
+                deep: 'rgb(var(--c-deep) / <alpha-value>)',
+                neve: 'rgb(var(--c-neve) / <alpha-value>)',
+                midnight: 'rgb(var(--c-midnight) / <alpha-value>)',
+                azure: {
+                    800: 'rgb(var(--c-azure-800) / <alpha-value>)',
+                    600: 'rgb(var(--c-azure-600) / <alpha-value>)',
+                    500: 'rgb(var(--c-azure-500) / <alpha-value>)',
+                    300: 'rgb(var(--c-azure-300) / <alpha-value>)',
+                },
+
+                // Legacy / Compat
                 brand: 'rgb(var(--brand) / <alpha-value>)',
                 brand2: 'rgb(var(--brand2) / <alpha-value>)',
                 brandSoft: 'rgb(var(--brandSoft) / <alpha-value>)',
@@ -31,23 +60,14 @@ module.exports = {
                 warning: 'rgb(var(--warning) / <alpha-value>)',
                 danger: 'rgb(var(--danger) / <alpha-value>)',
                 info: 'rgb(var(--info) / <alpha-value>)',
+                success: 'rgb(var(--success) / <alpha-value>)',
 
                 ring: 'rgb(var(--ring) / <alpha-value>)',
                 onBrand: 'rgb(var(--onBrand) / <alpha-value>)',
 
-                // ⚠️ COMPATIBILITÉ : Anciens noms brand.* pour éviter build errors
-                // Ces alias pointent vers les mêmes variables pour rétro-compatibilité
+                // Compatibilite pour eviter erreurs de build
                 'brand-background': 'rgb(var(--bg) / <alpha-value>)',
                 'brand-surface': 'rgb(var(--surface) / <alpha-value>)',
-                'brand-border': 'rgb(var(--border) / <alpha-value>)',
-                'brand-text': 'rgb(var(--text) / <alpha-value>)',
-                'brand-textMuted': 'rgb(var(--muted) / <alpha-value>)',
-                'brand-accent': 'rgb(var(--brand) / <alpha-value>)',
-                'brand-accentHighlight': 'rgb(var(--brand2) / <alpha-value>)',
-                'brand-accentSoft': 'rgb(var(--brandSoft) / <alpha-value>)',
-                'brand-success': 'rgb(var(--brand) / <alpha-value>)', // Success = brand
-                'brand-error': 'rgb(var(--danger) / <alpha-value>)',
-                'brand-warning': 'rgb(var(--warning) / <alpha-value>)',
 
                 // Lovable (Organic Tech) Colors
                 lovable: {
@@ -55,6 +75,8 @@ module.exports = {
                     foreground: "hsl(var(--lovable-foreground))",
                     card: "hsl(var(--lovable-card))",
                     "card-foreground": "hsl(var(--lovable-card-foreground))",
+                    surface: "hsl(var(--lovable-surface))",
+                    "surface-elevated": "hsl(var(--lovable-surface-elevated))",
                     popover: "hsl(var(--lovable-popover))",
                     "popover-foreground": "hsl(var(--lovable-popover-foreground))",
                     primary: "hsl(var(--lovable-primary))",

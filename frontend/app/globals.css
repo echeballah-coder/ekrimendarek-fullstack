@@ -3,84 +3,127 @@
 @tailwind utilities;
 
 /**
- * PALETTE EMD - Emerald Sand Pro (Clear) / Emerald Night Premium (Dark)
+ * PALETTE ALGERENT - Marine Clair (Light) / Violet Profond (Dark)
  * Variables CSS en format RGB pour support alpha Tailwind (/xx)
  */
 :root {
-  /* Clear Mode - Emerald Sand Pro */
-  --bg: 247 243 236;
-  /* #F7F3EC - Fond principal sable */
-  --surface: 255 255 255;
-  /* #FFFFFF - Surface cards */
-  --surface2: 252 251 248;
-  /* #FCFBF8 - Surface alternative */
-  --border: 230 226 218;
-  /* #E6E2DA - Bordures subtiles */
-  --text: 27 26 23;
-  /* #1B1A17 - Texte principal */
-  --muted: 106 104 97;
-  /* #6A6861 - Texte secondaire */
+  /* Palette ALGERENT - Laranja / Ceu / Deep / Neve / Midnight */
+  --c-laranja: 236 57 16;   /* #EC3910 */
+  --c-ceu: 179 229 254;     /* #B3E5FE */
+  --c-deep: 36 61 102;      /* #243D66 */
+  --c-neve: 240 241 246;    /* #F0F1F6 */
+  --c-midnight: 22 31 40;   /* #161F28 */
+  --c-azure-800: 5 38 152;  /* #052698 */
+  --c-azure-600: 17 107 251; /* #116BFB */
+  --c-azure-500: 33 188 238; /* #21BCEE */
+  --c-azure-300: 220 227 235; /* #DCE3EB */
 
-  /* Brand - Emerald Green */
-  --brand: 11 107 79;
-  /* #0B6B4F - Primary emerald */
-  --brand2: 15 107 120;
-  /* #0F6B78 - Secondary teal */
-  --brandSoft: 230 245 238;
-  /* #E6F5EE - Brand soft bg */
+  /* Surfaces & text (Light Mode) */
+  --bg: 240 241 246;        /* Neve */
+  --bg-warm: 246 247 251;   /* Neve lighter */
+  --surface: 255 255 255;   /* White */
+  --surface2: 235 240 248;  /* Ceu tint very light */
+  --border: 215 220 230;    /* Neutral cool */
+  --text: 22 31 40;         /* Midnight */
+  --text-muted: 84 96 118;  /* Cool Gray */
+  --muted: 84 96 118;       /* Alias for compatibility */
+
+  /* Brand roles */
+  --primary: 36 61 102;     /* Deep Blue */
+  --primary-hover: 30 51 86;
+  --primary-active: 24 42 70;
+  
+  --cta: 236 57 16;         /* Laranja */
+  --cta-hover: 215 51 17;
+  --cta-active: 194 46 16;
+  
+  --focus: 17 107 251;       /* Azure focus ring */
+
+  /* Legacy brand mapping (Compatiblity) */
+  --brand: 36 61 102;
+  --brand-hover: 30 51 86;
+  --brand2: 17 107 251;
+  --pop: 179 229 254;       /* Ceu */
+  --brandSoft: 240 241 246; /* Neve */
+  --brand-blue-soft: 220 227 235;
+
+  /* Status colors - Refined */
+  --warning: 245 158 11;
+  --danger: 220 38 38;      /* Red 600 */
+  --info: 33 188 238;       /* Azure 500 */
+  --success: 22 163 74;     /* Green 600 */
+
+  /* UI states */
+  --ring: 17 107 251;
+  --onBrand: 255 255 255;
+
+  /* Utility tokens - Spacing Base 8px logic implicitly used in Tailwind */
+  --shadow-sm: 0 1px 3px rgb(22 31 40 / 0.08);
+  --shadow-md: 0 4px 12px rgb(22 31 40 / 0.08);
+  --r-sm: 8px;
+  --r-md: 12px;
+  --t-fast: 150ms;
+  --t-med: 250ms;
+  --ease: cubic-bezier(0.2, 0.0, 0.2, 1);
+
+  /* Lovable / component tokens (HSL - Keep existing for compatibility but align hues) */
+  --lovable-background: 210 20% 98%; /* Neve HSL approx */
+  --lovable-foreground: 213 27% 12%; /* Midnight HSL approx */
+  /* ... keeping other lovable tokens as is for now to avoid breaking too much, but mapped conceptually ... */
+  --lovable-primary: 217 48% 27%;    /* Deep Blue HSL */
+  --lovable-accent: 194 84% 53%;     /* Azure 500 HSL */
+  /* ... */
+}
+
+.dark, [data-theme="dark"] {
+  /* Dark Mode - Sobriety first (Midnight Base) */
+  --bg: 22 31 40;           /* Midnight */
+  --bg-warm: 18 25 32;      /* Darker Midnight */
+  --surface: 30 41 55;      /* Lighter Midnight */
+  --surface2: 38 52 70;     /* Highlight */
+  --border: 50 65 85;       /* Muted Blue/Grey - Visible but not harsh */
+  
+  --text: 240 241 246;      /* Neve (White-ish) */
+  --text-muted: 156 166 184; /* Muted Blue/Grey */
+  --muted: 156 166 184;
+
+  /* Brand roles - Adjusted for Dark Mode Contrast */
+  --primary: 60 90 140;     /* Lightened Deep Blue for visibility */
+  --primary-hover: 75 110 165;
+  --primary-active: 50 80 120;
+  
+  --cta: 236 57 16;         /* Keep Laranja as accent (it pops well on dark) */
+  --cta-hover: 240 80 40;
+  --cta-active: 220 50 10;
+  
+  --focus: 26 88 196;
+
+  /* Legacy brand mapping */
+  --brand: 60 90 140;
+  --brand-hover: 75 110 165;
+  --brand2: 11 63 156;
+  --pop: 30 45 60;          /* Muted Pop */
+  --brandSoft: 30 41 55;    /* Surface match */
+  --brand-blue-soft: 14 35 70;
 
   /* Status colors */
-  --warning: 242 162 12;
-  /* #F2A20C - Amber warning */
-  --danger: 220 38 38;
-  /* #DC2626 - Red error */
-  --info: 37 99 235;
-  /* #2563EB - Blue info */
+  --warning: 180 83 9;      /* Darker Amber */
+  --danger: 153 27 27;      /* Darker Red */
+  --info: 42 127 219;       /* Azure dark */
+  --success: 22 101 52;     /* Darker Green */
 
-  /* UI states */
-  --ring: 15 107 120;
-  /* brand2 - Focus ring */
-  --onBrand: 255 255 255;
-  /* #FFFFFF - Text on brand bg */
+  --ring: 26 88 196;
+  --onBrand: 22 31 40;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 8px 16px rgb(0 0 0 / 0.4);
+  --c-azure-800: 7 32 88;   /* Deep azure for dark */
+  --c-azure-600: 26 88 196; /* #1A58C4 */
+  --c-azure-500: 42 127 219; /* #2A7FDB */
+  --c-azure-300: 26 50 86;  /* soft azure tint */
+  --lovable-accent: 214 70% 45%;
 }
 
-.dark {
-  /* Dark Mode - Emerald Night Premium */
-  --bg: 6 10 15;
-  /* #060A0F - Fond principal dark */
-  --surface: 11 18 32;
-  /* #0B1220 - Surface cards dark */
-  --surface2: 16 26 42;
-  /* #101A2A - Surface alternative */
-  --border: 31 42 61;
-  /* #1F2A3D - Bordures dark */
-  --text: 234 242 255;
-  /* #EAF2FF - Texte principal clair */
-  --muted: 167 179 201;
-  /* #A7B3C9 - Texte secondaire */
-
-  /* Brand - Emerald Green (plus clair en dark) */
-  --brand: 0 195 137;
-  /* #00C389 - Primary emerald light */
-  --brand2: 34 211 238;
-  /* #22D3EE - Secondary teal light */
-  --brandSoft: 6 40 32;
-  /* #062820 - Brand soft bg dark */
-
-  /* Status colors (ajustés pour dark) */
-  --warning: 251 191 36;
-  /* #FBBF24 - Amber warning bright */
-  --danger: 251 113 133;
-  /* #FB7185 - Red error bright */
-  --info: 96 165 250;
-  /* #60A5FA - Blue info bright */
-
-  /* UI states */
-  --ring: 34 211 238;
-  /* brand2 - Focus ring */
-  --onBrand: 6 10 15;
-  /* #060A0F - Text on brand (dark bg) */
-}
 
 @layer base {
   :root {
@@ -95,20 +138,23 @@
     background-color: rgb(var(--bg));
     color: rgb(var(--text));
     font-family: var(--font-ui), sans-serif;
+    @apply antialiased;
   }
 
   h1 {
-    @apply text-4xl font-bold tracking-tight text-text mb-4;
-    font-family: var(--font-display), serif;
+    @apply text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-text;
+    line-height: 1.05;
+    font-family: var(--font-display), sans-serif;
   }
 
   h2 {
-    @apply text-2xl font-semibold tracking-tight text-text mb-3;
-    font-family: var(--font-display), serif;
+    @apply text-3xl sm:text-4xl font-semibold tracking-tight text-text;
+    line-height: 1.2;
+    font-family: var(--font-display), sans-serif;
   }
 
   h3 {
-    @apply text-xl font-semibold text-brand mb-2;
+    @apply text-xl font-semibold text-text;
   }
 
   p {
@@ -124,12 +170,13 @@
 
   /* Layout */
   .container-emd {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
   /* Surfaces */
   .card {
-    @apply bg-surface border border-border rounded-2xl shadow-sm;
+    @apply bg-surface border border-border rounded-2xl;
+    box-shadow: var(--shadow-sm);
   }
 
   .card-soft {
@@ -164,11 +211,25 @@
 
   /* Buttons */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-60 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-60 disabled:pointer-events-none;
   }
 
   .btn-primary {
-    @apply btn bg-brand text-onBrand hover:bg-brand/90;
+    @apply btn text-onBrand;
+    background: rgb(var(--primary));
+  }
+
+  .btn-primary:hover {
+    background: rgb(var(--primary-hover));
+  }
+
+  .btn-cta {
+    @apply btn text-onBrand;
+    background: rgb(var(--cta));
+  }
+
+  .btn-cta:hover {
+    background: rgb(var(--cta-hover));
   }
 
   .btn-secondary {
@@ -181,7 +242,7 @@
 
   /* Inputs */
   .input {
-    @apply w-full rounded-xl bg-surface border border-border px-3 py-2 text-sm text-text placeholder:text-muted/80 focus:outline-none focus-visible:ring-2 focus-visible:ring ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+    @apply w-full rounded-xl bg-surface border border-border px-3 py-2 text-sm text-text placeholder:text-muted/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
   }
 
   .input-error {
@@ -204,6 +265,12 @@
   /* Hero (panel lisible sur gradient animé) */
   .hero-panel {
     @apply hero-scrim rounded-3xl p-6 sm:p-10 shadow-sm;
+  }
+
+  .icon-glass {
+    @apply relative rounded-xl flex items-center justify-center overflow-hidden transition-all duration-500;
+    background: hsl(var(--lovable-foreground) / 0.05);
+    border: 1px solid hsl(var(--lovable-border) / 0.6);
   }
 }
 
@@ -234,112 +301,69 @@
     }
   }
 
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 28s linear infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-gradient-bg {
       animation: none;
       background-size: 100% 100%;
     }
+
+    .animate-marquee {
+      animation: none;
+      transform: translateX(0);
+    }
   }
 
   /* Hero Scrim - Panel lisible avec backdrop */
   .hero-scrim {
-    background: rgb(var(--surface) / 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgb(var(--surface) / 0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 
   .dark .hero-scrim {
-    background: rgb(var(--surface) / 0.92);
+    background: rgb(var(--surface) / 0.9);
   }
 
-  /* Gradient utilities */
+  /* Gradient utilities - ALGERENT signature */
   .bg-brand-gradient {
-    background-image: linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand2)));
+    background-image: linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand2)), rgb(var(--pop)));
+  }
+
+  .btn-gradient {
+    background-image: linear-gradient(135deg, rgb(var(--primary)), rgb(var(--cta)));
+    color: rgb(var(--onBrand));
+    transition: opacity 0.2s, transform 0.1s;
+  }
+
+  .btn-gradient:hover {
+    opacity: 0.9;
+  }
+
+  .btn-gradient:active {
+    transform: scale(0.99);
   }
 
   .text-brand-gradient {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-image: linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand2)));
-  }
-}
-
-/* --- LOVABLE / ORGANIC TECH INTEGRATION --- */
-@layer base {
-  :root {
-    --lovable-background: 40 25% 96%;
-    --lovable-foreground: 25 30% 12%;
-    --lovable-card: 40 20% 94%;
-    --lovable-card-foreground: 25 30% 12%;
-    --lovable-popover: 40 20% 94%;
-    --lovable-popover-foreground: 25 30% 12%;
-    --lovable-primary: 152 45% 28%;
-    --lovable-primary-foreground: 0 0% 100%;
-    --lovable-secondary: 38 35% 88%;
-    --lovable-secondary-foreground: 25 30% 12%;
-    --lovable-accent: 145 25% 45%;
-    --lovable-accent-foreground: 0 0% 100%;
-    --lovable-destructive: 0 65% 50%;
-    --lovable-destructive-foreground: 0 0% 100%;
-    --lovable-input: 35 18% 85%;
-    --lovable-surface: 40 20% 94%;
-    --lovable-surface-elevated: 0 0% 100%;
-    --lovable-forest: 152 45% 28%;
-    --lovable-sage: 145 25% 45%;
-    --lovable-sand: 38 35% 88%;
-    --lovable-terracotta: 18 55% 58%;
-    --lovable-cream: 40 30% 95%;
-    --lovable-mint: 158 30% 85%;
-    --lovable-shadow-sm: 0 1px 2px hsl(25 30% 12% / 0.04);
-    --lovable-shadow-md: 0 4px 16px hsl(25 30% 12% / 0.06);
-    --lovable-shadow-lg: 0 16px 48px hsl(25 30% 12% / 0.1);
-    --lovable-shadow-glow: 0 8px 40px hsl(152 45% 28% / 0.12);
+    background-image: linear-gradient(135deg, rgb(var(--primary)), rgb(var(--cta)));
   }
 
-  .dark {
-    --lovable-background: 30 15% 10%;
-    --lovable-foreground: 40 20% 95%;
-    --lovable-card: 30 15% 14%;
-    --lovable-card-foreground: 40 20% 95%;
-    --lovable-popover: 30 15% 14%;
-    --lovable-popover-foreground: 40 20% 95%;
-    --lovable-primary: 160 55% 45%;
-    --lovable-primary-foreground: 30 15% 10%;
-    --lovable-secondary: 30 15% 18%;
-    --lovable-secondary-foreground: 40 20% 95%;
-    --lovable-accent: 160 55% 45%;
-    --lovable-accent-foreground: 30 15% 10%;
-    --lovable-destructive: 0 62% 30%;
-    --lovable-destructive-foreground: 40 20% 95%;
-    --lovable-input: 30 15% 22%;
-  }
-}
-
-@layer components {
-  .card-elevated {
-    @apply bg-lovable-card rounded-2xl border border-border p-6 transition-all duration-300;
-  }
-
-  .card-elevated:hover {
-    @apply shadow-lg;
-    transform: translateY(-2px);
-  }
-
-  .card-glass {
-    @apply relative rounded-2xl border border-white/20 p-6 transition-all duration-500;
-    background: linear-gradient(135deg, hsl(var(--surface-elevated) / 0.8), hsl(var(--surface-elevated) / 0.4));
-    backdrop-filter: blur(12px);
-  }
-
-  .icon-glass {
-    @apply relative rounded-xl flex items-center justify-center overflow-hidden transition-all duration-500;
-    background: hsl(var(--foreground) / 0.05);
-    border: 1px solid hsl(var(--border) / 0.5);
-  }
-}
-
-@layer utilities {
   .reveal {
     opacity: 0;
     transform: translateY(24px);
@@ -357,11 +381,11 @@
 
   .hover-lift:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--lovable-shadow-lg);
   }
 
   .lovable-text-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--terracotta)));
+    background: linear-gradient(135deg, hsl(var(--lovable-primary)), hsl(var(--lovable-terracotta)));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
